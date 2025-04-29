@@ -1,0 +1,145 @@
+.ingreso-row { background-color: #d4edda; } /* verde claro */
+.egreso-row { background-color: #f8d7da; } /* rojo claro */
+.comprometido-row { background-color: #fff3cd; } /* amarillo claro */
+.presupuesto-row { 
+  background-color: #d6eaff; /* azul claro */
+}
+
+.section-wrapper {
+  margin: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* CONTENEDOR PARA LAS TARJETAS */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+/* TARJETA UNIFICADA */
+.unified-card {
+  width: 100%;
+  max-width: 800px;
+  background: linear-gradient(135deg, #ffffff, #f6f9fc);
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+.unified-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* TEXTO INTRODUCTOR */
+.intro-text {
+  text-align: center;
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+/* RESUMEN DE FINANZAS */
+.summary-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.summary-card {
+  flex: 1 1 250px;
+  max-width: 250px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.summary-card .card-header {
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 10px;
+  background-color: #495057; /* Color unificado */
+  color: #fff;
+}
+
+.summary-card .card-body {
+  padding: 10px;
+}
+
+.summary-card .card-title {
+  font-size: 1.2rem;
+  margin: 0;
+  color: white;
+}
+
+.summary-card .card-text {
+  font-size: 1rem;
+  margin: 0;
+  color: white;
+}
+
+/* TABLA UNIFICADA */
+.unified-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.unified-table th,
+.unified-table td {
+  padding: 12px 16px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* BOTÓN FLOTANTE */
+.fab-button {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* ANIMACIÓN DE APARICIÓN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MEDIA QUERIES PARA MOVILES */
+@media (max-width: 768px) {
+  .summary-row {
+    align-items: center;
+  }
+  .summary-card {
+    max-width: 90%;
+    margin-bottom: 15px;
+  }
+  .unified-table th,
+  .unified-table td {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+}

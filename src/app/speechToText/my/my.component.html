@@ -1,0 +1,13 @@
+<h2>Upload Audio File</h2>
+
+<input type="file" (change)="onFileSelected($event)" accept="audio/*">
+<button (click)="uploadFile()">Upload</button>
+
+<div *ngIf="isLoading">
+  Loading...
+  <div *ngIf="uploadProgress > 0">Upload Progress: {{ uploadProgress }}%</div>
+  <div [(ngModel)]="uploadProgress"></div>
+</div>
+<div *ngIf="error" style="color: red;">{{ error }}</div>
+
+<p *ngIf="transcription">Transcription: {{ transcription }}</p>

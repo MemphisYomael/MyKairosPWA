@@ -1,0 +1,32 @@
+<mat-card appearance="outlined">
+    <mat-card-content>
+        <mat-form-field>
+            <mat-label>Fecha</mat-label>
+            <input matInput [matDatepicker]="picker" #fecha [value]="f">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Tipo</mat-label>
+            <mat-select #tipo>
+              <mat-option value="Ingreso">Ingreso</mat-option>
+              <mat-option value="Egreso">Egreso</mat-option>
+              <mat-option value="Dinero Comprometido">Comprometido/Todavia sin pagar</mat-option>
+
+            </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Detalles</mat-label>
+                <input matInput #detalles>
+              </mat-form-field>
+              <mat-form-field floatLabel="always">
+                <mat-label>Amount</mat-label>
+                <input matInput type="number" placeholder="0"  #cantidad/>
+                <span matTextPrefix>$&nbsp;</span>
+                <span matTextSuffix>.00</span>
+              </mat-form-field>
+              <button mat-raised-button (click)="crearFinanza(fecha.value, tipo.value, detalles.value, cantidad.value)">Crear</button>
+
+    </mat-card-content>
+  </mat-card>

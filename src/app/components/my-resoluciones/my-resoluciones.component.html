@@ -1,0 +1,44 @@
+<div class="section-wrapper resolutions-section">
+  <app-header-card title="MyResolucion"></app-header-card>
+
+  <!-- Tarjeta de introducción -->
+  <div class="card-container">
+    <mat-card class="unified-card intro-card">
+      <mat-card-content>
+        <p class="intro-text">
+          Guarda tus resoluciones y recuérdalas siempre para alcanzar tus metas.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Listado de resoluciones -->
+  <div class="card-container resolutions-grid">
+    @for(resolucion of resoluciones(); track resolucion){
+    <!--  -->
+      <mat-card class="unified-card link-card">
+        <mat-card-content>
+          
+        <div class="card-body centrar d-grid">
+          <h5 class="card-title" style="word-break: break-word;"><b class="sub-titulo">              {{ resolucion.nombre }}
+          </b></h5>
+
+          <div class="link-footer" style="display: grid; align-items: center;">
+        <div class="panel-content">
+          <span class="resolution-date parrafo">{{ resolucion.dia | date }}</span> 
+          <button mat-icon-button style="margin-left: auto; margin-right: 0px; display: flex;" (click)="openBottomSheet(resolucion)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+          </div>
+            </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+
+  <!-- Botón flotante para crear nueva resolución -->
+  <button mat-fab color="accent" class="fab-button" (click)="crearResolucion()">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+</div>

@@ -1,0 +1,62 @@
+# Node dependencies
+node_modules/
+
+# Angular build output
+dist/
+release/
+**/dist
+*.exe
+*.asar
+*Setup*.exe
+.angular/
+out-tsc/
+tmp/
+.cache/
+
+# IDEs/Editors
+.vscode/
+.idea/
+
+# Capacitor
+android/
+ios/
+
+# Firebase
+.firebase/
+
+# Environments (si manejas archivos locales que no quieres subir)
+src/environments/environment*.ts
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+
+# Output from baseline profiles (si usas Android)
+**/baselineProfiles/
+
+# Build output
+dist/
+release/
+**/dist/
+*.exe
+*.asar
+*Setup*.exe
+build/
+out/
+
+# Electron output
+electron/dist/
+electron/release/
+**/electron/dist/
+**/electron/release/
+
+# ...existing code...

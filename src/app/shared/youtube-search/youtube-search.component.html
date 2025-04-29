@@ -1,0 +1,76 @@
+<!-- youtube-search.component.html -->
+<div class="youtube-search-container">
+  <button mat-fab color="accent" class="search-fab-button" (click)="openModal()">
+    <mat-icon>youtube_searched_for</mat-icon>
+  </button>
+  
+  <!-- Modal de Búsqueda de YouTube -->
+  <div class="modal fade" id="youtubeSearchModal" tabindex="-1" aria-labelledby="youtubeSearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="youtubeSearchModalLabel">Buscar Videos en YouTube</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Campo de búsqueda -->
+          <div class="search-input-container">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Buscar videos en YouTube</mat-label>
+              <input matInput 
+                     [(ngModel)]="searchQuery" 
+                     (input)="onSearchInput(searchQuery)" 
+                     placeholder="Escribe para buscar videos...">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+          
+          <!-- Indicador de carga -->
+          <div class="loading-container" *ngIf="isLoading">
+            <mat-spinner diameter="40"></mat-spinner>
+          </div>
+          
+          <!-- Resultados de búsqueda -->
+          <div class="search-results" *ngIf="!isLoading">
+            <div class="video-grid">
+              <div class="video-item" *ngFor="let video of searchResults">
+                <div class="video-card">
+                  <div class="video-embed">
+                    <iframe 
+                      [src]="video.embedUrl" 
+                      frameborder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      allowfullscreen>
+                    </iframe>
+                  </div>
+                  <div class="video-info">
+                    <h3 class="video-title">{{ video.title }}</h3>
+                    <p class="video-description">{{ video.description }}</p>
+                    <div class="video-actions">
+                      <button mat-raised-button color="primary" (click)="saveToMyLinks(video)">
+                        <mat-icon>bookmark</mat-icon> Guardar en MyLinks
+                      </button>
+                      
+                      <!-- Botón de enviar al chat (solo si se abrió desde el chat) -->
+                      <button *ngIf="fromChat" 
+                              mat-raised-button 
+                              color="accent" 
+                              (click)="sendToChat(video)" 
+                              class="ml-2">
+                        <mat-icon>send</mat-icon> Enviar al Chat
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="no-results" *ngIf="searchQuery && searchResults.length === 0 && !isLoading">
+              <p>No se encontraron resultados para "{{ searchQuery }}"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

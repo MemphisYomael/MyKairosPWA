@@ -1,0 +1,19 @@
+
+  <mat-card appearance="outlined" style="height: 100%; display: flex;">
+    <mat-card-content style="height: 100%;">
+        <form class="example-form"  style="width: 100%;">
+            <mat-form-field  style="width: 100%;">
+              <mat-label>Encabezado</mat-label>
+              <input matInput placeholder="Ex. Por mi Madre" #oracion>
+            </mat-form-field>
+          
+            <mat-form-field style="width: 100%;">
+              <mat-label>Detalles de por qué oras</mat-label>
+              <textarea matInput placeholder="Ex. Mi madre esta muy enferma..." #detalles></textarea>
+            </mat-form-field>
+          </form>
+
+          <button mat-raised-button (click)="crearOracion(oracion.value, detalles.value)" style="width: 100%;">Crear</button>
+    </mat-card-content>
+  </mat-card>
+  

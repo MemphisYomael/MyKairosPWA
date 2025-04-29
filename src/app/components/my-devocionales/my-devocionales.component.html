@@ -1,0 +1,92 @@
+<div class="section-wrapper devocionales-section">
+  <app-header-card title="MyDevocionales"></app-header-card>
+  <div class="card-container">
+    <mat-card class="unified-card">
+      <mat-card-content>
+        @if(togleStatus()){
+          <p><mat-slide-toggle (change)="toggleStatusFunction($event.checked)" [checked]="true">Compartidos conmigo</mat-slide-toggle></p>
+        }
+        @if(!togleStatus()){
+          <p><mat-slide-toggle (change)="toggleStatusFunction($event.checked)" [checked]="false">Compartidos conmigo</mat-slide-toggle></p>
+        }
+        @if(!togleStatus()){
+          <p class="intro-text">
+            Guarda eso que Dios te dijo y recuerdalo cada día.
+          </p>
+        }@else {
+          <p class="intro-text">
+            Compartidos conmigo
+          </p>
+        }
+        
+        <!-- Lista simplificada de devocionales -->
+        <div class="devocionales-list">
+          @if(togleStatus()){
+            @for(devocional of dataSource(); track devocional){
+              @if(devocional.share?.includes(email)){
+                <div class="devocional-item" (click)="openDevocionalModal(devocional)">
+                  <div class="devocional-header">
+                    <span class="autor-text">{{ devocional.ownerId }}</span>
+                    <span class="pasaje-text">{{ devocional.nombre }}</span>
+                  </div>
+                </div>
+              }
+            }
+          }@else {
+            @for(devocional of dataSource(); track devocional.id){
+              @if(devocional.share == undefined || !devocional.share.includes(email)){
+                <div class="devocional-item" (click)="openDevocionalModal(devocional)" style="display: flex; justify-content: space-between;">
+                  <div class="devocional-header" style="display: grid;">
+                    <span  class="pasaje-text">{{ devocional.nombre }}</span>
+                    <span class="date-text" style="scale: 0.8;">{{ devocional.fecha | date:'dd/MM/yyyy' }}</span>
+                  </div>
+                  <button mat-icon-button (click)="openBottomSheet(devocional); $event.stopPropagation()">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                </div>
+              }
+            }
+          }
+        </div>
+        
+        <div *ngIf="!dataSource || dataSource.length === 0" class="empty-state">
+          <p>No hay devocionales registrados aún.</p>
+          <button mat-raised-button color="primary" (click)="openDialog()">
+            <mat-icon>edit</mat-icon> Crear Devocional
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <button mat-fab color="accent" class="fab-button" (click)="openDialog()">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+</div>
+
+<!-- Modal para mostrar detalles del devocional -->
+<div class="modal fade" id="devocionalModal" tabindex="-1" aria-labelledby="devocionalModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="devocionalModalLabel">{{ selectedDevocional?.nombre }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        @if(selectedDevocional){
+          <div class="modal-date">{{ selectedDevocional.fecha | date:'dd/MM/yyyy' }}</div>
+          <h6 class="section-title">Lo que Dios me dijo:</h6>
+          <div class="devocional-content">
+            {{ selectedDevocional.detalles }}
+          </div>
+          <h6 class="section-title">Contexto:</h6>
+          <div class="devocional-context">
+            {{ selectedDevocional.lugar }}
+          </div>
+        }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

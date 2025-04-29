@@ -1,0 +1,13 @@
+<div class="messages-container">
+  @for(message of messageService.messages(); track message.id) {
+    <mat-card class="message-card mb-3" [routerLink]="'/member/' + message.senderUserName">
+      <div class="message-header">
+        <span class="sender-name">{{ message.senderUserName }}</span>
+        <span class="message-timestamp">{{ message.messageSent | date:'short' }}</span>
+      </div>
+      <mat-card-content>
+        <p class="message-content">{{ message.content }}</p>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

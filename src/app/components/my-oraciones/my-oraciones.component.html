@@ -1,0 +1,67 @@
+<div class="section-wrapper oraciones-section">
+  <app-header-card title="Mis Oraciones"></app-header-card>
+  <div class="card-container">
+    <mat-card class="unified-card">
+      <mat-card-content>
+        <p class="intro-text titulo">
+          Guarda tus oraciones y revisa cuáles el Señor te ha respondido, para que des gracias a Su nombre.
+        </p>
+        
+        <!-- Lista simplificada de oraciones -->
+        <div class="oraciones-list">
+          @for(oracion of dataSource(); track oracion){
+            <div class="oracion-item" (click)="openOracionModal(oracion)">
+              <div class="oracion-header">
+                <span class="oracion-text">{{ oracion.nombre }}</span>
+                <button mat-icon-button (click)="openBottomSheet(oracion); $event.stopPropagation()">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+        
+        @if(!dataSource() || dataSource().length === 0){
+        <div class="empty-state">
+          <p>No hay oraciones registradas aún.</p>
+          <button mat-raised-button color="primary" (click)="crearOraciones()">
+            <mat-icon>edit</mat-icon> Crear Oración
+          </button>
+        </div>
+      }
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <button mat-fab color="primary" class="fab-button" (click)="crearOraciones()">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+</div>
+
+<!-- Modal para mostrar detalles de la oración -->
+<div class="modal fade" id="oracionModal" tabindex="-1" aria-labelledby="oracionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="oracionModalLabel">{{ selectedOracion?.nombre }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        @if(selectedOracion){
+          <h6 class="section-title">Petición:</h6>
+          <div class="oracion-content">
+            {{ selectedOracion.descripcion }}
+          </div>
+          @if(selectedOracion.fechaRespuesta){
+            <div class="modal-date">Respondida: {{ selectedOracion.fechaRespuesta | date:'dd/MM/yyyy' }}</div>
+          }
+        }
+      </div>
+      <div class="modal-footer">
+        <!-- <mat-slide-toggle (change)="onOracionStatusChange($event.checked)" [checked]="selectedOracion?.respondida">
+          Respondida
+        </mat-slide-toggle> -->
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

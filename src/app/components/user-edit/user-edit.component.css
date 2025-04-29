@@ -1,0 +1,74 @@
+.header-banner {
+    background: linear-gradient(135deg, red 0%, #2575fc 100%);
+    padding: 40px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1.5s ease-out;
+  }
+  
+  .chat-banner {
+    background-color: rgb(250, 237, 211);
+    border-radius: 12px;
+    margin: 20px auto;
+    width: 95%;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 1.5s ease-out;
+  }
+  
+  .profile-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+  }
+  
+  .profile-icon {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  
+  .user-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .username {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 600;
+  }
+  
+  .user-detail p {
+    margin: 10px 0;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

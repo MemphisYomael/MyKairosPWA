@@ -1,0 +1,118 @@
+/* Contenedor general de la sección con animación de aparición */
+.section-wrapper {
+  margin: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Contenedor para centrar las tarjetas */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+/* Tarjeta unificada: degradado sutil, bordes redondeados y sombras */
+.unified-card {
+  width: 100%;
+  max-width: 800px;
+  background: linear-gradient(135deg, #ffffff, #f6f9fc);
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  padding: 20px;
+}
+.unified-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Texto introductorio centralizado */
+.intro-text {
+  text-align: center;
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+.center-text {
+  text-align: center;
+}
+
+/* Estilos para la gráfica */
+.chart-container {
+  margin-top: 1rem;
+}
+.chart-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.chart-label {
+  width: 120px;
+  font-weight: 600;
+  color: #2575fc;
+}
+.bar-container {
+  flex: 1;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  margin: 0 10px;
+  overflow: hidden;
+}
+.bar {
+  height: 16px;
+  background-color: #2575fc;
+  border-radius: 8px 0 0 8px;
+}
+.chart-value {
+  width: 40px;
+  text-align: right;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Estilos unificados para la tabla */
+.unified-table {
+  width: 100%;
+}
+.table-actions {
+  text-align: end;
+}
+
+/* Botón flotante para crear un nuevo registro */
+.fab-button {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Animación de aparición */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilo opcional para resaltar filas con resolución 'true' */
+.red {
+  background-color: #ffebee !important;
+}
+
+
+@media( max-width: 500px){
+  .unified-card{
+    padding: 0px;
+  }
+}

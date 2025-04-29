@@ -1,0 +1,21 @@
+ 
+ <mat-card appearance="outlined" style="background-color: rgb(82, 82, 176); color: white;">
+  <mat-card-content style="margin: auto;">{{sermonById().titulo}}</mat-card-content>
+  <button mat-raised-button (click)="Guardar(filtro.value)" style="display: flex; margin-bottom: 10px; margin-top: 10px;">Guardar</button>
+
+  
+</mat-card>
+
+<div [froalaEditor] [(froalaModel)]="editorContent"  style="display: grid; margin: auto;">Para escribir con el editor de texto en fullscreen, toque los tres puntos de la parte superior derecha, y dentro de las opciones, toque fullscreen para mejor experiencia en la redaccion de textos.</div>
+
+<mat-tab-group>
+  <mat-tab label="{{sermonById().contrasena}}">
+    <mat-form-field class="example-full-width" style="width: 100%;">
+      <mat-label>FILTRO</mat-label>
+      <input matInput #filtro [value]="sermonById().contrasena">
+    </mat-form-field>
+  </mat-tab>
+</mat-tab-group>
+
+
+

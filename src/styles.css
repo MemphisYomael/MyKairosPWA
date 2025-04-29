@@ -1,0 +1,132 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Clase para aplicar en el contenedor principal de cada componente */
+.global-background {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #667eea, #764ba2, #ff9a9e, #fad0c4);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
+  
+  /* Animación para desplazar el gradiente de forma sutil */
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  .card-background {
+    background: linear-gradient(135deg, #ffffff 0%, #f1f3f5 100%);
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+  }
+  .oracion-nombre {
+    flex: 1;                      /* Toma el espacio disponible */
+    white-space: nowrap;           /* Evita que el texto baje a otra línea */
+    overflow: hidden;              /* Oculta el texto que se desborde */
+    text-overflow: ellipsis;       /* Muestra los "..." cuando el texto sea muy largo */
+    max-width: 80%;                /* Controla el ancho del texto */
+    display: inline-block;         /* Permite que text-overflow funcione */
+  }
+  
+  .oracion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+  }
+  
+
+  .centrar{
+    text-align: start;
+    display: flex;
+    margin: auto;
+    margin-top: 2rem;
+    align-items: center;
+  }
+
+
+.titulo{
+  font-size: 22px;
+
+}
+
+.sub-titulo{
+  font-size: 20px;
+}
+
+.parrafo{
+  font-size: 16px;
+  letter-spacing: -0.5px;
+}
+
+/* TOASTR */
+
+/* styles.css */
+
+/* Toast General */
+.ngx-toast-custom {
+  background-color: #ffffff; /* Fondo blanco para un look limpio */
+  color: #2d3748; /* Gris oscuro para el texto principal */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 1.5rem; /* Espaciado interno generoso */
+  border: 1px solid #e2e8f0; /* Borde sutil */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
+}
+
+/* Título del Toast */
+.ngx-toast-title-custom {
+  font-weight: 600; /* Negrita semiligera */
+  font-size: 1.1rem; /* Tamaño de fuente ligeramente más grande */
+  margin-bottom: 0.5rem; /* Espacio debajo del título */
+  color: #1a202c; /* Gris más oscuro para el título */
+}
+
+/* Mensaje del Toast */
+.ngx-toast-message-custom {
+  font-size: 1rem; /* Tamaño de fuente estándar */
+  line-height: 1.5; /* Espaciado entre líneas para legibilidad */
+}
+
+/* Posición del Toast */
+.toast-top-right {
+  top: 2rem; /* Más espacio desde la parte superior */
+  right: 2rem; /* Más espacio desde la derecha */
+}
+
+/* Barra de progreso */
+.toast-progress {
+  background-color: #4a90e2; /* Azul moderno para la barra de progreso */
+  height: 4px; /* Altura de la barra de progreso */
+  border-radius: 0 0 8px 8px; /* Bordes redondeados solo en la parte inferior */
+}
+
+/* Botón de cierre */
+.toast-close-button {
+  color: #6b7280; /* Gris para el botón de cierre */
+  opacity: 0.7; /* Transparencia para hacerlo menos intrusivo */
+  transition: opacity 0.3s ease; /* Transición suave para el hover */
+}
+
+.toast-close-button:hover {
+  opacity: 1; /* Opacidad completa al pasar el ratón */
+}

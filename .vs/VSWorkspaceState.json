@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.angular",
+    "\\.angular\\cache",
+    "\\.angular\\cache\\18.2.14",
+    "\\.angular\\cache\\18.2.14\\myAppSt",
+    "\\.angular\\cache\\18.2.14\\myAppSt\\vite",
+    "\\.angular\\cache\\18.2.14\\myAppSt\\vite\\deps",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\components",
+    "\\src\\app\\components\\crear-tareas"
+  ],
+  "SelectedNode": "\\.angular\\cache\\18.2.14\\myAppSt\\vite\\deps\\package.json",
+  "PreviewInSolutionExplorer": false
+}

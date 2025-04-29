@@ -1,0 +1,28 @@
+<mat-card appearance="outlined" style="display: flex; height: 100%;">
+    <mat-card-content style="display: grid; margin: auto; height: 100%;">
+      <mat-form-field style="margin: auto; width: 100%; height: 100%;">
+        <mat-label>Fecha Tentacion</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="fechaTentacion">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field style="margin: auto; width: 100%;">
+        <mat-label>Tentacion</mat-label>
+        <mat-select [(ngModel)]="tentacion">
+          @for(opciones of opcionesTentacion; track opcionesTentacion){
+          <mat-option [value]="opciones.viewValue">{{opciones.viewValue}} </mat-option>
+          }
+        </mat-select>
+        </mat-form-field>
+        <p><mat-slide-toggle [(ngModel)]="derrota" style="margin: auto; width: 100%;">Fuiste derrotado (habilitado) <br/> La venciste (Deshabilitado)</mat-slide-toggle></p>
+        @if(derrota){
+        <mat-form-field style="margin: auto; width: 100%;">
+            <mat-label>¿Que hacias antes de caer? </mat-label>
+            <input matInput [(ngModel)]="contexto">
+          </mat-form-field>
+        }
+        <button mat-raised-button (click)="crearTentacion()">Crear</button>
+              
+    </mat-card-content>
+  </mat-card>

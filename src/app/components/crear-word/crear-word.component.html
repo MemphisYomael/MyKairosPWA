@@ -1,0 +1,22 @@
+<mat-card appearance="outlined">
+    <mat-card-content>
+
+        <form class="example-form">
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <mat-label>Escoge un titulo</mat-label>
+              <input matInput placeholder="titulo del documento" #sermonTitulo>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <mat-label>Coloca un Filtro (opcional)</mat-label>
+              <input matInput placeholder="ej. sermones" #filtro>
+            </mat-form-field>
+            </form>
+            <button mat-fab extended style="width: 100%;" (click)="crearSermon(sermonTitulo.value, filtro.value)">
+                <mat-icon>create</mat-icon>
+                Crear
+              </button>
+
+
+    </mat-card-content>
+  </mat-card>
+  

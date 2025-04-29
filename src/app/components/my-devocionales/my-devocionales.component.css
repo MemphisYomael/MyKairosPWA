@@ -1,0 +1,172 @@
+/* CONTENEDOR GENERAL DE CADA SECCIÓN */
+.section-wrapper {
+  margin: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* CONTENEDOR PARA LA TARJETA */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+/* ESTILO UNIFICADO DE LA TARJETA */
+.unified-card {
+  width: 100%;
+  max-width: 800px;
+  background: linear-gradient(135deg, #ffffff, #f6f9fc);
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.unified-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* TEXTO INTRODUCTOR */
+.intro-text {
+  text-align: center;
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+/* Nueva lista de devocionales */
+.devocionales-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.devocional-item {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 4px solid #2575fc;
+}
+
+.devocional-item:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.devocional-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.date-text {
+  font-weight: 600;
+  color: #2575fc;
+  width: 100px;
+}
+
+.autor-text {
+  font-weight: 600;
+  color: #2575fc;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pasaje-text {
+  flex: 1;
+  font-size: 16px;
+  padding: 0 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ESTADO VACÍO */
+.empty-state {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+/* BOTÓN FLOTANTE */
+.fab-button {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Estilos para el modal */
+.modal-content {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #f8f9fa;
+  border-radius: 16px 16px 0 0;
+}
+
+.modal-title {
+  font-size: 22px;
+  color: #333;
+  font-weight: 600;
+}
+
+.modal-date {
+  font-size: 16px;
+  color: #2575fc;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 18px;
+  color: #444;
+  margin: 16px 0 8px;
+  font-weight: 500;
+}
+
+.devocional-content, .devocional-context {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.modal-footer {
+  border-top: 1px solid #f0f0f0;
+}
+
+/* ANIMACIÓN DE APARICIÓN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

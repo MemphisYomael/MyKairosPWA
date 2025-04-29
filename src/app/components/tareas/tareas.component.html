@@ -1,0 +1,67 @@
+<div class="section-wrapper tareas-section">
+  <app-header-card title="MyTareas"></app-header-card>
+
+  <div class="card-container">
+    <mat-card class="unified-card">
+      <mat-card-content>
+        <p class="intro-text">
+          Administra tus tareas diarias y mantén tu productividad en alto.
+        </p>
+        
+        <!-- Lista simplificada de tareas -->
+        <div class="tareas-list">
+          @for(task of dataSource(); track task.id){
+            <div class="tarea-item" (click)="openTareaModal(task)" style="display: flex; justify-content: space-between;">
+              <div class="tarea-header" style="display: grid;">
+                <span class="tarea-text">{{ task.accion }}</span>
+                <span class="date-text" style="scale: 0.8;">{{ task.dia | date: 'dd/MM/yyyy' }}</span>
+              </div>
+              <button mat-icon-button (click)="openBottomSheet(task); $event.stopPropagation()">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+          }
+        </div>
+        @if(!dataSource || dataSource.length === 0){
+        <div class="empty-state">
+          <p>No hay tareas registradas aún.</p>
+          <button mat-raised-button color="primary" (click)="crearTareas()">
+            <mat-icon>edit</mat-icon> Crear Tarea
+          </button>
+        </div>
+      }
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <button mat-fab color="accent" class="fab-button" (click)="crearTareas()">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+</div>
+
+<!-- Modal para mostrar detalles de la tarea -->
+<div class="modal fade" id="tareaModal" tabindex="-1" aria-labelledby="tareaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tareaModalLabel">{{ selectedTarea?.accion }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        @if(selectedTarea){
+          <div class="modal-date">Fecha límite: {{ selectedTarea.dia | date:'dd/MM/yyyy' }}</div>
+          <h6 class="section-title">Detalles:</h6>
+          <div class="tarea-content">
+            {{ selectedTarea.detalle }}
+          </div>
+        }
+      </div>
+      <div class="modal-footer">
+        <mat-slide-toggle (change)="onTaskStatusChange($event.checked)" [checked]="selectedTarea?.realizada">
+          Completada
+        </mat-slide-toggle>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

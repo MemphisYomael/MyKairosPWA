@@ -1,0 +1,81 @@
+<div *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  
+  <div class="section-wrapper chat-section">
+    <app-header-card title="MyKairos"></app-header-card>
+    <div class="card-container">
+      <mat-card class="unified-card">
+        <mat-card-content>
+          <p class="header-banner">
+            <i class="fa fa-graduation-cap"></i> Kairos Chatbot
+          Pidele a Kairos que te agende una Nota, una Tarea, Un Link, una Suscripcion, un devocional, un Pecado, una oracion, o Una Resolucion por ti!!!
+         </p>
+          <main class="chat-history">
+            <ng-container *ngFor="let item of chatHistory">
+              <div class="messages" [ngClass]="{'blue': item.from === 'user', 'green': item.from === 'bot'}">
+                <i class="fa" [ngClass]="{'fa-user-circle': item.from === 'user', 'fa-graduation-cap': item.from === 'bot'}"></i>
+                <ng-container *ngIf="item.type; else textMessage">
+                  <ng-container [ngSwitch]="item.type">
+                    <img *ngSwitchCase="'image'" [src]="item.content" alt="{{item.fileName}}" style="max-width:200px;" />
+                    <video *ngSwitchCase="'video'" controls style="max-width:200px;">
+                      <source [src]="item.content" [type]="getFileMimeType(item.fileName)" />
+                    </video>
+                    <audio *ngSwitchCase="'audio'" controls>
+                      <source [src]="item.content" [type]="getFileMimeType(item.fileName)" />
+                    </audio>
+                    <ng-container *ngSwitchCase="'document'">
+                      <a [href]="item.content" target="_blank">{{ item.fileName }}</a>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+                <ng-template #textMessage>
+                  <span class="responses" [innerHTML]="formatText(item.message)"></span>
+                  <button mat-icon-button (click)="copyToClipboard(item.message)" *ngIf="item.from === 'bot'" matTooltip="Copiar al portapapeles">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="MyDocuments(item.message)" *ngIf="item.from === 'bot'" matTooltip="Copiar al portapapeles">
+                    <mat-icon>save</mat-icon>
+                  </button>
+                </ng-template>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="loading">
+              <app-skeleton></app-skeleton>
+            </ng-container>
+          </main>
+          <footer class="chat-input" style="display: grid;">
+            <input
+              type="text"
+              id="message-input"
+              (keyup.enter)="sendData()"
+              placeholder="Type your message..."
+              [(ngModel)]="prompt"
+              [disabled]="loading"
+              autocomplete="off"
+            />
+            <!-- <button mat-raised-button color="primary" style="width: 100%;" (click)="fileInput.click()">Upload File</button> -->
+            <!-- <input
+              
+              type="file"
+              (change)="onFileSelected($event)"
+              accept="image/*,video/*,text/*,.pdf, audio/*, AAC, dot"
+              [disabled]="loading"
+              #fileInput
+              hidden
+            /> -->
+            <button id="send-button" mat-raised-button color="primary" (click)="sendData()" [disabled]="loading">
+              Send
+            </button>
+            <div class="marca-de-agua">powered by Gemini Pro 2.0</div>
+          </footer>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
+
+  <button mat-fab color="accent" class="fab-button" (click)="MyDocumentsAll(chatHistory)">
+    <mat-icon>save</mat-icon>
+  </button>
+  

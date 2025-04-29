@@ -1,0 +1,137 @@
+<div class="section-wrapper mydocuments-section">
+  <app-header-card title="MyNotas"></app-header-card>
+
+  <!-- Tarjeta de Introducción -->
+  <div class="card-container">
+    <mat-card class="unified-card">
+      <mat-card-content class="intro-card-content">
+        <p class="intro-text center-text">
+          Toma Notas, Redacta tus discursos o proyectos.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Tarjeta de Filtros -->
+  <div class="card-container" *ngIf="filtrosDisponibles().length > 0">
+    <mat-card class="unified-card filter-card">
+      <mat-card-content>
+        <div class="filter-section">
+          <span class="filter-label">Filtrar por:</span>
+          <mat-chip-set class="filter-chips">
+            @for(filtro of filtrosDisponibles(); track filtro){
+            <mat-chip
+              (click)="aplicarFiltro(filtro)"
+              [class.active]="filtroSeleccionado === filtro"
+            >
+              {{ filtro }}
+            </mat-chip>
+            }
+            <mat-chip
+              *ngIf="filtroSeleccionado"
+              (click)="limpiarFiltro()"
+              color="warn"
+              selected
+            >
+              <mat-icon>close</mat-icon> Limpiar
+            </mat-chip>
+          </mat-chip-set>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Tarjeta de Listado de Documentos -->
+  <div class="card-container">
+    <mat-card class="unified-card list-card">
+      <mat-card-content>
+        <div *ngIf="sermonesFiltrados().length === 0" class="no-results">
+          No se encontraron documentos con el filtro seleccionado.
+        </div>
+        <mat-list *ngIf="sermonesFiltrados().length > 0">
+          @for(data of sermonesFiltrados(); track data){ @if( filtroSeleccionado
+          == data.contrasena || filtroSeleccionado == null ){
+          <mat-card class="item-card">
+            <mat-card-content class="item-card-content">
+              <mat-list-item class="item-title" (click)="vistaPrevia(data)">
+                {{ data.titulo }}
+              </mat-list-item>
+              <div class="item-tags" *ngIf="data.contrasena">
+                <mat-chip color="accent">{{ data.contrasena }}</mat-chip>
+              </div>
+              <button
+                mat-icon-button
+                (click)="openBottomSheet(data)"
+                class="item-button"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </mat-card-content>
+          </mat-card>
+          <mat-divider></mat-divider>
+          } }
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Botón flotante para crear un nuevo documento -->
+  <button mat-fab class="fab-button" (click)="openDialog()">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+</div>
+
+<!-- Modal para mostrar vista previa del documento -->
+<div
+  class="modal fade"
+  id="documentModal"
+  tabindex="-1"
+  aria-labelledby="documentModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="documentModalLabel">
+          {{ selectedDocument?.titulo }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        @if(selectedDocument){
+        <div class="modal-date">
+          Fecha: {{ selectedDocument.dateTime | date : "dd/MM/yyyy" }}
+        </div>
+        <div class="modal-category" *ngIf="selectedDocument.contrasena">
+          <span class="category-label">Categoría:</span>
+          <mat-chip color="accent">{{ selectedDocument.contrasena }}</mat-chip>
+        </div>
+        <h6 class="section-title">Contenido:</h6>
+        <div
+          class="document-content"
+          [innerHTML]="selectedDocument.contenido"
+        ></div>
+        }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+        <!-- Reemplazar el botón de editar en el modal -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="editarDocumento(selectedDocument); documentModal.hide()"
+          data-bs-dismiss="modal"
+        >
+          <mat-icon>edit</mat-icon> Editar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

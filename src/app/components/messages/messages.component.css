@@ -1,0 +1,39 @@
+.messages-container {
+  margin: 20px;
+}
+
+/* Personalización del mat-card */
+.message-card {
+  border: 1px solid #e0e0e0;
+  box-shadow: none;
+}
+
+/* Encabezado del mensaje: distribuye el nombre y el timestamp en extremos */
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.sender-name {
+  font-weight: 600;
+  color: #424242;
+}
+
+.message-timestamp {
+  font-size: 0.8rem;
+  color: #757575;
+}
+
+/* Contenido del mensaje */
+.message-content {
+  padding: 1rem;
+  font-size: 14px;
+  color: #424242;
+  white-space: pre-line;
+}
+
+/* Estilos para el mensaje del usuario actual (alineado a la derecha) */

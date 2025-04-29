@@ -1,0 +1,72 @@
+<div #map style="display: flex; width: 100%; height: 100vh"></div>
+<mat-card
+  style="
+  display: grid;
+    position: absolute;
+    top: 80px;
+    z-index: 1000;
+    margin: 10px;
+    border-radius: 10px;
+    max-height: 30dvh;
+    width: 50%;
+    overflow-y: scroll;
+  "
+    >
+  <mat-card-content
+    style="
+    display: grid;
+      min-width: none;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      margin-top: 10px;
+      margin-bottom: 3px;
+    "
+  >
+    <mat-card-header class="bg-dark m-auto text-center" style="border-radius: 10px; color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 50px; padding-right: 50px">Places</mat-card-header>
+  </mat-card-content>
+  <mat-card-subtitle
+    class="d-flex"
+    style="
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      margin-top: 3px;
+      margin-bottom: 3px;
+      min-width: 40%;
+    "
+  > 
+    <mat-chip-listbox
+      style="display: grid; width: 100%; margin: auto; justify-content: center"
+    >
+      @for(marker of markers(); track marker.id){
+        <mat-chip-option
+        style="margin: auto; color: white; padding: 0; display: flex; align-items: center; justify-content: center; text-align: center;"
+        class=" mb-2 "
+        [style]="{ backgroundColor: marker.mapboxMarker._color}"
+        (click)="mostrarMarker(marker)"
+        selected
+        ><p style="font-size: xx-small; margin: auto; width: 100%; text-align: center; color: white;">
+          {{ marker.id }}
+        </p></mat-chip-option
+      >
+    
+    
+    
+      }@empty {
+      <mat-chip
+        style="
+          width: 80%;
+          margin: auto;
+          text-align: center;
+          align-items: center;
+          text-align: center;
+          min-width: 100%;
+        "
+        class="text-light mb-2"
+        ><p style="margin: auto; width: 100px">No hay Markers</p></mat-chip
+      >
+      }
+    </mat-chip-listbox>
+  </mat-card-subtitle>
+</mat-card>

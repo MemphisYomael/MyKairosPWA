@@ -1,0 +1,114 @@
+  <div class="section-wrapper finanzas-section">
+    <mat-progress-bar *ngIf="progressBar()" mode="indeterminate"></mat-progress-bar>
+    <app-header-card title="MyFinanzas"></app-header-card>
+  
+    <!-- Tarjeta resumen de finanzas -->
+    <div class="card-container">
+      <mat-card class="unified-card">
+        <mat-card-content>
+          <div class="summary-row">
+            <div class="summary-card ingresos-card">
+              <div class="card-header">Total de Ingresos</div>
+              <div class="card-body ingreso-row">
+                <h5 class="card-title" style="color: green;">{{ TotalIngresos() | currency }}</h5>
+              </div>
+            </div>
+            <div class="summary-card presupuesto-card">
+              <div class="card-header" >Presupuesto Disponible</div>
+              <div class="card-body presupuesto-row">
+                <h5 class="card-title" style="color: blue;">{{ (TotalIngresos() - TotalEgresos() - comprometido()) | currency }}</h5>
+              </div>
+            </div>
+            <div class="summary-card egresos-card">
+              <div class="card-header">Total de Egresos</div>
+              <div class="card-body egreso-row">
+                <h5 class="card-title" style="color: red;">{{ TotalEgresos() | currency }}</h5>
+                <p class="card-text">{{ (TotalEgresos() / TotalIngresos()) * 100 | number : '1.2-2' }}%</p>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  
+    <!-- Tabla de registros de finanzas -->
+  <!-- Tabla de registros de finanzas -->
+<div class="card-container">
+  <mat-card class="unified-card">
+    <mat-card-content>
+      <table mat-table [dataSource]="finanzas()" class="mat-elevation-z8 unified-table">
+  
+        <!-- Columna Fecha -->
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef style="text-align: left;"> Fecha </th>
+          <td mat-cell *matCellDef="let element" (click)="openSnackBar(element.descripcion)" class="over" style="text-align: left;">
+            {{ element.urlImagen }}
+          </td>
+        </ng-container>
+        
+        <!-- Columna Monto -->
+        <ng-container matColumnDef="monto">
+          <th mat-header-cell *matHeaderCellDef> Monto </th>
+          <td mat-cell *matCellDef="let element" (click)="openSnackBar(element.descripcion)" class="over">
+            RD${{ element.precio }}
+          </td>
+        </ng-container>
+        
+        <!-- Columna Acciones -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element" style="text-align: end;">
+            <button mat-icon-button color="primary" (click)="openBottomSheet(element)">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            [ngClass]="{
+              'ingreso-row': row.nombre == 'Ingreso',
+              'egreso-row': row.nombre == 'Egreso',
+              'comprometido-row': row.nombre == 'Dinero Comprometido'
+            }">
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- Instrucciones -->
+<div class="card-container">
+  <mat-card class="unified-card">
+    <mat-card-content>
+      <p class="intro-text">
+        Haz click encima de un ingreso o egreso para ver los detalles
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="card-container">
+  <mat-card class="unified-card">
+    <mat-card-content>
+      <p class="intro-text ingreso-row">
+        Ingreso
+      </p>
+      <p class="intro-text comprometido-row">
+        Comprometido/Todavia sin pagar
+      </p>
+      <p class="intro-text egreso-row">
+        Egreso
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+  
+
+    <!-- Botón flotante -->
+    <button mat-fab color="accent" class="fab-button" (click)="openDialog()">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
+  

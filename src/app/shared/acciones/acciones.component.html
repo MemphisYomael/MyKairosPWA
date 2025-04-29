@@ -1,0 +1,39 @@
+<mat-nav-list>
+  @if(data.endpoint == 'devocional-consejeria'){
+    <a mat-list-item (click)="editar($event)">
+      <span matListItemTitle>MyEdit</span>
+      <span matLine>Edita tu nota</span>
+    </a>
+  }
+
+    @if(eliminarActivo){
+    <a mat-list-item (click)="eliminar()">
+      <span matListItemTitle>Confirma la eliminacion</span>
+      <span matLine style="font-style: bold;">No podrás recuperarla</span>
+    </a>
+  }@else{
+    <a mat-list-item (click)="eliminarActivo = true">
+      <span matListItemTitle>MyDelete</span>
+      <span matLine>Elimina tu nota</span>
+    </a>
+  }
+
+  @if(data.endpoint == 'devocional-consejeria' || data.endpoint == 'links-productos'){
+    <a  mat-list-item (click)="compartir($event)">
+      <span matListItemTitle>MyShare</span>
+      <span matLine>Comparte tu nota</span>
+    </a>
+  }
+
+  @if(data.endpoint == 'finanzas-publicidades'){
+    <mat-form-field>
+      <mat-label>Cambiar Tipo</mat-label>
+      <mat-select (selectionChange)="editar($event)" [value]="data.objeto.nombre">
+        @for (tipo of tipoIngreso; track tipo) {
+          <mat-option [value]="tipo">{{tipo}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  }
+  </mat-nav-list>
+  

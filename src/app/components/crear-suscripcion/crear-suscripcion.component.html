@@ -1,0 +1,18 @@
+<mat-card appearance="outlined" style="display: flex; height: 100%;">
+    <mat-card-content style="display: grid; margin: auto; height: 100%;">
+        <mat-form-field style="margin: auto; width: 100%;">
+            <mat-label>Plataforma </mat-label>
+            <input matInput [(ngModel)]="Plataforma">
+          </mat-form-field>
+      <mat-form-field style="margin: auto; width: 100%; height: 100%;">
+        <mat-label>Fecha de Facturacion</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="fecha">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>        
+       
+        <button mat-raised-button (click)="crearSuscripcion()">Crear</button>
+              
+    </mat-card-content>
+  </mat-card>

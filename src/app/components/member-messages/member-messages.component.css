@@ -1,0 +1,389 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Fondo general y tipografía */
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #f7f7f7;
+  padding: 20px;
+}
+
+/* Contenedor general de los mensajes */
+.messages-container {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background: linear-gradient(135deg, #ffffff, #f2f2f2);
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Animación de entrada: Slide in y Fade */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tarjeta base del mensaje */
+/* Estilos para tarjeta de mensaje que contiene videos - ampliado */
+.message-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  border-radius: 12px;
+  max-width: 80%; /* 80% del ancho de la ventana en móviles */
+  width: 80%; /* Fuerza el ancho para evitar que se contraiga */
+  animation: slideIn 0.4s ease-out;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Para pantallas grandes (laptops/escritorio) */
+@media (min-width: 768px) {
+  .message-card {
+    max-width: 40%; /* 40% del ancho de la ventana en laptops */
+    width: 40%; /* Fuerza el ancho */
+  }
+}
+
+/* Específicamente cuando el mensaje contiene un video de YouTube */
+.message-card:has(.video-embed-container) {
+  max-width: 80%; /* 80% del ancho en móviles (mensaje con video) */
+  width: 80%; /* Fuerza el ancho */
+}
+
+/* Ajuste para pantallas grandes cuando hay videos */
+@media (min-width: 768px) {
+  .message-card:has(.video-embed-container) {
+    max-width: 40%; /* 40% del ancho en laptops (mensaje con video) */
+    width: 40%; /* Fuerza el ancho */
+  }
+}
+
+/* Contenedor específico para el video de YouTube */
+.video-embed-container {
+  position: relative;
+  width: 100%; /* Ocupa el 100% del contenedor padre (que ya está al 80% o 40%) */
+  padding-bottom: 56.25%; /* Mantiene relación 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  margin: 8px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* El iframe se ajusta perfectamente al contenedor */
+.video-embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* Fallback para navegadores antiguos que no soportan :has() */
+@supports not (selector(:has(*))) {
+  .message-card.has-video {
+    max-width: 80%; /* Clase alternativa que puedes añadir desde el componente */
+    width: 80%;
+  }
+  
+  @media (min-width: 768px) {
+    .message-card.has-video {
+      max-width: 40%;
+      width: 40%;
+    }
+  }
+}
+
+/* Efecto hover para resaltar el mensaje */
+.message-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos para mensajes salientes (utilizando tonos turquesa) */
+.message-card.outgoing {
+  background: linear-gradient(135deg, #40e0d0, #a0f1ed); /* De turquesa intenso a un tono más suave */
+  align-self: flex-end;
+  color: #004d40;
+}
+
+/* Estilos para mensajes entrantes (utilizando tonos lila) */
+.message-card.incoming {
+  background: linear-gradient(135deg, #d8bfd8, #e6e6fa); /* De un lila suave a un lavanda claro */
+  align-self: flex-start;
+  color: #4a148c;
+}
+
+/* Encabezado del mensaje: nombre y hora */
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85em;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* Nombre del remitente */
+.sender-name {
+  font-style: italic;
+}
+
+/* Contenido del mensaje */
+.message-content {
+  font-size: 1em;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* Decoración opcional: "cola" de la burbuja */
+.message-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+}
+
+.message-card.outgoing::after {
+  right: -10px;
+  border-top: 10px solid transparent;
+  border-left: 10px solid #a0f1ed;
+}
+
+.message-card.incoming::after {
+  left: -10px;
+  border-top: 10px solid transparent;
+  border-right: 10px solid #e6e6fa;
+}
+
+.me {
+  background-color: #ecdbff;
+  margin-left: auto;    /* Mueve la tarjeta hacia la derecha */
+  text-align: right;    /* Alinea el texto a la derecha */
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+
+/* Estilos para los mensajes de otros (alineados a la izquierda) */
+.you {
+  
+  background-color: #cddfff;
+  margin-right: auto;   /* Se asegura que se quede a la izquierda */
+  text-align: left; 
+  margin-left: 10px ; 
+  margin-bottom: 5px;   /* Alinea el texto a la izquierda */
+}
+
+.fab {
+  position: fixed;
+  bottom: 100px;
+  left: 20px;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; /* Asegura que se vea por encima de otros elementos */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el modal personalizado */
+.custom-modal {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.custom-modal .modal-header {
+  background-color: #f7f7f7;
+  border-bottom: none;
+  padding: 1rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.custom-modal .modal-title {
+  font-weight: 600;
+  color: #333;
+}
+
+.custom-close {
+  background: transparent;
+  border: none;
+}
+
+.custom-close:hover {
+  opacity: 0.7;
+}
+
+.custom-modal .modal-body {
+  padding: 1.5rem;
+}
+
+.custom-textarea {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  resize: none;
+  padding: 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.custom-textarea:focus {
+  border-color: #80bdff;
+  outline: none;
+}
+
+.custom-modal .modal-footer {
+  background-color: #f7f7f7;
+  border-top: none;
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.custom-send {
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.custom-send:hover {
+  background-color: #0056b3;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
+  padding: 8px;
+}
+
+
+.fecha-separador {
+  text-align: center;
+  background-color: #e2f3fb;
+  padding: 5px 15px;
+  border-radius: 10px;
+  margin: 8px auto;
+  width: fit-content;
+  font-size: 0.8rem;
+  color: #505050;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.messages-container {
+  max-width: 100%;
+  height: calc(100vh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.messages-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background-color: #f7f7f7;
+}
+
+/* Añadir al final de member-messages.component.css */
+
+/* Contenedor para la caja de mensaje y botón de enviar */
+.message-input-container {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin: 0 auto;
+  max-width: 700px;
+  z-index: 1000;
+}
+
+/* Estilos para la caja de texto */
+.message-text-input {
+  flex: 1;
+  background-color: #000; /* Fondo negro */
+  color: white;
+  border: 2px solid #00a2ff; /* Azul eléctrico */
+  border-radius: 25px;
+  padding: 12px 20px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+  margin-right: 10px;
+}
+
+/* Cambio de color al enfocar */
+.message-text-input:focus, 
+.message-text-input:active {
+  box-shadow: 0 0 5px rgba(255, 0, 59, 0.5);
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+
+}
+
+/* Estilos para el botón de enviar */
+.send-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: black; /* Azul eléctrico */
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.send-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+}
+
+.send-button mat-icon {
+  font-size: 24px;
+}
+
+/* Ajustamos el contenedor de mensajes para que no se solape con la caja de texto */
+.messages-container {
+  height: calc(100vh);
+}

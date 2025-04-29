@@ -1,0 +1,102 @@
+
+@if(user().userName.startsWith('My')){
+<app-header-card [title]="user().userName" ></app-header-card>
+}@else {
+  <app-header-card [title]="'My' + user().userName" ></app-header-card>
+}
+
+<div class="chat-banner">
+  <div class="profile-info">
+    <div class="profile-picture">
+      <div class="profile-icon" [ngStyle]="{'background-color': getColor(user()!.userName)}">
+        {{ user()?.userName!.charAt(0) | uppercase }}
+      </div>
+    </div>
+
+    <div class="user-details">
+      
+      <h2 class="username">{{ user()?.userName }}</h2>
+      <span class="status" [class.online]="presenceService.onlineUsers().includes(user()!.id)">
+        
+        <ng-container *ngIf="presenceService.onlineUsers().includes(user()!.id); else offline">
+          En línea
+        </ng-container>
+        <ng-template #offline>
+          Offline
+        </ng-template>
+        <br/>
+       
+      </span>
+    </div>
+  </div>
+ 
+  
+  <div class="last-message">
+    <p>8498682220</p>
+  </div>
+</div>
+
+<mat-card appearance="outlined" style="height: 500px; margin: 30px; padding: 30px;">
+  <mat-card-content>
+   
+    <div class="user-detail"  >
+      <!-- <p >
+        <strong>ID:</strong> {{ user()?.userId }}
+        <button mat-icon-button (click)="clipboardCopy(user()?.userId, 'User Id')">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+      </p> -->
+      <p>
+        <strong>Correo:</strong> {{ user()?.email }}
+        <button mat-icon-button (click)="clipboardCopy(user()?.email, 'Email')">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+      </p>
+      <p>
+        <strong>Teléfono:</strong> {{ user()?.phoneNumber }}
+        <button mat-icon-button (click)="clipboardCopy(user()?.phoneNumber, 'PhoneNumber')">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+      </p>
+    </div>
+
+    <div class="user-detail">
+      <p>
+        <strong>Usuario Asociado:</strong> {{ user()?.usuarioAsociado || "No tiene" }}
+        <!-- <button mat-icon-button (click)="clipboardCopy(user()?.usuarioAsociado || 'No tiene')">
+          <mat-icon>content_copy</mat-icon>
+        </button> -->
+      </p>
+      <p>
+        <strong>Fecha de creación:</strong> {{ user()?.fechaCreacionCuenta | date: 'dd/MM/yyyy' }}
+        <!-- <button mat-icon-button (click)="clipboardCopy(user()?.fechaCreacionCuenta)">
+          <mat-icon>content_copy</mat-icon>
+        </button> -->
+      </p>
+      @if(hasLiked()){
+        
+      }
+      
+    </div>
+    <div class="example-button-container">
+      @if(hasLiked()){
+
+      <button mat-fab extended (click)="alternarFollow()">
+        <mat-icon>block</mat-icon>
+        MyBloquear
+        
+        
+       
+      </button>
+    }@else{
+      <button mat-fab extended (click)="alternarFollow()">
+
+      <span style="color: #e91e63; align-items: center;" class="fw-bold">
+        <mat-icon>favorite</mat-icon> MySeguir
+      </span>
+      </button>
+    }
+    </div>
+
+  </mat-card-content>
+</mat-card>

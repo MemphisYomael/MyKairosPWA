@@ -1,0 +1,118 @@
+<mat-card class="unified-card" style="margin-bottom: 20px">
+  <mat-card-content>
+    <div class="header-banner">
+      @switch (contador()) { @case (1) {
+      <h1>MyBiblioteca</h1>
+      } @case (2) {
+      <h1>Quieres ser amigo de:</h1>
+      } @case (3) {
+      <h1>Quieren ser tus amigos:</h1>
+      } @case (4) {
+      <h1>Tus Amigos</h1>
+      } }
+    </div>
+  </mat-card-content>
+</mat-card>
+<div class="search-container">
+  <div [class]="contador() === 1 ? 'd-grid' : ''">
+    @if(contador() === 1){
+
+    <input
+      class="my-2 m-auto"
+      type="text"
+      placeholder="Buscar..."
+      (input)="onSearch(buscador.value)"
+      #buscador
+    />
+    <div class="mb-2 m-auto text-center">
+      Busca un usuario por su userName, Email o PhoneNumber
+    </div>
+    }
+    <div
+      class="d-flex m-auto text-center align-items-center justify-content-center w-100 mb-4"
+    >
+      <mat-chip-listbox aria-label="Fish selection">
+        <mat-chip-option (selectionChange)="alternar(1)"
+          >Buscar</mat-chip-option
+        >
+        <mat-chip-option (selectionChange)="alternar(3)"
+          >Solicitudes</mat-chip-option
+        >
+        <mat-chip-option (selectionChange)="alternar(2)"
+          >Solicitados</mat-chip-option
+        >
+        <mat-chip-option (selectionChange)="alternar(4)" selected
+          >Amigos</mat-chip-option
+        >
+      </mat-chip-listbox>
+    </div>
+
+  @if(!cargando()){
+    @for(user of users(); track user.id) {
+
+    <div (click)="contador() != 4 ? navegar(user) : null">
+      @if(!revisarAmigos(user.id) || contador() === 4 || contador() === 1){
+      <ng-container>
+        <div class="chat-banner">
+          <div class="profile-info">
+            <div class="profile-picture">
+              <!-- En lugar de usar <img> se usa un div con la inicial y estilo dinámico -->
+              <div
+                class="profile-icon"
+                [ngStyle]="{ 'background-color': getColor(user.userName) }"
+              >
+                {{ user.userName.charAt(0) | uppercase }}
+              </div>
+            </div>
+
+            <div class="user-details">
+              <h2 class="username">{{ user.userName }}</h2>
+              @if(contador() != 1){
+              <span
+                class="status"
+                [class.online]="presenceService.onlineUsers().includes(user.id)"
+              >
+                <ng-container
+                  *ngIf="
+                    presenceService.onlineUsers().includes(user.id);
+                    else offline
+                  "
+                >
+                  En línea
+                </ng-container>
+                <ng-template #offline> Offline </ng-template>
+              </span>
+              }@else {
+
+              }
+              <p> {{user.email}} </p>
+            </div>
+          </div>
+          @if(contador() != 4){
+          <div class="last-message">
+            <p>{{ user.phoneNumber }}</p>
+          </div>
+          } @if(contador() === 4){
+
+          <!-- Botón de chat con indicador de mensajes no leídos -->
+          <button mat-flat-button [routerLink]="['/member/',user.userName]"
+                 [matBadge]="getUnreadCount(user.userName)"
+                 [matBadgeHidden]="!hasUnreadMessages(user.userName)"
+                 matBadgeColor="warn"
+                 matBadgePosition="after"
+                 matBadgeSize="small">
+            <mat-icon>chat</mat-icon>
+            Chatear
+            @if(hasUnreadMessages(user.userName)){
+              <mat-icon color="warn">notifications</mat-icon>
+            }
+          </button>
+          }
+        </div>
+      </ng-container>
+      }
+    </div>
+    }
+  }
+  </div>
+</div>

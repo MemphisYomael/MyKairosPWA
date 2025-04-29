@@ -1,0 +1,542 @@
+    /* CONTENEDOR GENERAL DE LA SECCIÓN */
+    .section-wrapper {
+        margin: 20px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        animation: fadeIn 0.6s ease-in-out;
+      }
+      
+      /* CONTENEDOR PARA LAS TARJETAS */
+      .card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1rem;
+      }
+      
+      /* TARJETA UNIFICADA */
+      .unified-card {
+        width: 100%;
+        max-width: 800px;
+        background: linear-gradient(135deg, #ffffff, #f6f9fc);
+        border: 1px solid #e0e0e0;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        padding: 20px;
+      }
+      .unified-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      }
+      
+      /* TEXTO INTRODUCTOR */
+      .intro-text {
+        text-align: center;
+        font-size: 1.15rem;
+        margin-bottom: 1rem;
+        color: #555;
+      }
+      
+      /* GRID DE LINKS */
+      .links-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      
+      /* Cada tarjeta de link */
+      .link-card {
+        flex: 1 1 300px;
+        max-width: 300px;
+      }
+      
+      /* Estilos para la miniatura */
+      .link-thumbnail {
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
+      
+      /* Título y descripción */
+      .link-title {
+        font-size: 1.5rem;
+        text-align: center;
+        margin: 10px 0;
+        color: #333;
+      }
+      .link-description {
+        text-align: center;
+        font-size: 1rem;
+        margin-bottom: 10px;
+        color: #555;
+      }
+      .link-footer {
+        text-align: center;
+      }
+      
+      /* BOTÓN FLOTANTE */
+      .fab-button {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        z-index: 1000;
+      }
+      
+      /* ANIMACIÓN DE APARICIÓN */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      /* MEDIA QUERIES PARA MOVILES */
+      @media (max-width: 768px) {
+        .card-container {
+          padding: 0 10px;
+        }
+        .unified-card {
+          padding: 15px;
+        }
+        .intro-text {
+          font-size: 1rem;
+        }
+        .link-title {
+          font-size: 1.3rem;
+        }
+        .link-description {
+          font-size: 0.9rem;
+        }
+      }
+  
+      
+      /* Contenedor general de la sección */
+.section-wrapper {
+  margin: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Contenedor para la tarjeta unificada */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+/* Tarjeta unificada */
+.unified-card {
+  width: 100%;
+  max-width: 800px;
+  background: linear-gradient(135deg, #ffffff, #f6f9fc);
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  padding: 20px;
+}
+.unified-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Accordion y paneles */
+.unified-accordion {
+  margin-top: 1rem;
+}
+.unified-panel {
+  margin-bottom: 10px;
+}
+.unified-panel-header {
+  padding: 0 16px;
+  background-color: #f6f9fc;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Cabecera del panel */
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0; /* Espacio vertical para respirar */
+}
+.date-text {
+  font-weight: 600;
+  color: #2575fc;
+  margin-right: 12px;
+  min-width: 80px;
+  font-size: 0.9rem; /* Texto más pequeño */
+}
+.title-text {
+  flex: 1;
+  text-align: right;
+  font-size: 0.9rem; /* Texto más pequeño */
+  color: #333;
+}
+
+/* Contenido del panel */
+.panel-content {
+  padding: 0 16px 16px;
+}
+.panel-content h6 {
+  margin: 16px 0 4px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #000;
+}
+.panel-content p {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: #444;
+}
+
+/* Video preview */
+.video-preview iframe {
+  border: none;
+  border-radius: 8px;
+}
+
+/* Detalles y acciones */
+.result-details {
+  display: flex;
+  gap: 15px;
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 8px;
+}
+.detail-item {
+  padding: 6px 10px;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+}
+.result-actions {
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+.result-actions button,
+.result-actions a {
+  margin: 0;
+  border-radius: 8px;
+  font-size: 0.9em;
+  padding: 8px 12px;
+}
+
+/* Estado vacío */
+.empty-state {
+  text-align: center;
+  margin-top: 20px;
+}
+.empty-state p {
+  font-size: 1.1rem;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+/* Área de petición */
+.request-area {
+  margin-top: 20px;
+}
+.minimal-card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+.full-width {
+  width: 100%;
+}
+.minimal-form-field {
+  width: 100%;
+}
+.minimal-textarea {
+  font-size: 1em;
+  resize: none;
+}
+.request-actions {
+  padding: 8px;
+  text-align: right;
+}
+.request-button {
+  border-radius: 8px;
+  font-size: 0.9em;
+  padding: 8px 12px;
+}
+
+/* Botón flotante */
+.fab-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Animación de aparición */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilos responsivos para dispositivos móviles */
+@media (max-width: 600px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .date-text, .title-text {
+    text-align: left;
+    font-size: 0.85rem;
+  }
+  .result-actions {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .result-actions button,
+  .result-actions a {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+.marca-de-agua {
+  position: relative;
+  margin-top: 10px;
+  text-align: right;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+/* CONTENEDOR GENERAL DE LA SECCIÓN */
+.section-wrapper {
+  margin: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* CONTENEDOR PARA LAS TARJETAS */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+/* TARJETA UNIFICADA */
+.unified-card {
+  width: 100%;
+  max-width: 800px;
+  background: linear-gradient(135deg, #ffffff, #f6f9fc);
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  padding: 20px;
+}
+.unified-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Lista de lugares */
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.link-item {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 4px solid #4CAF50; /* Color verde para diferenciar de MyLinks */
+}
+
+.link-item:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.link-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link-text {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 16px;
+}
+
+.link-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos para el modal */
+.modal-content {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #f8f9fa;
+  border-radius: 16px 16px 0 0;
+}
+
+.modal-title {
+  font-size: 22px;
+  color: #333;
+  font-weight: 600;
+}
+
+.section-title {
+  font-size: 18px;
+  color: #444;
+  margin: 16px 0 8px;
+  font-weight: 500;
+}
+
+.link-content {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  padding: 8px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.modal-footer {
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* YouTube embed responsive */
+.embed-responsive {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  margin-bottom: 16px;
+}
+
+.embed-responsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+/* Área de petición */
+.request-area {
+  margin-top: 20px;
+}
+
+.minimal-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.minimal-form-field {
+  width: 100%;
+}
+
+.minimal-textarea {
+  resize: none;
+}
+
+.request-actions {
+  padding: 0 10px 15px;
+}
+
+.request-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.marca-de-agua {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  margin-top: 8px;
+}
+
+.price-info {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 12px 0;
+  color: #2E7D32;
+}
+
+/* Estilos para las chips */
+mat-chip-set {
+  margin-top: 12px;
+}
+
+/* ANIMACIÓN DE APARICIÓN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MEDIA QUERIES PARA MOVILES */
+@media (max-width: 768px) {
+  .card-container {
+    padding: 0 10px;
+  }
+  .unified-card {
+    padding: 15px;
+  }
+  .link-text {
+    font-size: 14px;
+  }
+  .modal-title {
+    font-size: 18px;
+  }
+}

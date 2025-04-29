@@ -1,0 +1,138 @@
+/* .header-card {
+    background: radial-gradient(circle, #000000, #0D47A1);
+    color: white;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  
+    h1 {
+      margin: 0;
+      font-size: 2.3em;
+      font-weight: bold;
+      color: rgb(128, 128, 255);
+    }
+  }
+   */
+
+   .header-banner {
+    background: linear-gradient(135deg, red 0%, #2575fc 100%);
+    padding: 40px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1.5s ease-out;
+  
+    h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .chat-banner {
+    background-color: rgb(250, 237, 211);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #333; /* Un color de texto más suave */
+    width: 95%;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra más sutil */
+    animation: fadeIn 1.5s ease-out;
+  }
+  
+  .profile-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+  }
+  
+  .profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .user-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .username {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 600;
+  }
+  
+  .status {
+    font-size: 0.8rem;
+    color: #28a745; /* Verde para "En línea" */
+  }
+  
+  .status.offline {
+    color: #dc3545; /* Rojo para "Fuera de línea" */
+  }
+  
+  .last-message {
+    flex-grow: 1;
+    text-align: right;
+    font-size: 0.9rem;
+    color: #666;
+    margin-left: 20px;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reload-button {
+    position: fixed;
+    bottom: 120px;
+    right: 30px;
+    z-index: 1000;
+  }
+  
+  /* Estilos para el icono de perfil */
+  .profile-icon {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  

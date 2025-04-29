@@ -1,0 +1,177 @@
+<!-- Contenedor principal para mensajes con scroll -->
+<div class="messages-container" #messagesContainer>
+  @for(message of mensajeService.messageThread(); track message.id; let i = $index) {
+    <!-- Separador de fecha cuando cambia el día -->
+    @if (i === 0 || !sonMismoDia(mensajeService.messageThread()[i-1].messageSent, message.messageSent)) {
+      <div class="fecha-separador">
+        {{ formatearFecha(message.messageSent) }}
+      </div>
+    }
+    
+    <!-- Tarjeta de mensaje -->
+    <div class="message-card" [ngClass]="isMe(message.senderUserName)">
+      <div class="message-header">
+        <span class="sender-name" style="margin-right: 10px;">{{ message.senderUserName }}</span> @if(message.dateRead != null && false){
+            leido
+        }
+        <span class="message-timestamp">
+          {{ message.messageSent + "Z" | date : "shortTime" }}
+        </span>
+        <!-- Botón de menú para opciones de mensaje -->
+        <button
+          mat-mini-fab
+          aria-label="Menu message"
+          style="scale: 0.8"
+          data-bs-toggle="modal"
+          data-bs-target="#messageOptionsModal"
+          (click)="openMessageOptions(message)"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div class="message-content">
+        <!-- Comprobar si es enlace de YouTube y mostrar iframe -->
+        @if (isYoutubeUrl(message.content)) {
+          <div class="video-embed-container">
+            <iframe 
+              [src]="getYoutubeEmbedUrl(getYoutubeVideoId(message.content))" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+        } @else {
+          {{ message.content }}
+        }
+      </div>
+    </div>
+    
+    <!-- Elemento invisible al final para hacer scroll -->
+    @if(i === mensajeService.messageThread().length - 1) {
+      <div #lastMessage></div>
+    }
+  }
+</div>
+
+<!-- Botón flotante para buscar videos de YouTube -->
+<!-- <button mat-fab class="youtube-fab-button" (click)="openYoutubeSearch()">
+  <mat-icon>youtube_searched_for</mat-icon>
+</button> -->
+
+<!-- Componente de búsqueda de YouTube -->
+<app-youtube-search [fromChat]="true"></app-youtube-search>
+
+<!-- Nueva caja de texto fija en la parte inferior -->
+<div class="message-input-container">
+  <input 
+    type="text" 
+    class="message-text-input"
+    placeholder="Escribe tu mensaje..." 
+    #mensajeInput
+  />
+  <button 
+    class="send-button" 
+    (click)="sendMessage(mensajeInput.value); mensajeInput.value = ''"
+  >
+    <mat-icon>send</mat-icon>
+  </button>
+</div>
+
+<!-- Modal para opciones de mensaje (mantener) -->
+<div
+  class="modal fade"
+  id="messageOptionsModal"
+  tabindex="-1"
+  aria-labelledby="messageOptionsModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content custom-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="messageOptionsModalLabel">
+          Opciones del Mensaje
+        </h5>
+        <button
+          type="button"
+          class="btn-close custom-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Se muestran algunos detalles del mensaje seleccionado -->
+        <p><strong>De:</strong> {{ selectedMessage()?.senderUserName }}</p>
+        <p><strong>Contenido:</strong> {{ selectedMessage()?.content }}</p>
+      </div>
+      <div class="modal-footer button-grid">
+        <button
+          mat-raised-button
+          color="warn"
+          style="width: 100%;"
+          (click)="deleteMessage(selectedMessage())"
+          data-bs-dismiss="modal"
+        >
+          <mat-icon>delete</mat-icon> Eliminar Mensaje
+        </button>
+
+        <button
+          mat-raised-button
+          color="accent"
+          style="width: 100%;"
+          (click)="saveToMynotas(selectedMessage())"
+          data-bs-dismiss="modal"
+        >
+          <mat-icon>note_add</mat-icon>Save MyNotas
+        </button>
+
+        <button
+          mat-raised-button
+          color="accent"
+          style="width: 100%;"
+          (click)="saveToMytareas(selectedMessage())"
+          data-bs-dismiss="modal"
+        >
+          <mat-icon>assignment</mat-icon> Save MyTareas
+        </button>
+
+        <button
+          mat-raised-button
+          color="primary"
+          style="width: 100%;"
+          data-bs-dismiss="modal"
+          (click)="translateWithIA(selectedMessage())"
+        >
+          <mat-icon>translate</mat-icon> Traducir con IA
+        </button>
+
+        <button
+          mat-raised-button
+          color="primary"
+           style="width: 100%;"
+           data-bs-dismiss="modal"
+          (click)="processWithIA(selectedMessage())"
+        >
+          <mat-icon>memory</mat-icon> Procesar con IA
+        </button>
+        <!-- <button
+        mat-raised-button
+        color="primary"
+         style="width: 100%;"
+         data-bs-dismiss="modal"
+         [disabled]="!isYoutubeUrl(selectedMessage()!.content)"
+        (click)="analizarVideo(selectedMessage()?.content!)"
+      >
+        <mat-icon>memory</mat-icon> Analizar Video con IA
+      </button> -->
+        <button
+        mat-raised-button
+        color="primary"
+         style="width: 100%;"
+         data-bs-dismiss="modal"
+        >
+        <mat-icon>close</mat-icon>  Cerrar
+      </button>
+      </div>
+    </div>
+  </div>
+</div>

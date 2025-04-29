@@ -1,0 +1,23 @@
+<div #map style="display: flex; width: 100%; height: 100dvh;">
+
+</div>
+<div style="position: absolute; bottom: 80px; right: 20px; z-index: 1000; border-radius: 10px; width: 250px;" class="bg-dark d-grid">
+    <span class="text-light text-center mt-2">Zoom {{zoom() | number: '1.0-0'}}</span>
+    <mat-slider min="1" max="20" step="1">
+        <input matSliderThumb value="5" (input)="zoom.set(+txtZoom.value)" #txtZoom>
+    </mat-slider>   
+</div>
+<div style="position: absolute; top: 80px; left: 20px; z-index: 1000; border-radius: 10px; width: 250px;" class="bg-dark d-grid">
+    <div class="d-flex" style="width: 100%; align-items: center; justify-content: center; margin: auto; margin-top: 3px; margin-bottom: 3px;">
+    <span class="text-light" style="margin-left: 15px;">Coordenadas</span> 
+    <div class="spacer"></div>
+    <mat-slide-toggle style="margin-left: auto; margin-right: 10px;" [checked]="mostrarCoordenadas()" (change)="mostrarCoordenadas.set(mostrarCoordenada.checked)" #mostrarCoordenada></mat-slide-toggle>
+        </div>@if(mostrarCoordenadas()){
+    <pre class="text-light text-">{{
+            {
+                latitude: coordinates().lat | number: '1.4-4',
+                longitude: coordinates().lng | number: '1.4-4',
+            } | json
+        }}</pre>
+    }
+    </div>

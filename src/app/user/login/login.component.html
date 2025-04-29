@@ -1,0 +1,99 @@
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; padding: 1rem;    background: linear-gradient(135deg, red 0%, #2575fc 100%);
+" >
+  @if(cargando()){
+    <mat-spinner style="text-align: center; margin: auto;"></mat-spinner>
+    }
+@if(!cargando()){
+  <mat-card appearance="outlined" style="width: 100%; max-width: 400px; margin: 1rem; height: auto; margin-top: -30px;">
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="MySignUp"> 
+          <form class="example-form centrar" style="justify-content: center; text-align: center; display: grid; width: 100%; margin-bottom: 10px;" (ngSubmit)="onSubmit(2)">
+            <mat-form-field class="example-full-width">
+              <mat-label>Username</mat-label>
+              <input matInput placeholder="Ex. Mateo" [formControl]="usernameFormControl">
+              @if(!usernameFormControl.hasError('required') && usernameFormControl.hasError('pattern')){
+                <mat-error >
+Porfavor no introduzca espacios en blanco
+                </mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                     placeholder="Ex. pat@example.com">
+              <mat-hint>Errors appear instantly!</mat-hint>
+              @if(emailFormControl.hasError('email') && !emailFormControl.hasError('required')){
+              <mat-error >
+                Please enter a valid email address
+              </mat-error>
+            }
+              @if(emailFormControl.hasError('required')){
+              <mat-error>
+                Email is <strong>required</strong>
+              </mat-error>
+            }
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl">
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="togglePasswordVisibility()"
+                [attr.aria-label]="hide ? 'Mostrar password' : 'Ocultar password'"
+                [attr.aria-pressed]="!hide">
+                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <span class="centrar text-danger" style="margin-top: 0px;">            {{errorRegistro()}}
+            </span>
+            <br/>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!emailFormControl.valid || !this.passwordFormControl.valid || !usernameFormControl.valid">Sign Up</button>
+          </form>
+        </mat-tab>
+        <mat-tab label="MyLogin">
+          <form class="example-form centrar" (ngSubmit)="onSubmit(1)" style="justify-content: center; text-align: center; display: grid; width: 100%; margin-bottom: 10px; ">
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <mat-label>Email</mat-label>
+              <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                     placeholder="Ex. pat@example.com">
+              <mat-hint>Errors appear instantly!</mat-hint>
+              @if(emailFormControl.hasError('email') && !emailFormControl.hasError('required')){
+              <mat-error>
+                Please enter a valid email address
+              </mat-error>
+            }
+            @if(emailFormControl.hasError('required')){
+              <mat-error>
+                Email is <strong>required</strong>
+              </mat-error>
+            }
+              
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl">
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="togglePasswordVisibility()"
+                [attr.aria-label]="hide ? 'Mostrar password' : 'Ocultar password'"
+                [attr.aria-pressed]="!hide">
+                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <br/>
+
+            <button mat-raised-button color="primary" type="submit">Login</button>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+}
+</div>

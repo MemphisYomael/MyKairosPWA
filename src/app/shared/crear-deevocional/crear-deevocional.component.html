@@ -1,0 +1,53 @@
+@if(!compartirDevocional){
+<mat-card appearance="outlined">
+    <mat-card-content>
+        <mat-form-field>
+            <mat-label>Pasaje</mat-label>
+            <input matInput #pasaje [value]="devocionalParaEditar.nombre">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Lo que Dios me dijo</mat-label>
+            <input matInput #detalles [value]="devocionalParaEditar.detalles">
+          </mat-form-field>
+            <mat-form-field>
+                <mat-label>Contexto</mat-label>
+                <input matInput #contexto [value]="devocionalParaEditar.lugar">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Fecha</mat-label>
+                <input matInput [matDatepicker]="picker" #fecha [value]="devocionalParaEditar.fecha">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+  <button mat-raised-button (click)="crearDevocional(pasaje.value ,detalles.value, contexto.value, fecha.value)">
+    @if(editar){
+      Editar
+    }@else if(!editar && !compartirDevocional) { 
+    Crear
+    }
+  </button>
+}
+@if(compartirDevocional){
+<mat-card appearance="outlined">
+  <mat-card-content class="text-center"> Escribe Email de la persona con quien quieres compartir tu devocional.<br/> <b>(La persona debió haberse registrado en la aplicacion con dicho Email)</b></mat-card-content>
+</mat-card>
+
+<mat-card appearance="outlined">
+  <mat-card-content class="text-center">
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Comparte tu devocional</mat-label>
+        <input type="email" matInput 
+               placeholder="Ex. pat@example.com"
+                [(ngModel)]="share"
+               >
+      </mat-form-field>
+
+      <button mat-raised-button color="'primary'" (click)="crearDevocional()">Compartir</button>
+
+  </mat-card-content>
+</mat-card>
+}

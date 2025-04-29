@@ -1,0 +1,183 @@
+.custom-toolbar {
+    background-color: #E8F1F8;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+  }
+  
+  .app-logo {
+    text-decoration: none;
+    color: black;
+    margin-left: 8px;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  
+  .toolbar-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .atras-button {
+    /* El margin-left:auto empuja el botón al extremo derecho */
+    margin-left: auto;
+    max-height: 70%;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 15px;
+    border-radius: 30px;
+    width: 90%;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    height: 70px;
+    left: 50%;
+    transform: translateX(-50%); /* Ajusta el centrado */
+  }
+  .nav-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: gray;
+    text-decoration: none;
+    font-size: 12px;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item.active,
+  .nav-item:hover {
+    color: #3f51b5; /* Color primario de Material Design */
+  }
+  
+  .nav-item mat-icon {
+    font-size: 24px;
+  }
+
+
+.icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px; /* Ajusta el tamaño según sea necesario */
+  height: 30px; /* Ajusta el tamaño según sea necesario */
+  border-radius: 8px; /* Ajusta el radio del borde según sea necesario */
+}
+
+.icon-container.activo {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+}
+
+
+
+
+
+
+
+  /* Clases generales para el header */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px; /* Espacio a los lados */
+  height: 60px; /* Altura del header */
+  border-radius: 0px 0px 30px 30px;
+  /* box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12); */
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  /* background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); */
+  color: white;
+  letter-spacing: -0.5px; /* Ajuste fino para mejor apariencia de texto */
+}
+
+.spacer {
+  flex: 1 1 auto; /* Empuja los elementos de navegación a la derecha */
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+}
+
+.header-nav-icon {
+  color: rgba(255, 255, 255, 0.7); /* Color de los iconos con cierta transparencia */
+  margin-left: 15px; /* Espacio entre iconos */
+}
+
+.header-nav-icon:hover {
+  color: rgba(255, 255, 255, 1); /* Color más fuerte al pasar el ratón */
+}
+
+
+/* Clases específicas para colores fríos y contrastes fuertes */
+.cold-bg {
+  background-color: #1e272e; /* Un azul muy oscuro casi negro */
+}
+
+.strong-contrast-text {
+  color: #f8f9fa; /* Blanco muy claro para un contraste fuerte */
+}
+
+/* Opcional: Puedes añadir más clases para refinar aún más los estilos */
+/* Ejemplo: Dar un estilo diferente al título en "hover" */
+.header-title:hover {
+  color: #add8e6; /* Un azul más claro y frío al hacer hover */
+  cursor: pointer; /* Indica que es interactivo (opcional) */
+}
+
+/* Ejemplo:  Reducir un poco el tamaño de los iconos en pantallas más pequeñas */
+@media (max-width: 600px) {
+  .header-nav-icon {
+    transform: scale(0.9); /* Reduce el tamaño al 90% */
+    margin-left: 10px;
+  }
+  .header-title {
+    font-size: 20px; /* Reduce el tamaño del título */
+  }
+}
+
+
+.button-container {
+  position: absolute;
+  cursor: move;
+  user-select: none;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.drag-handle {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px 10px 0 0;
+  padding: 2px 8px;
+  margin-bottom: -5px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+}.drag-handle:active {
+  cursor: grabbing;
+}
+
+.drag-icon {
+  font-size: 20px;
+  color: #555;
+}
+
+.movable-fab {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}

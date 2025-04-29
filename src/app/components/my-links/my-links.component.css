@@ -1,0 +1,191 @@
+/* CONTENEDOR GENERAL DE LA SECCIÓN */
+.section-wrapper {
+  margin: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* CONTENEDOR PARA LAS TARJETAS */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+/* TARJETA UNIFICADA */
+.unified-card {
+  width: 100%;
+  max-width: 800px;
+  background: linear-gradient(135deg, #ffffff, #f6f9fc);
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  padding: 20px;
+}
+.unified-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* TEXTO INTRODUCTOR */
+.intro-text {
+  text-align: center;
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+/* Lista de links (similar a tareas-list) */
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.link-item {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 4px solid #2196f3; /* Color diferente para diferenciar de tareas */
+}
+
+.link-item:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.link-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link-text {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 16px;
+}
+
+.owner-text {
+  font-weight: 600;
+  color: #2196f3;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.link-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* BOTÓN FLOTANTE */
+.fab-button {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Estilos para el modal */
+.modal-content {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #f8f9fa;
+  border-radius: 16px 16px 0 0;
+}
+
+.modal-title {
+  font-size: 22px;
+  color: #333;
+  font-weight: 600;
+}
+
+.section-title {
+  font-size: 18px;
+  color: #444;
+  margin: 16px 0 8px;
+  font-weight: 500;
+}
+
+.link-content {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  padding: 8px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.modal-footer {
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* YouTube embed responsive */
+.embed-responsive {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  margin-bottom: 16px;
+}
+
+.embed-responsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+/* ANIMACIÓN DE APARICIÓN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MEDIA QUERIES PARA MOVILES */
+@media (max-width: 768px) {
+  .card-container {
+    padding: 0 10px;
+  }
+  .unified-card {
+    padding: 15px;
+  }
+  .intro-text {
+    font-size: 1rem;
+  }
+  .link-text {
+    font-size: 14px;
+  }
+  .modal-title {
+    font-size: 18px;
+  }
+}

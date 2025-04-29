@@ -1,0 +1,95 @@
+<!-- Se muestra el progress bar si se está cargando -->
+<ng-container *ngIf="loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+
+<div class="section-wrapper chat-section">
+  <!-- Componente de cabecera adaptado -->
+  <app-header-card title="MyImageToText"></app-header-card>
+  <div class="card-container">
+    <mat-card class="unified-card">
+      <mat-card-content>
+        <main class="chat-history">
+          <ng-container *ngFor="let item of chatHistory">
+            <div class="messages" [ngClass]="{'blue': item.from === 'user', 'green': item.from === 'bot'}">
+              <i class="fa" [ngClass]="{'fa-user-circle': item.from === 'user', 'fa-graduation-cap': item.from === 'bot'}"></i>
+              <!-- Si el mensaje es de tipo archivo, renderiza el elemento adecuado -->
+              <ng-container *ngIf="item.type; else textMessage">
+                <ng-container [ngSwitch]="item.type">
+                  <img *ngSwitchCase="'image'" [src]="item.content" alt="{{item.fileName}}" style="max-width:200px;" />
+                  <video *ngSwitchCase="'video'" controls style="max-width:200px;">
+                    <source [src]="item.content" [type]="getFileMimeType(item.fileName)" />
+                  </video>
+                  <audio *ngSwitchCase="'audio'" controls>
+                    <source [src]="item.content" [type]="getFileMimeType(item.fileName)" />
+                  </audio>
+                </ng-container>
+              </ng-container>
+              <ng-template #textMessage>
+                <span class="responses" [innerHTML]="formatText(item.message)"></span>
+                <button mat-icon-button (click)="copyToClipboard(item.message)" *ngIf="item.from === 'bot'" matTooltip="Copiar al portapapeles">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </ng-template>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="loading">
+            <app-skeleton></app-skeleton>
+          </ng-container>
+        </main>
+        <footer class="chat-input" style="display: grid;">
+          <div class="custom-file-input">
+            <!-- Input file oculto -->
+            <input
+              #fileInput
+              type="file"
+              hidden
+              (change)="onFileSelected($event)"
+              accept="image/*"
+              [disabled]="loading"
+            />
+            <!-- Botón que dispara el input file -->
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="fileInput.click()"
+              [disabled]="loading"
+            >
+             @if(fileSelected()){
+              Seleccionar otra imagen
+             } @else {
+              Seleccionar imagen
+             }
+            </button>
+            <!-- Texto que se muestra cuando hay un archivo seleccionado -->
+          </div>
+          
+          <!-- Se muestra el input de texto y botón de procesar si hay historial -->
+          @if(chatHistory.length > 0){
+            <input
+              type="text"
+              id="message-input"
+              placeholder="Haz una pregunta sobre la informacion extraida..."
+              (keyup.enter)="sendData()"
+              [(ngModel)]="promptUser"
+              [disabled]="loading"
+              autocomplete="off"
+            />
+            <button
+              id="send-button"
+              mat-raised-button
+              color="primary"
+              (click)="sendData()"
+              [disabled]="loading"
+            >
+              Procesar Con IA
+            </button>
+          }
+          
+          <div class="marca-de-agua">powered by Gemini Pro 2.0</div>
+        </footer>
+        
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<!-- my-links.component.html (actualizado) -->
+<div class="section-wrapper links-section">
+  <app-header-card title="MyLinks"></app-header-card>
+
+  <div class="card-container">
+    <mat-card class="unified-card">
+      <mat-card-content>
+        <p class="intro-text">
+          Guarda tus links que quieres consultar más tarde: Ej. YouTube, páginas web...
+        </p>
+        
+        <mat-card-content class="intro-text">
+          <p><mat-slide-toggle (change)="toggleStatusFunction($event.checked)" [checked]="togleStatus()" [disabled]="compartidosConmigo()">
+            {{ togleStatus() ? 'Desde MyProductos' : 'Creados en MyLinks' }}
+          </mat-slide-toggle></p>
+          <p><mat-slide-toggle (change)="toggleStatusShared($event.checked)" [checked]="compartidosConmigo()">compartidosConmigo</mat-slide-toggle></p>
+        </mat-card-content>
+        
+        <!-- Lista simplificada de links -->
+        <div class="links-list">
+          @if(!compartidosConmigo() && togleStatus()){
+            @for(link of links(); track link.id){
+              @if(link.stock === 1606 && !link.share.includes(email)){
+                <div class="link-item" (click)="openLinkModal(link)">
+                  <div class="link-header">
+                    <span class="link-text">{{ link.nombre }}</span>
+                    <div class="link-actions">
+                      <button mat-icon-button (click)="openBottomSheet(link); $event.stopPropagation()">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              }
+            }
+          }
+          @if(!compartidosConmigo() && !togleStatus()){
+            @for(link of links(); track link.id){
+              @if(link.stock != 1606 && !link.share.includes(email)){
+                <div class="link-item" (click)="openLinkModal(link)">
+                  <div class="link-header">
+                    <span class="link-text">{{ link.nombre }}</span>
+                    <div class="link-actions">
+                      <button mat-icon-button (click)="openBottomSheet(link); $event.stopPropagation()">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              }
+            }
+          }
+          @if(compartidosConmigo()){
+            @for(link of links(); track link.id){
+              @if(link.share.includes(email)){
+                <div class="link-item" (click)="openLinkModal(link)">
+                  <div class="link-header">
+                    <span class="link-text">{{ link.nombre }}</span>
+                    <span class="owner-text">{{ link.ownerId }}</span>
+                    <div class="link-actions">
+                      <button mat-icon-button (click)="openBottomSheet(link); $event.stopPropagation()">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              }
+            }
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Botón Flotante para Crear Link -->
+  <button mat-fab color="accent" class="fab-button" (click)="openDialog()">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+  
+  <!-- Componente de búsqueda de YouTube -->
+  <app-youtube-search></app-youtube-search>
+</div>
+
+<!-- Modal para mostrar detalles del link -->
+<div class="modal fade" id="linkModal" tabindex="-1" aria-labelledby="linkModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      @if(selectedLink?.nombre){
+      <div class="modal-header">
+        <h5 class="modal-title" id="linkModalLabel">{{ selectedLink?.nombre }}</h5>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+      </div>
+    }
+
+      <div class="modal-body">
+        @if(selectedLink){
+          @if(selectedLink.linkCompra && selectedLink.linkCompra.includes('youtu')){
+            <div class="embed-responsive">
+              <iframe
+                [src]="getEmbedUrl(selectedLink.linkCompra)"
+                class="embed-responsive-item"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+            </div>
+          }
+          @if(selectedLink.descripcion){
+          <h6 class="section-title">Descripción:</h6>
+          <div class="link-content">
+            {{ selectedLink.descripcion }}
+          </div>
+        }
+        }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="openLink(selectedLink.linkCompra)">Abrir enlace</button>
+      </div>
+    </div>
+  </div>
+</div>

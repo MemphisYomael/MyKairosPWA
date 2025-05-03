@@ -72,7 +72,10 @@ export class LoginComponent {
     Validators.email,
   ]);
   passwordFormControl = new FormControl('', Validators.required);
-  usernameFormControl = new FormControl('', [Validators.pattern(/^\S*$/), Validators.required]);
+  usernameFormControl = new FormControl('', [
+    Validators.pattern(/^\S*$/),
+    Validators.required,
+  ]);
 
   matcher = new MyErrorStateMatcher();
 
@@ -109,14 +112,12 @@ export class LoginComponent {
           if (data != ErrorHandler) {
             this.cargando.set(false);
 
-            this.location.back();
+            this.route.navigate(['/inicio']);
           }
         });
         setTimeout(() => {
           this.cargando.set(false);
-
         }, 2000);
-
       } else {
         console.log('Formulario inválido');
         this.cargando.set(false);
@@ -138,7 +139,7 @@ export class LoginComponent {
           next: (data) => {
             this.cargando.set(false);
 
-            this.location.back();
+            this.route.navigate(['/inicio']);
           },
           error: (error) => {
             // Aquí puedes manejar el error

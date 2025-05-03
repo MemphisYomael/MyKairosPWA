@@ -1,12 +1,7 @@
-<!-- <mat-card class="header-card">
-    <mat-card-content>
-      <h1>{{ title }}</h1>
-    </mat-card-content>
-  </mat-card>
-   -->
-
-
-   <div class="header-banner">
-    <h1>{{ title }}</h1>
+<div class="header-banner">
+  <div class="offline-badge" *ngIf="disponibleSinInternet" matTooltip="Disponible sin internet">
+    <mat-icon class="wifi-icon">wifi_off</mat-icon>
+    <mat-icon class="check-icon">check_circle</mat-icon>
   </div>
-  
+  <h1>{{ title }}</h1>
+</div>

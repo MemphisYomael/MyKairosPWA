@@ -42,8 +42,6 @@ export interface SendMessage {
   ],
   templateUrl: './member-messages.component.html',
   styleUrl: './member-messages.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush // Añadir esta línea
-
 })
 export class MemberMessagesComponent implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked {
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
@@ -69,7 +67,9 @@ export class MemberMessagesComponent implements OnInit, OnDestroy, AfterViewInit
   // YouTube URL regex pattern - mejorado para capturar más formatos
   private youtubeUrlPattern = /^(https?:\/\/)?(www\.|m\.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})(\?.*)?$/;
 
-  constructor(public servicioPuente: ComunicacionEntreComponentesService, private YoutubeService: YoutubeService) {
+  constructor(
+    private messageService: MessageService,
+    public servicioPuente: ComunicacionEntreComponentesService, private YoutubeService: YoutubeService) {
     this.username.set(this.route.snapshot.paramMap.get('id')!);
     // Inicializar el servicio de Google Gemini
     this.googleGeminiService.initialize(this.googleGeminiService.keys);
@@ -381,10 +381,10 @@ getYoutubeEmbedUrl(videoId: string | null): SafeResourceUrl {
   return this.sanitizedUrls.get(videoId)!;
 }
   ngOnDestroy(){
-    this.mensajeriaHubService.stopHubConnection();
     this.servicioPuente.mostrarPersonaChat.set(false);
     this.servicioPuente.personaChat.set('Kairos');
     this.servicioPuente.barraInferior.set(true);
+    this.messageService.stopHubConnection();
   }
 
 }

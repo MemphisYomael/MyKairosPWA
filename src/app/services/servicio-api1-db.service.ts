@@ -203,7 +203,8 @@ export class ServicioApi1DbService {
   deleteLink(linkId: number): Observable<any> {
     return this.http.delete(this.apiUrl + "api/tienda/productos/" + linkId)
   }
-  putLink(link: Ilinks): Observable<any>{
+  putLink(link: any): Observable<any>{
+    console.log(link)
     return this.http.put<any>(this.apiUrl + "api/tienda/productos/" + link.id, link)
   }
 

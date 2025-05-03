@@ -1,0 +1,82 @@
+<div class="youtube-downloader-container">
+    <div class="header">
+      <h1>Descargador de Videos de YouTube</h1>
+      <p>Ingresa la URL del video de YouTube y descárgalo fácilmente</p>
+    </div>
+  
+    <div class="card">
+      <form [formGroup]="downloaderForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="youtubeUrl">URL del video de YouTube:</label>
+          <input 
+            type="text" 
+            id="youtubeUrl" 
+            formControlName="youtubeUrl" 
+            placeholder="https://www.youtube.com/watch?v=..."
+            [ngClass]="{'invalid': downloaderForm.get('youtubeUrl')?.invalid && downloaderForm.get('youtubeUrl')?.touched}"
+          >
+          <div *ngIf="downloaderForm.get('youtubeUrl')?.invalid && downloaderForm.get('youtubeUrl')?.touched" class="error-message">
+            <span *ngIf="downloaderForm.get('youtubeUrl')?.errors?.['required']">La URL es requerida</span>
+            <span *ngIf="downloaderForm.get('youtubeUrl')?.errors?.['pattern']">Ingresa una URL de YouTube válida</span>
+          </div>
+        </div>
+  
+        <!-- Opciones adicionales de descarga -->
+        <div class="form-options">
+          <div class="form-group">
+            <label for="formato">Formato:</label>
+            <select id="formato" formControlName="formato">
+              <option *ngFor="let formato of formatos" [value]="formato.value">
+                {{ formato.label }}
+              </option>
+            </select>
+          </div>
+  
+          <div class="form-group">
+            <label for="calidad">Calidad:</label>
+            <select id="calidad" formControlName="calidad">
+              <option *ngFor="let calidad of calidades" [value]="calidad.value">
+                {{ calidad.label }}
+              </option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="button-group">
+          <button type="submit" [disabled]="downloaderForm.invalid || isLoading" class="primary-button">
+            <span *ngIf="!isLoading">Descargar Video</span>
+            <span *ngIf="isLoading">Procesando...</span>
+          </button>
+          <button type="button" (click)="resetForm()" class="secondary-button">Limpiar</button>
+        </div>
+      </form>
+  
+      <!-- Video info section -->
+      <div *ngIf="videoInfo" class="video-info">
+        <div class="video-thumbnail">
+          <img [src]="videoInfo.thumbnailUrl" alt="Video thumbnail">
+        </div>
+        <div class="video-details">
+          <h2>{{ videoInfo.title }}</h2>
+          <p class="video-channel">{{ videoInfo.author }}</p>
+          <p class="video-duration">Duración: {{ videoInfo.duration }}</p>
+        </div>
+      </div>
+  
+      <!-- Progress bar -->
+      <div *ngIf="isLoading && downloadProgress > 0" class="progress-container">
+        <div class="progress-bar">
+          <div class="progress" [style.width.%]="downloadProgress"></div>
+        </div>
+        <p class="progress-text">{{ downloadProgress }}% completado</p>
+      </div>
+  
+      <!-- Messages -->
+      <div *ngIf="errorMessage" class="message error">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div *ngIf="successMessage" class="message success">
+        <p>{{ successMessage }}</p>
+      </div>
+    </div>
+  </div>

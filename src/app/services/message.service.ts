@@ -132,8 +132,16 @@ export class MessageService {
     return this.http.get(this.baseUrl + 'api/messages/thread/' + userName);
   }
 
-  async enviarMensaje(mensaje: SendMessage) {
-    return this.hubConnection?.invoke('SendMessage', {RecipientUserName: mensaje.RecipientUserName, Content: mensaje.Content});
+  async enviarMensaje(mensaje: SendMessage): Promise<void> {
+    if (!this.hubConnection || this.hubConnection.state !== HubConnectionState.Connected) {
+      console.error('Cannot send message: Connection is not in the Connected state.');
+      return Promise.reject('Connection is not in the Connected state.');
+    }
+
+    return this.hubConnection.invoke('SendMessage', mensaje).catch((error) => {
+      console.error('Error sending message:', error);
+      throw error;
+    });
   }
 
   deleteMessage(id: number) {
@@ -143,4 +151,5 @@ export class MessageService {
   getToken(): string {
     return localStorage.getItem('token')!;
   }
+
 }

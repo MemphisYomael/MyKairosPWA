@@ -46,4 +46,6 @@ export class MensajeriaHubsService {
       this.hubConection.stop().catch(error => console.log(error));
     }
   }
+
+  
 }

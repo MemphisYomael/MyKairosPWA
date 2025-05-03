@@ -1,0 +1,118 @@
+<div class="call-container">
+    <div class="call-panel">
+      <div class="panel-header">
+        <h2>Centro de Llamadas</h2>
+        <div *ngIf="isCallActive" class="call-status active">
+          <span class="status-indicator"></span>
+          Llamada activa - {{formattedDuration}}
+        </div>
+      </div>
+  
+      <div class="panel-content">
+        <!-- Lista de usuarios disponibles -->
+        <div class="users-list" *ngIf="!isCallActive && !callInProgress && !incoming">
+          <h3>Usuarios disponibles ({{users.length}})</h3>
+          <div *ngIf="users.length === 0" class="no-users">
+            <div class="loading-indicator">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <p>Buscando usuarios disponibles...</p>
+          </div>
+          <ul>
+            <li *ngFor="let u of users">
+              <span class="user-name">{{ u }}</span>
+              <button class="call-btn" (click)="startCall(u)">
+                <span class="btn-icon">📞</span> Llamar
+              </button>
+            </li>
+          </ul>
+        </div>
+  
+        <!-- Llamando (estado de espera) -->
+        <div *ngIf="callInProgress && !isCallActive && !incoming" class="call-progress">
+          <div class="calling-animation">
+            <div class="calling-icon">📞</div>
+            <div class="calling-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+          <p class="calling-status">{{ status }}</p>
+          <button class="end-call-btn" (click)="hangup()">
+            <span class="btn-icon">📵</span> Cancelar
+          </button>
+        </div>
+  
+        <!-- Llamada entrante -->
+        <div *ngIf="incoming" class="incoming-call">
+          <div class="call-alert">
+            <div class="calling-animation">
+              <div class="call-icon pulse">📲</div>
+            </div>
+            <h3>Llamada entrante</h3>
+            <p>{{ incoming!.from }} te está llamando</p>
+            <div class="call-actions">
+              <button class="accept-btn" (click)="accept()">
+                <span class="btn-icon">✓</span> Aceptar
+              </button>
+              <button class="reject-btn" (click)="reject()">
+                <span class="btn-icon">✕</span> Rechazar
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Llamada activa -->
+        <div *ngIf="isCallActive" class="active-call">
+          <div class="call-info">
+            <div class="call-avatar">
+              <div class="avatar-icon">👤</div>
+              <div class="audio-indicator" [ngClass]="{'speaking': isCallActive}">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </div>
+            </div>
+            <div class="call-status-message">{{ status }}</div>
+            <div class="call-timer">{{ formattedDuration }}</div>
+          </div>
+  
+          <div class="call-controls">
+            <div class="control-group">
+              <button class="control-btn" [ngClass]="{'active': isMuted}" (click)="toggleMute()">
+                <span class="btn-icon">{{ isMuted ? '🔇' : '🔊' }}</span>
+                {{ isMuted ? 'Activar' : 'Silenciar' }} micrófono
+              </button>
+            </div>
+  
+            <div class="control-group">
+              <label for="volume">Volumen: {{volume}}%</label>
+              <input type="range" id="volume" min="0" max="100" [(ngModel)]="volume" (input)="onVolumeChange()">
+            </div>
+  
+            <div class="control-group">
+              <button class="end-call-btn" (click)="hangup()">
+                <span class="btn-icon">📵</span> Finalizar llamada
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Estado de la llamada (cuando no está activa) -->
+        <div *ngIf="status && !isCallActive && !callInProgress && !incoming" class="call-status-display">
+          <p [ngClass]="{'error': connectionError}">{{ status }}</p>
+          <button *ngIf="connectionError" class="retry-btn" (click)="callSvc.refreshAvailable()">
+            Reintentar
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Elemento de audio para reproducir el stream remoto -->
+    <audio #remoteAudio autoplay></audio>
+  </div>

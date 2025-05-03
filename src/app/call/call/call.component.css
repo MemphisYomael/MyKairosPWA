@@ -1,0 +1,476 @@
+.call-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .call-panel {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+  
+  .panel-header {
+    background-color: #1976d2;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .panel-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .call-status.active {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    background-color: rgba(255,255,255,0.2);
+    padding: 5px 10px;
+    border-radius: 15px;
+  }
+  
+  .status-indicator {
+    width: 10px;
+    height: 10px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: pulse 1.5s infinite;
+  }
+  
+  .panel-content {
+    padding: 20px;
+    min-height: 300px;
+  }
+  
+  /* Lista de usuarios */
+  .users-list h3 {
+    margin-top: 0;
+    color: #555;
+    font-weight: 500;
+  }
+  
+  .no-users {
+    text-align: center;
+    color: #777;
+    padding: 20px 0;
+  }
+  
+  .users-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .users-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .users-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .user-name {
+    font-weight: 500;
+  }
+  
+  .call-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
+  }
+  
+  .call-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .btn-icon {
+    margin-right: 5px;
+  }
+  
+  /* Llamada entrante */
+  .incoming-call {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+  }
+  
+  .call-alert {
+    text-align: center;
+    animation: slideIn 0.3s;
+  }
+  
+  .call-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+  
+  .pulse {
+    animation: pulse 1s infinite;
+  }
+  
+  .call-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .accept-btn,
+  .reject-btn {
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .accept-btn {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .reject-btn {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .accept-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .reject-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Llamada activa */
+  .active-call {
+    animation: fadeIn 0.3s;
+  }
+  
+  .call-info {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .call-avatar {
+    width: 100px;
+    height: 100px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .avatar-icon {
+    font-size: 3rem;
+  }
+  
+  .call-status-message {
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 5px;
+  }
+  
+  .call-timer {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1976d2;
+  }
+  
+  .call-controls {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .control-group {
+    margin-bottom: 15px;
+  }
+  
+  .control-group:last-child {
+    margin-bottom: 0;
+  }
+  
+  .control-btn {
+    background-color: #e0e0e0;
+    color: #555;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    width: 100%;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+  }
+  
+  .control-btn:hover {
+    background-color: #d5d5d5;
+  }
+  
+  .control-btn.active {
+    background-color: #ffeb3b;
+    color: #333;
+  }
+  
+  .end-call-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    width: 100%;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+  }
+  
+  .end-call-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  /* Estado de llamada */
+  .call-status-display {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+  }
+  
+  .error {
+    color: #f44336;
+  }
+  
+  .retry-btn {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  /* Llamada en progreso */
+  .call-progress {
+    text-align: center;
+    padding: 40px 0;
+  }
+  
+  .calling-animation {
+    margin-bottom: 20px;
+  }
+  
+  .calling-icon {
+    font-size: 3rem;
+    animation: bounce 1s infinite;
+  }
+  
+  .calling-dots {
+    margin-top: 20px;
+  }
+  
+  .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #1976d2;
+    border-radius: 50%;
+    margin: 0 5px;
+  }
+  
+  .calling-dots .dot:nth-child(1) {
+    animation: loading 1s infinite 0s;
+  }
+  
+  .calling-dots .dot:nth-child(2) {
+    animation: loading 1s infinite 0.2s;
+  }
+  
+  .calling-dots .dot:nth-child(3) {
+    animation: loading 1s infinite 0.4s;
+  }
+  
+  .calling-status {
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  
+  /* Audio visualizer */
+  .audio-indicator {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: flex-end;
+    height: 15px;
+    width: 60px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 0 5px;
+    justify-content: space-between;
+  }
+  
+  .audio-indicator .bar {
+    width: 4px;
+    background-color: #1976d2;
+    border-radius: 5px;
+  }
+  
+  .audio-indicator.speaking .bar:nth-child(1) {
+    height: 40%;
+    animation: sound 0.5s infinite 0.1s;
+  }
+  
+  .audio-indicator.speaking .bar:nth-child(2) {
+    height: 70%;
+    animation: sound 0.5s infinite 0.2s;
+  }
+  
+  .audio-indicator.speaking .bar:nth-child(3) {
+    height: 100%;
+    animation: sound 0.5s infinite 0.3s;
+  }
+  
+  .audio-indicator.speaking .bar:nth-child(4) {
+    height: 70%;
+    animation: sound 0.5s infinite 0.4s;
+  }
+  
+  .audio-indicator.speaking .bar:nth-child(5) {
+    height: 40%;
+    animation: sound 0.5s infinite 0.5s;
+  }
+  
+  /* Animaciones */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes loading {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes sound {
+    0% {
+      height: 20%;
+    }
+    50% {
+      height: 100%;
+    }
+    100% {
+      height: 20%;
+    }
+  }
+  
+  .loading-indicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .loading-indicator .dot {
+    background-color: #888;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .panel-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .call-status.active {
+      margin-top: 10px;
+    }
+    
+    .call-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .accept-btn, .reject-btn {
+      width: 100%;
+    }
+  }

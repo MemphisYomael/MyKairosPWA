@@ -32,6 +32,8 @@ import { MemberMessagesComponent } from './components/member-messages/member-mes
 import { authGuard } from './guard/auth.guard';
 import { loginGuard } from './guard/login.guard';
 import { PaymentViewComponent } from './payments/payment-view/payment-view.component';
+import { CallComponent } from './call/call/call.component';
+import { YoutubeDownloaderComponent } from './components/youtube-downloader/youtube-downloader.component';
 
 export const appRoutes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
@@ -69,6 +71,10 @@ export const appRoutes: Routes = [
       { path: 'messages', component: MessagesComponent },
       { path: 'member/:id', component: MemberMessagesComponent },
       { path: 'payment', component: PaymentViewComponent },
+      { path: 'call', component: CallComponent },
+      { path: 'youtube', component: YoutubeDownloaderComponent },
+
+
 
       
     ]

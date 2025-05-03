@@ -1,5 +1,5 @@
 export interface Ilinks {
-    id?: number;
+    id?: number | string;
     Nombre: string;
     Descripcion: string;
     Stock: number;
@@ -7,4 +7,6 @@ export interface Ilinks {
     FotoPortada: string;
     Precio: number;
     share?: string[];
+    isOffline?: any | undefined | null;
+    isOfflineEdit?: any | undefined | null;
 }

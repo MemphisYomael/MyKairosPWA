@@ -42,6 +42,7 @@ async crearSermon(sermonTitulo: string, filtro: string) {
       console.error('Error al guardar sermón:', error);
       sermon.temporal = 1606;
       await this.guardarSermonLocalmente(sermon);
+      
     }
   } else {
     await this.guardarSermonLocalmente(sermon);
@@ -70,8 +71,12 @@ async guardarSermonLocalmente(sermon: IsermonResponse) {
     });
     
     console.log('Sermón guardado localmente:', sermon);
+    this.dialogRef.close(); // Puede pasar datos opcionalmente
+
   } catch (error) {
     console.error('Error al guardar sermón localmente:', error);
+    this.dialogRef.close(); // Puede pasar datos opcionalmente
+
   }
 }
 

@@ -46,6 +46,11 @@ declare var bootstrap: any;
   styleUrls: ['./editor-inicio.component.css']
 })
 export class EditorInicioComponent {
+
+  
+
+  // private onlineEventListener!: () => void;
+
   private _bottomSheet = inject(MatBottomSheet);
   private snackBar = inject(MatSnackBar);
 
@@ -86,13 +91,13 @@ export class EditorInicioComponent {
     this.serivcioCompartido.barraInferior.set(false);
     this.getSermonesByStorage();
     this.sincronizarSermones();
-    window.addEventListener('online', () => {
-      this.sincronizarSermones();
-      this.snackBar.open('Conexión recuperada. Sincronizando...', 'Cerrar', { duration: 3000 });
-    });
+    // window.addEventListener('online', () => {
+    //   this.sincronizarSermones();
+    //   this.snackBar.open('Conexión recuperada. Sincronizando...', 'Cerrar', { duration: 3000 });
+    // });
     
     // Añadir listener para cuando se recupere la conexión
- 
+
   }
 
   ngAfterViewInit() {
@@ -124,11 +129,11 @@ export class EditorInicioComponent {
           });
         },
         async (error) => {
-
+          this.getSermonesByStorage();
         }
       );
     } else {
-     
+      this.getSermonesByStorage();
     }
   }
 
@@ -195,7 +200,6 @@ export class EditorInicioComponent {
   }
 
   async sincronizarSermones() {
-   
     try {
       const { value } = await Storage.get({ key: 'sermones' });
       if (!value) return;
@@ -207,10 +211,11 @@ export class EditorInicioComponent {
       console.log(sermonesOffline, sermonesEditados)
       if (sermonesOffline.length === 0 && sermonesEditados.length === 0) return;
 
-      for (const sermon of sermonesEditados){
+      for (let sermon of sermonesEditados){
         try {
           const data = await this.servicio1db.putSermones(sermon).subscribe((data:any) => {
             console.log(data)
+              this.getSermones();
           });
         } catch (error) {
           console.error('Error al actualizar en la nube:', error);
@@ -219,7 +224,7 @@ export class EditorInicioComponent {
       }
 
       // Procesar cada sermón offline
-      for (const sermon of sermonesOffline) {
+      for (let sermon of sermonesOffline) {
         try {
           const oldId = sermon.id;
           sermon.temporal = undefined;
@@ -231,7 +236,8 @@ export class EditorInicioComponent {
             console.log(data)
             console.log('Sermón sincronizado:', Ddata);
             data = Ddata;
-            this.snackBar.open('Actualizado correctamente', 'Cerrar', { duration: 3000 });
+            this.snackBar.open('Sincronizado correctamente', 'Cerrar', { duration: 3000 });
+              this.getSermones();
           });
         } catch (error) {
           console.error('Error al sincronizar sermón:', error);
@@ -241,14 +247,13 @@ export class EditorInicioComponent {
       console.error('Error en la sincronización:', error);
       this.snackBar.open('Error en la sincronización', 'Cerrar', { duration: 3000 });
     } finally {
-      setTimeout(() => {
-            this.getSermones();
-            return;
-      }, 2000);
+      this.getSermones();
     }
   }
 
   ngOnDestroy(){
     this.serivcioCompartido.barraInferior.set(true);
+    // window.removeEventListener('online', this.onlineEventListener);
+
   }
 }

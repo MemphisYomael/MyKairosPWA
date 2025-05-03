@@ -1,10 +1,23 @@
-<!-- my-links.component.html (actualizado) -->
+<!-- my-links.component.html (actualizado con funcionalidad offline) -->
 <div class="section-wrapper links-section">
   <app-header-card title="MyLinks"></app-header-card>
 
   <div class="card-container">
     <mat-card class="unified-card">
       <mat-card-content>
+        <!-- Indicador de estado de conexión -->
+        <div class="connection-status">
+          
+          <!-- Botón de sincronización con contador -->
+          @if(pendingSyncCount() > 0) {
+            <button mat-raised-button color="accent" [disabled]="!isOnline()" (click)="syncOfflineData()" class="sync-button">
+              <mat-icon>sync</mat-icon>
+              <span>Sincronizar</span>
+              <span class="sync-badge">{{ pendingSyncCount() }}</span>
+            </button>
+          }
+        </div>
+
         <p class="intro-text">
           Guarda tus links que quieres consultar más tarde: Ej. YouTube, páginas web...
         </p>
@@ -16,15 +29,26 @@
           <p><mat-slide-toggle (change)="toggleStatusShared($event.checked)" [checked]="compartidosConmigo()">compartidosConmigo</mat-slide-toggle></p>
         </mat-card-content>
         
-        <!-- Lista simplificada de links -->
+        <!-- Lista de links con indicadores de estado offline -->
         <div class="links-list">
           @if(!compartidosConmigo() && togleStatus()){
             @for(link of links(); track link.id){
-              @if(link.stock === 1606 && !link.share.includes(email)){
+              @if(link.stock === 1606 && !link.share?.includes(email)){
                 <div class="link-item" (click)="openLinkModal(link)">
                   <div class="link-header">
                     <span class="link-text">{{ link.nombre }}</span>
+                    @if(link.isOffline || link.isOfflineEdit) {
+                      <span class="offline-indicator" title="Pendiente de sincronización">
+                        <mat-icon>cloud_off</mat-icon>
+                      </span>
+                    }
                     <div class="link-actions">
+                      <!-- <button mat-icon-button (click)="editLink(link); $event.stopPropagation()">
+                        <mat-icon>edit</mat-icon>
+                      </button> -->
+                      <!-- <button mat-icon-button (click)="openShareDialog(link); $event.stopPropagation()">
+                        <mat-icon>share</mat-icon>
+                      </button> -->
                       <button mat-icon-button (click)="openBottomSheet(link); $event.stopPropagation()">
                         <mat-icon>more_vert</mat-icon>
                       </button>
@@ -36,11 +60,22 @@
           }
           @if(!compartidosConmigo() && !togleStatus()){
             @for(link of links(); track link.id){
-              @if(link.stock != 1606 && !link.share.includes(email)){
+              @if(link.stock != 1606 && !link.share?.includes(email)){
                 <div class="link-item" (click)="openLinkModal(link)">
                   <div class="link-header">
                     <span class="link-text">{{ link.nombre }}</span>
+                    @if(link.isOffline || link.isOfflineEdit) {
+                      <span class="offline-indicator" title="Pendiente de sincronización">
+                        <mat-icon>cloud_off</mat-icon>
+                      </span>
+                    }
                     <div class="link-actions">
+                      <!-- <button mat-icon-button (click)="editLink(link); $event.stopPropagation()">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button mat-icon-button (click)="openShareDialog(link); $event.stopPropagation()">
+                        <mat-icon>share</mat-icon>
+                      </button> -->
                       <button mat-icon-button (click)="openBottomSheet(link); $event.stopPropagation()">
                         <mat-icon>more_vert</mat-icon>
                       </button>
@@ -52,11 +87,16 @@
           }
           @if(compartidosConmigo()){
             @for(link of links(); track link.id){
-              @if(link.share.includes(email)){
+              @if(link.share?.includes(email)){
                 <div class="link-item" (click)="openLinkModal(link)">
                   <div class="link-header">
                     <span class="link-text">{{ link.nombre }}</span>
                     <span class="owner-text">{{ link.ownerId }}</span>
+                    @if(link.isOffline || link.isOfflineEdit) {
+                      <span class="offline-indicator" title="Pendiente de sincronización">
+                        <mat-icon>cloud_off</mat-icon>
+                      </span>
+                    }
                     <div class="link-actions">
                       <button mat-icon-button (click)="openBottomSheet(link); $event.stopPropagation()">
                         <mat-icon>more_vert</mat-icon>
@@ -88,6 +128,11 @@
       @if(selectedLink?.nombre){
       <div class="modal-header">
         <h5 class="modal-title" id="linkModalLabel">{{ selectedLink?.nombre }}</h5>
+        @if(selectedLink?.isOffline || selectedLink?.isOfflineEdit) {
+          <span class="offline-badge" title="Pendiente de sincronización">
+            <mat-icon>cloud_off</mat-icon>
+          </span>
+        }
         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
       </div>
     }
@@ -114,7 +159,10 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="openLink(selectedLink.linkCompra)">Abrir enlace</button>
+        @if(selectedLink) {
+          <button type="button" class="btn btn-primary" (click)="openLink(selectedLink.linkCompra)">Abrir enlace</button>
+          <button type="button" class="btn btn-info" (click)="editLink(selectedLink); linkModal.hide()">Editar</button>
+        }
       </div>
     </div>
   </div>

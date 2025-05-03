@@ -1,4 +1,5 @@
-import { Component, signal, inject } from '@angular/core';
+import { ServicioApi1DbService } from './../../services/servicio-api1-db.service';
+import { Component, signal, inject, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from "@angular/common";
@@ -8,7 +9,6 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
-import { ServicioApi1DbService } from '../../services/servicio-api1-db.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Isermon } from '../../interfaces/isermon';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Storage } from '@capacitor/storage';
 import { ComunicacionEntreComponentesService } from '../../services/comunicacion-entre-componentes.service';
+import { IsermonResponse } from '../../interfaces/isermon-response';
 
 @Component({
   selector: 'app-editor-texto',
@@ -27,9 +28,13 @@ import { ComunicacionEntreComponentesService } from '../../services/comunicacion
 export class EditorTextoComponent {
   id = signal<string | null>("0");
   editorContent = "";
+  titulo = "";
   sermonById = signal<any>("");
   isOffline = false;
-
+  @ViewChild('filtro', { static: false }) filtroInput!: ElementRef;
+  obtenerValorFiltro(): string {
+    return this.filtroInput.nativeElement.value;
+  }
   constructor(
     private servicioCompartido: ComunicacionEntreComponentesService,
     @Inject(PLATFORM_ID) private platformId: Object, 
@@ -107,22 +112,35 @@ export class EditorTextoComponent {
   }
 
   async Guardar(filtro: string) {
+
     const sermon: Isermon = {
       id: this.sermonById().id,
       Titulo: this.sermonById().titulo,
       Contenido: this.editorContent,
       contrasena: filtro || null
     };
+    if (this.sermonById().id < 0) {
+      await this.actualizarSermonLocal(sermon);
+      return;
+    }
+
 
     if (navigator.onLine) {
       try {
         const data = await this.apiService1db.putSermones(sermon).subscribe((data) => {
           console.log(data)
+          this.snackbar.open('Guardado correctamente', 'Cerrar', { duration: 3000 });
         });
-        this.snackbar.open('Actualizado correctamente', 'Cerrar', { duration: 3000 });
       } catch (error) {
-        console.error('Error al actualizar sermón:', error);
-        await this.actualizarSermonLocal(sermon);
+        try{
+          await this.crearSermon(sermon).then((data) => {
+            console.log(data);
+            this.snackbar.open('Sincronizado correctamente', 'Cerrar', { duration: 3000 });
+          });
+        }catch{
+          await this.actualizarSermonLocal(sermon);
+        }
+
       }
     } else {
       await this.actualizarSermonLocal(sermon);
@@ -174,7 +192,7 @@ export class EditorTextoComponent {
           });
           
           console.log(sermones);
-          this.snackbar.open('Creado nuevo sermón localmente', 'Cerrar', { duration: 3000 });
+          this.snackbar.open('Creada nueva nota localmente', 'Cerrar', { duration: 3000 });
         }
       }
     } catch (error) {
@@ -188,5 +206,12 @@ export class EditorTextoComponent {
 
   ngOnDestroy(){
     this.servicioCompartido.barraInferior.set(true);
+    this.Guardar(this.obtenerValorFiltro());
   }
+
+
+  async crearSermon(sermon: any) {
+        const data = await this.apiService1db.postSermones(sermon)
+
+}
 }

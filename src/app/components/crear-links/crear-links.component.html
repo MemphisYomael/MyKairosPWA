@@ -1,56 +1,69 @@
 <mat-card appearance="outlined">
-    <mat-card-content>
-
-      @if(!data.compartirLink){
-        <form class="example-form">
-            <mat-form-field class="example-full-width" style="width: 100%;">
-              <mat-label>Link</mat-label>
-              <input matInput placeholder="Ex ...youtube.com" #link>
-            </mat-form-field>
-            <mat-form-field class="example-full-width" style="width: 100%;">
-                <mat-label>Nombre</mat-label>
-                <input matInput placeholder="Ex. Link de video meme 'y me quede aje'" #titulo>
-              </mat-form-field>
-            <mat-form-field class="example-full-width" style="width: 100%;">
-              <mat-label>De que trata (breve)</mat-label>
-              <textarea matInput placeholder="Es de una pagina web util para..." #descripcion></textarea>
-            </mat-form-field>
-            
-          </form>
+  <mat-card-content>
+    @if(!data.compartirLink){
+      <form class="example-form">
+        @if(!data.isEdit){
+          <mat-form-field class="example-full-width" style="width: 100%;">
+            <mat-label>Link</mat-label>
+            <input matInput placeholder="Ex ...youtube.com" #link>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" style="width: 100%;">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Ex. Link de video meme 'y me quede aje'" #titulo>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" style="width: 100%;">
+            <mat-label>De que trata (breve)</mat-label>
+            <textarea matInput placeholder="Es de una pagina web util para..." #descripcion></textarea>
+          </mat-form-field>
+          
           <a mat-fab extended style="width: 100%;" (click)="guardarLink(link.value, titulo.value, descripcion.value)">
             <mat-icon>favorite</mat-icon>
-           Guardar Link
+            Guardar Link
           </a>
         }
+        
+        @if(data.isEdit){
+          <mat-form-field class="example-full-width" style="width: 100%;">
+            <mat-label>Link</mat-label>
+            <input matInput placeholder="Ex ...youtube.com" [(ngModel)]="formData.linkCompra" name="linkCompra">
+          </mat-form-field>
+          <mat-form-field class="example-full-width" style="width: 100%;">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Ex. Link de video meme 'y me quede aje'" [(ngModel)]="formData.Nombre" name="nombre">
+          </mat-form-field>
+          <mat-form-field class="example-full-width" style="width: 100%;">
+            <mat-label>De que trata (breve)</mat-label>
+            <textarea matInput placeholder="Es de una pagina web util para..." [(ngModel)]="formData.Descripcion" name="descripcion"></textarea>
+          </mat-form-field>
           
-        @if(data.compartirLink){
-          <mat-card appearance="outlined">
-            <mat-card-content class="text-center"> Escribe Email de la persona con quien quieres compartir tu link.<br/> <b>(La persona debió haberse registrado en la aplicacion con dicho Email)</b></mat-card-content>
-          </mat-card>
-          
-          <mat-card appearance="outlined">
-            <mat-card-content class="text-center">
-          
-              <mat-form-field class="example-full-width">
-                  <mat-label>Comparte tu Link</mat-label>
-                  <input type="email" matInput 
-                         placeholder="Ex. pat@example.com"
-                          [(ngModel)]="share"
-                         >
-                </mat-form-field>
-          
-                <button mat-raised-button color="'primary'" (click)="compartirLink()">Compartir</button>
-          
-            </mat-card-content>
-          </mat-card>
+          <a mat-fab extended style="width: 100%;" (click)="editarLink()">
+            <mat-icon>edit</mat-icon>
+            Actualizar Link
+          </a>
         }
-         
-
-
-
-       
-    </mat-card-content>
-  </mat-card>
-  
-
-  
+      </form>
+    }
+      
+    @if(data.compartirLink){
+      <mat-card appearance="outlined">
+        <mat-card-content class="text-center"> Escribe Email de la persona con quien quieres compartir tu link.<br/> <b>(La persona debió haberse registrado en la aplicacion con dicho Email)</b></mat-card-content>
+      </mat-card>
+      
+      <mat-card appearance="outlined">
+        <mat-card-content class="text-center">
+      
+          <mat-form-field class="example-full-width">
+            <mat-label>Comparte tu Link</mat-label>
+            <input type="email" matInput 
+                    placeholder="Ex. pat@example.com"
+                    [(ngModel)]="share"
+                    >
+          </mat-form-field>
+      
+          <button mat-raised-button color="'primary'" (click)="compartirLink()">Compartir</button>
+      
+        </mat-card-content>
+      </mat-card>
+    }
+  </mat-card-content>
+</mat-card>

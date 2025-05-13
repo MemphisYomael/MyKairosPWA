@@ -7,6 +7,8 @@ import { provideRouter } from '@angular/router';
 import { appRoutes } from './app/app.routes'; // Importa las rutas desde el archivo
 import { authInterceptor } from './app/services/auth.interceptor';
 import { provideToastr } from 'ngx-toastr';
+import { isDevMode } from '@angular/core';
+import { provideServiceWorker } from '@angular/service-worker';
 
 bootstrapApplication(AppComponent, {
   ...appConfig,
@@ -23,7 +25,10 @@ providers: [
     progressBar: true,
   }),
   provideRouter(appRoutes),
-  provideHttpClient(withInterceptors([authInterceptor]))
+  provideHttpClient(withInterceptors([authInterceptor])), provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          })
 ]
 })
   .catch((err) => console.error(err));

@@ -26,6 +26,7 @@
     "@capacitor/core": "7.2.0",
     "@capacitor/ios": "7.2.0",
     "@capacitor/local-notifications": "7.0.1",
+    "@capacitor/status-bar": "^7.0.1",
     "@capacitor/storage": "^1.2.5",
     "@ckeditor/ckeditor5-angular": "^9.1.0",
     "@ckeditor/ckeditor5-build-classic": "^44.2.1",

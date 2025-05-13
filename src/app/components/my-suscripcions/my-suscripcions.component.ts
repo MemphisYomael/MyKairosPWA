@@ -14,11 +14,12 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AccionesComponent } from '../../shared/acciones/acciones.component';
 import { Storage } from '@capacitor/storage';
 import { ComunicacionEntreComponentesService } from '../../services/comunicacion-entre-componentes.service';
+import { HeaderCardYellowComponent } from "../../shared/header-card-yellow/header-card-yellow.component";
 
 @Component({
   selector: 'app-my-suscripcions',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatTableModule, MatButtonModule, MatDividerModule, MatIconModule, HeaderCardComponent],
+  imports: [CommonModule, MatCardModule, MatTableModule, MatButtonModule, MatDividerModule, MatIconModule, HeaderCardComponent, HeaderCardYellowComponent],
   templateUrl: './my-suscripcions.component.html',
   styleUrls: ['./my-suscripcions.component.css']
 })

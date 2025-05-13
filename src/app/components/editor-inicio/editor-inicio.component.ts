@@ -1,5 +1,4 @@
 import { Component, inject, signal, computed } from '@angular/core';
-import { HeaderCardComponent } from '../../shared/header-card/header-card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AccionesComponent } from '../../shared/acciones/acciones.component';
-import { RouterLink, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
 import { Storage } from '@capacitor/storage';
@@ -20,6 +19,7 @@ import { DatePipe } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { ComunicacionEntreComponentesService } from '../../services/comunicacion-entre-componentes.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HeaderCardGreenComponent } from "../../shared/header-card-green/header-card-green.component";
 
 // Importamos la declaración para Bootstrap
 declare var bootstrap: any;
@@ -37,11 +37,10 @@ declare var bootstrap: any;
     MatListModule,
     MatDividerModule,
     MatChipsModule,
-    HeaderCardComponent,
-    RouterLink,
     DatePipe,
     MatChipsModule,
-  ],
+    HeaderCardGreenComponent
+],
   templateUrl: './editor-inicio.component.html',
   styleUrls: ['./editor-inicio.component.css']
 })

@@ -13,11 +13,12 @@ import { Storage } from '@capacitor/storage';
 import { ServicioApi1DbService } from '../../services/servicio-api1-db.service';
 import { CrearResolucionesComponent } from '../crear-resoluciones/crear-resoluciones.component';
 import { ComunicacionEntreComponentesService } from '../../services/comunicacion-entre-componentes.service';
+import { HeaderCardGreenComponent } from "../../shared/header-card-green/header-card-green.component";
 
 @Component({
   selector: 'app-my-resoluciones',
   standalone: true,
-  imports: [MatListModule, MatDividerModule, MatCardModule, MatIconModule, MatButtonModule, CommonModule, HeaderCardComponent],
+  imports: [MatListModule, MatDividerModule, MatCardModule, MatIconModule, MatButtonModule, CommonModule, HeaderCardComponent, HeaderCardGreenComponent],
   templateUrl: './my-resoluciones.component.html',
   styleUrl: './my-resoluciones.component.css'
 })

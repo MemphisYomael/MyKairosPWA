@@ -19,6 +19,7 @@ import { firstValueFrom } from 'rxjs';
 import { ServicioApi1DbService } from '../../services/servicio-api1-db.service';
 import { Ilinks } from '../../interfaces/ilinks';
 import { v4 as uuid } from 'uuid';
+import { HeaderCardRedComponent } from "../../shared/header-card-red/header-card-red.component";
 
 declare var bootstrap: any;
 
@@ -53,8 +54,9 @@ export interface Gemini {
     MatProgressSpinnerModule,
     MatTabsModule,
     MatChipsModule,
-    HeaderCardComponent
-  ],
+    HeaderCardComponent,
+    HeaderCardRedComponent
+],
   templateUrl: './gemini-app-1.component.html',
   styleUrls: ['./gemini-app-1.component.css']
 })

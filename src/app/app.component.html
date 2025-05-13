@@ -1,6 +1,7 @@
 @if(servicioPuente.barraSuperior()){
 <mat-toolbar
-  class="header-container cold-bg strong-contrast-text bg-light text-dark fixed-top"
+  class="header-container cold-bg strong-contrast-text text-dark fixed-top"
+  style="background-color: white;"
 >
   <button
     mat-icon-button
@@ -45,7 +46,7 @@
       </button>
     </div>
   </a>
-  <a class="nav-item" style="color: white">
+  <!-- <a class="nav-item" style="color: white">
     <div class="icon-container">
       <button
         mat-icon-button
@@ -58,16 +59,43 @@
         <mat-icon>payment </mat-icon>
       </button>
     </div>
-  </a>
-  <div class="header-nav text-black">
-    @if(messageService.unreadMessageCounts().length > 0){
-    <mat-icon
-      matBadge="{{ messageService.unreadMessageCounts()[0].count }}"
-      routerLink="/inicio"
-      >email</mat-icon
-    >
+  </a> -->
 
-    } @if(!servicioPuente.mostrarPersonaChat()){ @if(!userName()){
+  <a class="nav-item" style="color: white">
+    <div class="icon-container">
+      @if(messageService.unreadMessageCounts().length > 0){
+            <button
+              mat-icon-button
+              class="header-nav-icon"
+              aria-label="Perfil de usuario"
+              
+              style="color: black"
+              routerLink="/my-chats"
+              matBadge="{{ messageService.unreadMessageCounts().length }}"
+              matBadgeColor="warn"
+              style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)"
+            >
+              <mat-icon>email</mat-icon>
+            </button>
+    
+        }@else {
+              <button
+                mat-icon-button
+                class="header-nav-icon"
+                aria-label="Perfil de usuario"
+                style="color: black"
+                routerLink="/my-chats"
+                matBadge="{{ 0 }}"
+                matBadgeColor="warn"
+                style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)"
+              >
+                <mat-icon>email</mat-icon>
+              </button>
+        }    
+    </div>
+  </a>
+  <div class="header-nav text-black" style="margin-left: 3px;">
+    @if(!servicioPuente.mostrarPersonaChat()){ @if(!userName()){
     <button
       mat-icon-button
       class="header-nav-icon"
@@ -102,13 +130,19 @@
   </div>
 </mat-toolbar>
 }
+@if(this.servicioPuente.barraSuperior() == true || this.servicioPuente.barraInferior() == true){
 <div
   class="content"
   style="min-height: 100dvh; margin-top: 60px; margin-bottom: 80px"
 >
   <router-outlet></router-outlet>
+  <div style="height: 20px"></div>
+
 </div>
-<div style="height: 20px"></div>
+}@else {
+  <router-outlet></router-outlet>
+
+}
 @if(this.servicioPuente.barraInferior()){
 <mat-toolbar class="bottom-nav bg-light text-dark">
   <div class="nav-container" style="color: white">
@@ -127,6 +161,7 @@
   </div>
 </mat-toolbar>
 }
+@if(servicioPuente.chatBotFloat()){
 <div class="button-container">
   <!-- Elemento visual que indica la posibilidad de arrastrar -->
   <div
@@ -141,3 +176,4 @@
     <mat-icon>{{ "K" }}</mat-icon>
   </button>
 </div>
+}

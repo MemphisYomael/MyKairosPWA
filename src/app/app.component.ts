@@ -1,3 +1,4 @@
+import { StatusBar } from '@capacitor/status-bar';
 import { ServicioApi1DbService } from './services/servicio-api1-db.service';
 import { AfterViewInit, Component, ElementRef, HostListener, inject, Inject, Input, PLATFORM_ID, Renderer2, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,6 +17,7 @@ import { MessageService } from './services/message.service';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CallService } from './call/call.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Capacitor } from '@capacitor/core';
 
 // Exponer LocalNotifications para acceder en la consola
 (window as any).LocalNotifications = LocalNotifications;
@@ -70,8 +72,22 @@ export class AppComponent implements AfterViewInit {
   }
 
   title = 'myAppSt';
+  cambiarColorBarra = async () => {
+  }
 
-  ngOnInit() {
+  async configureStatusBar(){
+    try{
+      await StatusBar.setBackgroundColor({ color: '#6a11cb' });
+      await StatusBar.setOverlaysWebView({overlay: false});
+    }catch(err){
+      console.log("no se pudo configurar el status bar", err);
+    }
+  }
+
+  async ngOnInit() {
+    if(Capacitor.isNativePlatform()){
+      await this.configureStatusBar()
+    }
     (window as any).global = window;
 
     if (isPlatformBrowser(this.platformId)) {

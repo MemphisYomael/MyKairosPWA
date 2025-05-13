@@ -13,12 +13,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { HeaderCardComponent } from '../../shared/header-card/header-card.component';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AccionesComponent } from '../../shared/acciones/acciones.component';
 import { Storage } from '@capacitor/storage';
 import { ComunicacionEntreComponentesService } from '../../services/comunicacion-entre-componentes.service';
+import { HeaderCardGreenComponent } from "../../shared/header-card-green/header-card-green.component";
 
 declare var bootstrap: any; // Para usar Bootstrap modal
 
@@ -35,8 +35,8 @@ declare var bootstrap: any; // Para usar Bootstrap modal
     MatButtonModule,
     CommonModule,
     MatCardModule,
-    HeaderCardComponent
-  ],
+    HeaderCardGreenComponent
+],
   templateUrl: './tareas.component.html',
   styleUrls: ['./tareas.component.css']
 })

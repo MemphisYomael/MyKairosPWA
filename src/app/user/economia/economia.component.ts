@@ -4,6 +4,7 @@ import { MatCard, MatCardModule } from '@angular/material/card';
 import { MatListItem } from '@angular/material/list';
 import { RouterLink } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
+import { StatusBar } from '@capacitor/status-bar';
 
 @Component({
   selector: 'app-economia',
@@ -13,5 +14,30 @@ import { MatTabsModule } from '@angular/material/tabs';
   styleUrl: './economia.component.css'
 })
 export class EconomiaComponent {
+  // async configureStatusBar(){
+  //   try{
+  //     await StatusBar.setBackgroundColor({ color: '#ffff00' });
+  //     await StatusBar.setOverlaysWebView({overlay: false});
+  //   }catch(err){
+  //     console.log("no se pudo configurar el status bar", err);
+  //   }
+  // }
 
+  //   async resetStatusBar(){
+  //   try{
+  //     await StatusBar.setBackgroundColor({ color: '#ffffff' });
+  //     await StatusBar.setOverlaysWebView({overlay: false});
+  //   }catch(err){
+  //     console.log("no se pudo configurar el status bar", err);
+  //   }
+  // }
+
+
+  // ngOnInit(){
+  //   this.configureStatusBar();
+  // }
+
+  // ngOnDestroy(){
+  //   this.resetStatusBar();
+  // }
 }

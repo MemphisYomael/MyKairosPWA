@@ -1,1 +1,131 @@
-<div id="paypal-button-container"></div>
+<div class="payment-container"> <button mat-icon-button class="step-button back-button"
+    *ngIf="currentStep() > 1"
+    (click)="prevStep()"
+    [disabled]="paymentStatus() === 'processing'"
+    aria-label="Volver">
+<mat-icon>arrow_back_ios_new</mat-icon> </button>
+
+<div class="steps-wrapper" [@stepAnimation]="currentStep()">
+
+<section *ngIf="currentStep() === 1" class="step-section plan-selection-section">
+<h2 class="step-title">Elige Tu Plan</h2>
+<p class="step-subtitle">Selecciona cómo quieres experimentar MyKairos.</p>
+<div class="plans-grid" @planCardAnimation>
+  <mat-card appearance="outlined"
+           class="plan-card"
+           [class.selected]="selectedPlanId() === freePlan.id"
+           [class.current]="freePlan.isCurrent">
+    <mat-card-header>
+        <mat-icon mat-card-avatar svgIcon="plan-free" aria-hidden="true"></mat-icon> <mat-card-title>{{ freePlan.name }}</mat-card-title>
+        <mat-card-subtitle *ngIf="freePlan.isCurrent" class="current-badge">Plan Actual</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ freePlan.description }}</p>
+      <ul class="features-list">
+         <li><mat-icon>check_circle_outline</mat-icon> Funcionalidad A</li>
+         <li><mat-icon>check_circle_outline</mat-icon> Funcionalidad B</li>
+         <li><mat-icon>highlight_off</mat-icon> Funcionalidad Premium C</li>
+      </ul>
+    </mat-card-content>
+    <mat-card-actions>
+       <button mat-stroked-button color="primary" (click)="selectPlan(freePlan.id)" [disabled]="freePlan.isCurrent">
+           {{ freePlan.isCurrent ? 'Seleccionado' : 'Elegir Gratuito' }}
+       </button>
+    </mat-card-actions>
+ </mat-card>
+
+  <mat-card appearance="outlined"
+            class="plan-card premium"
+            [class.selected]="selectedPlanId() === premiumPlan.id"
+            [class.current]="premiumPlan.isCurrent">
+     <mat-card-header>
+        <mat-icon mat-card-avatar svgIcon="plan-premium" aria-hidden="true"></mat-icon> <mat-card-title>{{ premiumPlan.name }}</mat-card-title>
+         <mat-card-subtitle *ngIf="premiumPlan.isCurrent" class="current-badge">Plan Actual</mat-card-subtitle>
+         <mat-card-subtitle *ngIf="!premiumPlan.isCurrent">
+             {{ premiumPlan.koinCost }} MyKoins / {{ premiumPlan.durationMonths }} Meses
+         </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ premiumPlan.description }}</p>
+       <ul class="features-list">
+         <li><mat-icon>check_circle</mat-icon> Todas las funciones gratuitas</li>
+         <li><mat-icon>check_circle</mat-icon> Funcionalidad Premium C</li>
+         <li><mat-icon>check_circle</mat-icon> Soporte Prioritario</li>
+      </ul>
+    </mat-card-content>
+    <mat-card-actions>
+       <button mat-raised-button color="accent" (click)="selectPlan(premiumPlan.id)" [disabled]="premiumPlan.isCurrent">
+          <mat-icon>workspace_premium</mat-icon>
+           {{ premiumPlan.isCurrent ? 'Ya eres Premium' : 'Obtener Premium' }}
+       </button>
+    </mat-card-actions>
+ </mat-card>
+</div>
+</section>
+
+<section *ngIf="currentStep() === 2" class="step-section koin-purchase-section">
+<h2 class="step-title">Confirmar Compra</h2>
+<mat-card class="step-card confirmation-card">
+ <mat-card-content>
+    <div class="purchase-summary">
+       <mat-icon class="koin-icon">stars</mat-icon> <h3>¡Desbloquea Premium!</h3>
+       <p>Vas a comprar <strong>{{ premiumPlan.koinCost }} MyKoins</strong> para activar el Plan Premium por <strong>{{ premiumPlan.durationMonths }} meses</strong>.</p>
+       <div class="price-display">
+          <span>Total:</span>
+          <strong class="price">${{ myKoinPrice }}</strong>
+          <span class="currency">USD</span> </div>
+       <p class="provider-info">
+           <mat-icon svgIcon="paypal-logo" aria-label="PayPal"></mat-icon>
+           Pago seguro procesado por PayPal.
+       </p>
+    </div>
+ </mat-card-content>
+ <mat-card-actions style="text-align: end">
+    <button mat-button (click)="prevStep()">Cancelar</button>
+   <button mat-raised-button color="primary" (click)="nextStep()">
+     Proceder al Pago
+     <mat-icon>lock_open</mat-icon>
+   </button>
+ </mat-card-actions>
+</mat-card>
+</section>
+
+<section *ngIf="currentStep() === 3" class="step-section paypal-checkout-section">
+<h2 class="step-title">Realizar Pago Seguro</h2>
+<mat-card class="step-card checkout-card">
+ <mat-card-content>
+    <div class="paypal-wrapper" >
+         <p *ngIf="!payPalButtonRendered() && paymentStatus() === 'idle'">Cargando opciones de pago...</p>
+         <div #paypalContainer id="paypal-button-container-unique">
+             </div>
+    </div>
+
+
+    <div *ngIf="paymentStatus() === 'success'" class="status-container success">
+     <mat-icon class="success-icon">verified</mat-icon>
+     <h3>¡Pago Completado!</h3>
+     <p>Tu compra de <strong>{{ premiumPlan.koinCost }} MyKoins</strong> fue exitosa.</p>
+     <p><strong>¡Bienvenido a MyKairos Premium!</strong> Tu acceso por {{ premiumPlan.durationMonths }} meses está activo.</p>
+      <p *ngIf="paymentDetails()?.id" class="transaction-id">ID de Transacción: {{ paymentDetails().id }}</p>
+      <button mat-flat-button color="primary" class="continue-button" routerLink="/inicio"> Ir a Mi Panel
+         <mat-icon>arrow_forward</mat-icon>
+      </button>
+   </div>
+
+    <div *ngIf="paymentStatus() === 'error'" class="status-container error">
+      <mat-icon class="error-icon">error</mat-icon>
+      <h3>Error en el Pago</h3>
+      <p>{{ paymentError() || 'Ocurrió un error inesperado durante el pago.' }}</p>
+      <button mat-stroked-button color="warn" (click)="tryRenderPayPalButton()" [disabled]="payPalRenderAttempted && !payPalButtonRendered()">
+         <div id="paypal-container-NLJSV57DK76BL"></div>
+
+         <mat-icon>refresh</mat-icon>
+         Reintentar Pago
+      </button>
+   </div>
+
+ </mat-card-content>
+</mat-card>
+</section>
+
+</div> </div> 

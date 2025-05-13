@@ -1,99 +1,173 @@
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh; padding: 1rem;    background: linear-gradient(135deg, red 0%, #2575fc 100%);
-" >
-  @if(cargando()){
-    <mat-spinner style="text-align: center; margin: auto;"></mat-spinner>
-    }
-@if(!cargando()){
-  <mat-card appearance="outlined" style="width: 100%; max-width: 400px; margin: 1rem; height: auto; margin-top: -30px;">
-    <mat-card-content>
-      <mat-tab-group>
-        <mat-tab label="MySignUp"> 
-          <form class="example-form centrar" style="justify-content: center; text-align: center; display: grid; width: 100%; margin-bottom: 10px;" (ngSubmit)="onSubmit(2)">
-            <mat-form-field class="example-full-width">
-              <mat-label>Username</mat-label>
-              <input matInput placeholder="Ex. Mateo" [formControl]="usernameFormControl">
-              @if(!usernameFormControl.hasError('required') && usernameFormControl.hasError('pattern')){
-                <mat-error >
-Porfavor no introduzca espacios en blanco
-                </mat-error>
-              }
-            </mat-form-field>
-            <mat-form-field class="example-full-width">
-              <mat-label>Email</mat-label>
-              <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                     placeholder="Ex. pat@example.com">
-              <mat-hint>Errors appear instantly!</mat-hint>
-              @if(emailFormControl.hasError('email') && !emailFormControl.hasError('required')){
-              <mat-error >
-                Please enter a valid email address
-              </mat-error>
-            }
-              @if(emailFormControl.hasError('required')){
-              <mat-error>
-                Email is <strong>required</strong>
-              </mat-error>
-            }
-            </mat-form-field>
+<div class="onboarding-container">
 
-            <mat-form-field class="example-full-width">
-              <mat-label>Password</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl">
-              <button
-                mat-icon-button
-                matSuffix
-                type="button"
-                (click)="togglePasswordVisibility()"
-                [attr.aria-label]="hide ? 'Mostrar password' : 'Ocultar password'"
-                [attr.aria-pressed]="!hide">
-                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-              </button>
-            </mat-form-field>
-            <span class="centrar text-danger" style="margin-top: 0px;">            {{errorRegistro()}}
-            </span>
-            <br/>
-            <button mat-raised-button color="primary" type="submit" [disabled]="!emailFormControl.valid || !this.passwordFormControl.valid || !usernameFormControl.valid">Sign Up</button>
-          </form>
-        </mat-tab>
-        <mat-tab label="MyLogin">
-          <form class="example-form centrar" (ngSubmit)="onSubmit(1)" style="justify-content: center; text-align: center; display: grid; width: 100%; margin-bottom: 10px; ">
-            <mat-form-field class="example-full-width" style="width: 100%;">
-              <mat-label>Email</mat-label>
-              <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                     placeholder="Ex. pat@example.com">
-              <mat-hint>Errors appear instantly!</mat-hint>
-              @if(emailFormControl.hasError('email') && !emailFormControl.hasError('required')){
-              <mat-error>
-                Please enter a valid email address
-              </mat-error>
-            }
-            @if(emailFormControl.hasError('required')){
-              <mat-error>
-                Email is <strong>required</strong>
-              </mat-error>
-            }
-              
-            </mat-form-field>
+  <div class="steps-wrapper" [@stepAnimation]="currentStep()">
 
-            <mat-form-field class="example-full-width" style="width: 100%;">
-              <mat-label>Password</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl">
-              <button
-                mat-icon-button
-                matSuffix
-                type="button"
-                (click)="togglePasswordVisibility()"
-                [attr.aria-label]="hide ? 'Mostrar password' : 'Ocultar password'"
-                [attr.aria-pressed]="!hide">
-                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-              </button>
-            </mat-form-field>
-            <br/>
+    <section *ngIf="currentStep() === 1" class="step-section welcome-section">
+      <div class="welcome-content">
+        <div class="logo-container">
+          <div class="logo-circle">
+            <img src="https://i.ibb.co/0yTQKDTH/logo.png" alt="MyKairos Logo" class="logo-image">
+            </div>
+          <div class="logo-rays"></div>
+        </div>
 
-            <button mat-raised-button color="primary" type="submit">Login</button>
-          </form>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card-content>
-  </mat-card>
-}
+        <h1 class="welcome-title">Bienvenido a <span class="highlight">MyKairos</span></h1>
+        <p class="welcome-subtitle">Tu tiempo, a tu manera.</p>
+        <p class="welcome-creator">Memphis Yomael | MySoft</p>
+        <div class="welcome-graphic">
+            <mat-icon>bubble_chart</mat-icon>
+        </div>
+
+        <button mat-raised-button color="accent" class="step-button next-button" (click)="nextStep()">
+          Descubre Más
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+    </section>
+
+    <section *ngIf="currentStep() === 2" class="step-section features-section">
+       <button mat-icon-button class="step-button back-button" (click)="prevStep()">
+          <mat-icon>arrow_back</mat-icon>
+       </button>
+
+      <h2 class="features-title">Explora tu Universo MyKairos</h2>
+
+      <div class="features-scroll-container" #featuresScrollContainer>
+         <div *ngFor="let group of groupedFeatures; trackBy: trackByCategory" class="feature-category">
+            <h3 class="category-title">{{ group.category }}</h3>
+            <div class="features-grid" [@featureCardAnimation]>
+               <mat-card appearance="outlined" class="feature-card"
+                         *ngFor="let feature of group.items; trackBy: trackByFeature">
+                 <mat-card-header>
+                   <div mat-card-avatar class="feature-card-icon">
+                      <mat-icon>{{feature.icon}}</mat-icon>
+                   </div>
+                   <mat-card-title>{{feature.title}}</mat-card-title>
+                 </mat-card-header>
+                 <mat-card-content>
+                   <p>{{feature.description}}</p>
+                 </mat-card-content>
+               </mat-card>
+            </div>
+         </div>
+      </div>
+
+      <button mat-raised-button color="primary" class="step-button next-button features-next-btn" (click)="nextStep()">
+        Continuar
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </section>
+
+    <section *ngIf="currentStep() === 3" class="step-section choice-section">
+       <button mat-icon-button class="step-button back-button" (click)="prevStep()">
+          <mat-icon>arrow_back</mat-icon>
+       </button>
+
+       <div class="choice-container">
+          <div class="choice-header">
+             <div class="logo-container small">
+                <div class="logo-circle">
+                    <img src="https://i.ibb.co/v4pDhwp0/logo.png" alt="MyKairos Logo" class="logo-image small">
+                   </div>
+             </div>
+             <h2>MyKairos</h2>
+             <p>¿Cómo quieres continuar?</p>
+          </div>
+
+          <div class="choice-options">
+             <button mat-raised-button color="primary" class="choice-button" (click)="selectAuthAction('login')">
+                <mat-icon>login</mat-icon>
+                Iniciar Sesión
+             </button>
+             <span class="choice-or">o</span>
+             <button mat-stroked-button color="primary" class="choice-button" (click)="selectAuthAction('register')">
+                 <mat-icon>person_add</mat-icon>
+                Crear Cuenta Nueva
+             </button>
+          </div>
+       </div>
+    </section>
+
+     <section *ngIf="currentStep() === 4" class="step-section auth-section">
+        <button mat-icon-button class="step-button back-button" (click)="prevStep()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+
+       <div class="auth-container">
+          <mat-card appearance="outlined" class="auth-card">
+            <mat-card-content>
+              <div class="auth-header">
+                <div class="logo-container small">
+                   <div class="logo-circle">
+                     <img src="https://i.ibb.co/v4pDhwp0/logo.png" alt="MyKairos Logo" class="logo-image small">
+                     </div>
+                </div>
+                <h2>{{ authAction() === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta' }}</h2>
+                <p>{{ authAction() === 'login' ? 'Ingresa tus credenciales' : 'Completa tus datos para registrarte' }}</p>
+              </div>
+
+              <form class="auth-form" (ngSubmit)="onSubmit()">
+
+                <mat-form-field appearance="outline" class="form-field" *ngIf="authAction() === 'register'">
+                  <mat-label>Nombre de Usuario</mat-label>
+                  <input matInput placeholder="Ej. mateo123" [formControl]="usernameFormControl" required>
+                  <mat-icon matPrefix>person</mat-icon>
+                  <mat-error *ngIf="usernameFormControl.hasError('required')">
+                    Nombre de usuario es <strong>requerido</strong>
+                  </mat-error>
+                   <mat-error *ngIf="!usernameFormControl.hasError('required') && usernameFormControl.hasError('pattern')">
+                    No uses espacios en tu usuario
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Email</mat-label>
+                  <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                         placeholder="tu@email.com" required>
+                  <mat-icon matPrefix>email</mat-icon>
+                  <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    Por favor, ingresa un email válido
+                  </mat-error>
+                  <mat-error *ngIf="emailFormControl.hasError('required')">
+                    Email es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Contraseña</mat-label>
+                  <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl" required>
+                  <mat-icon matPrefix>lock</mat-icon>
+                  <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()"
+                          [attr.aria-label]="hide ? 'Mostrar contraseña' : 'Ocultar contraseña'">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                  </button>
+                   <mat-error *ngIf="passwordFormControl.hasError('required')">
+                     Contraseña es <strong>requerida</strong>
+                  </mat-error>
+                  <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+                     Debe tener al menos 8 caracteres
+                  </mat-error>
+                  <mat-error *ngIf="passwordFormControl.hasError('pattern') && !passwordFormControl.hasError('minlength')">
+                      Debe incluir al menos una mayúscula y un carácter especial (!#$%^&*(),.?":|>)
+                  </mat-error>
+                </mat-form-field>
+                <div class="error-message" *ngIf="errorRegistro()">
+                   <mat-icon>error_outline</mat-icon>
+                    <span>{{errorRegistro()}}</span>
+                  </div>
+
+                  <button mat-raised-button color="primary" class="submit-button" type="submit"
+                          [disabled]="cargando() || (authAction() === 'login' ? !emailFormControl.valid || !passwordFormControl.valid : !emailFormControl.valid || !passwordFormControl.valid || !usernameFormControl.valid)">
+                     <span *ngIf="!cargando()">{{ authAction() === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta' }}</span>
+                     <mat-progress-spinner *ngIf="cargando()" mode="indeterminate" diameter="24"></mat-progress-spinner>
+                  </button>
+
+              </form>
+
+              </mat-card-content>
+          </mat-card>
+        </div>
+    </section>
+
+  </div>
 </div>

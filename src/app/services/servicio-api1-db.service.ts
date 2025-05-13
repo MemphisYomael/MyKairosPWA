@@ -88,6 +88,9 @@ export class ServicioApi1DbService {
         if(response.userName){
           localStorage.setItem(this.email, response.email);
         }
+        if(response.userName){
+          localStorage.setItem(this.id, response.id);
+        }
         return response;
       })
     );

@@ -34,6 +34,7 @@ import { loginGuard } from './guard/login.guard';
 import { PaymentViewComponent } from './payments/payment-view/payment-view.component';
 import { CallComponent } from './call/call/call.component';
 import { YoutubeDownloaderComponent } from './components/youtube-downloader/youtube-downloader.component';
+import { WelcomeComponent } from './welcome/welcome/welcome.component';
 
 export const appRoutes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
@@ -52,7 +53,8 @@ export const appRoutes: Routes = [
       { path: 'my-oraciones', component: MyOracionesComponent },
       { path: 'my-resoluciones', component: MyResolucionesComponent },
       { path: 'my-utilidades', component: UtilidadesComponent },
-      { path: '', component: InicioComponent },
+      { path: 'my-chats', component: InicioComponent },
+      { path: '', component: WelcomeComponent },
       { path: 'my-batalla', component: RendicionCuentasComponent },
       { path: 'my-editor-inicio', component: EditorInicioComponent },
       { path: 'gemini', component: GeminiApp1Component },

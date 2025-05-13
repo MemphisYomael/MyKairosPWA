@@ -1,0 +1,590 @@
+/* login.component.css */
+
+/* Global Styles (manteniendo los originales) */
+:host {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Previene scroll en el body */
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5; /* Un fondo base sutil */
+  }
+
+  .onboarding-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Contenedor principal no debe scrollear */
+  }
+
+  /* Wrapper para animaciones entre pasos */
+  .steps-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Estilos comunes para cada sección/paso */
+  .step-section {
+    position: absolute; /* Mantenemos absolute para la animación stepAnimation */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centrado vertical por defecto */
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow: hidden; /* Cada sección oculta su propio overflow por defecto */
+    /* La animación se maneja en el wrapper o con *ngIf */
+  }
+
+  .step-button {
+    position: absolute; /* Posicionar botones de navegación */
+    z-index: 10; /* Asegurar que estén encima */
+  }
+
+  .next-button {
+    bottom: 40px; /* Posición estándar para botón de siguiente */
+    right: 40px; /* O centralo si prefieres */
+    padding: 0.8rem 1.8rem !important; /* Ajustar padding */
+    border-radius: 50px !important; /* Más redondeado */
+    font-size: 1rem !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .next-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  .next-button mat-icon {
+    margin-left: 8px;
+  }
+
+  .back-button {
+    top: 30px;
+    left: 30px;
+    background: rgba(255, 255, 255, 0.2); /* Fondo sutil para visibilidad */
+    color: white; /* O color oscuro dependiendo del fondo de la sección */
+  }
+  /* Ajustar color del back-button según la sección */
+  .features-section .back-button,
+  .choice-section .back-button,
+  .auth-section .back-button {
+      color: #333; /* Color oscuro para fondos claros */
+      background: rgba(0, 0, 0, 0.05);
+  }
+
+
+  /* --- Part 1: Welcome Screen --- */
+  .welcome-section {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); /* Gradiente diferente */
+    color: white;
+    justify-content: center; /* Ya estaba centrado */
+  }
+
+  .welcome-content {
+    max-width: 600px; /* Ancho máximo del contenido */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo-container {
+    position: relative;
+    width: 140px; /* Tamaño ajustado */
+    height: 140px;
+    margin-bottom: 2rem;
+    /* Animación logoMyAnimation definida en TS */
+  }
+
+  .logo-container.small { /* Estilo para logo pequeño en pasos 3 y 4 */
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+  }
+
+ 
+
+  /* CAMBIO: Estilo para 'My' */
+  .logo-my {
+    font-family: 'Poppins', sans-serif; /* Fuente más moderna */
+    font-size: 4.5rem; /* Ajustar tamaño */
+    font-weight: 600; /* Peso de fuente */
+    color: #6a11cb; /* Color principal del gradiente */
+    line-height: 1; /* Ajustar interlineado */
+    margin-top: -5px; /* Ajuste vertical fino */
+  }
+  .logo-my.small { /* Tamaño para logo pequeño */
+      font-size: 2.5rem;
+      margin-top: -3px;
+  }
+
+
+  .logo-rays { /* Mantenemos si gustan */
+    /* ... estilos originales ... */
+    /* Podrías añadir aquí los estilos de .logo-rays si estaban definidos antes */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .logo-rays::before,
+  .logo-rays::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%; /* Más grandes que el círculo */
+    height: 150%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: translate(-50%, -50%);
+    animation: pulse 3s infinite ease-in-out;
+  }
+
+  .logo-rays::after {
+    width: 180%;
+    height: 180%;
+    animation-delay: 0.5s; /* Retraso para la segunda onda */
+  }
+
+
+
+  .welcome-title {
+    font-size: 3rem; /* Ajustado */
+    font-weight: 700; /* Más peso */
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+  }
+
+  .highlight {
+    color: #fdd835; /* Amarillo más vibrante */
+  }
+
+  .welcome-subtitle {
+    font-size: 1.3rem; /* Ajustado */
+    margin-bottom: 2.5rem; /* Espacio ajustado */
+    opacity: 0.9;
+    font-weight: 300;
+  }
+
+  .welcome-graphic {
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      color: rgba(255, 255, 255, 0.5);
+  }
+  .welcome-graphic mat-icon {
+      font-size: 80px;
+      width: 80px;
+      height: 80px;
+      /* Añadir animación sutil aquí si se desea */
+      animation: float 4s ease-in-out infinite;
+  }
+
+  /* --- Part 2: Features Section --- */
+  .features-section {
+    background: #ffffff; /* Fondo blanco limpio */
+    color: #333; /* Texto oscuro */
+    justify-content: flex-start; /* Alinear contenido arriba */
+    padding-top: 80px; /* Espacio para el botón back */
+    position: relative; /* Para el botón next absoluto dentro de esta sección */
+  }
+  .features-section .back-button { color: #555; } /* Ajustar color botón back */
+
+  .features-title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #444;
+  }
+
+  .features-scroll-container {
+    flex: 1; /* Ocupa el espacio restante */
+    width: 100%;
+    max-width: 1100px; /* Ancho máximo para el contenido */
+    overflow-y: auto; /* Habilita scroll vertical */
+    padding: 0 2rem; /* Padding lateral */
+    box-sizing: border-box;
+    scroll-behavior: smooth; /* Scroll suave */
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+    margin-bottom: 80px; /* Espacio para el botón next fijo */
+  }
+  /* Scrollbar personalizada (Webkit) */
+  .features-scroll-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  .features-scroll-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  .features-scroll-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+  .features-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+  }
+
+  .feature-category {
+      margin-bottom: 2.5rem;
+  }
+
+  .category-title {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #6a11cb; /* Color principal */
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #eee;
+  }
+
+  .features-grid {
+    display: grid;
+    /* Grid responsivo */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; /* Espacio entre tarjetas */
+  }
+
+  .feature-card {
+    /* Usaremos MatCard, pero podemos añadir estilos */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e0e0e0 !important; /* Borde sutil */
+    border-radius: 12px !important; /* Bordes más redondeados */
+    overflow: hidden; /* Para el avatar */
+     /* La animación ahora se aplica al contenedor .features-grid */
+  }
+  .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .feature-card mat-card-header {
+      padding-top: 20px;
+  }
+
+  .feature-card .feature-card-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #e8e0ff; /* Fondo suave para icono */
+    color: #6a11cb; /* Icono con color principal */
+    margin-right: 16px; /* Espacio entre icono y título */
+  }
+  .feature-card .feature-card-icon mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+  }
+  .feature-card mat-card-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+  }
+  .feature-card mat-card-content {
+      font-size: 0.9rem;
+      color: #666;
+      padding-top: 0; /* Ajustar padding si es necesario */
+      padding-bottom: 16px;
+  }
+
+  /* Botón 'Continuar' específico para la sección de features */
+  .features-next-btn {
+      position: absolute; /* Fijar abajo */
+      bottom: 40px;
+      left: 50%; /* Centrar horizontalmente */
+      transform: translateX(-50%);
+  }
+
+
+  /* --- Part 3: Login/Register Choice --- */
+  .choice-section {
+      background: #f8f9fa; /* Fondo muy claro */
+      color: #333;
+      justify-content: center;
+  }
+  .choice-section .back-button { color: #555; }
+
+  .choice-container {
+      background: white;
+      padding: 3rem 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      animation: slideInUp 0.6s ease-out; /* Animación de entrada */
+  }
+
+  .choice-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+  }
+  .choice-header h2 {
+      font-size: 1.8rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+  }
+  .choice-header p {
+      font-size: 1rem;
+      color: #777;
+      margin-bottom: 0;
+  }
+
+  .choice-options {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+  }
+  .choice-button {
+      padding: 12px 20px !important;
+      font-size: 1rem !important;
+      border-radius: 8px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem; /* Espacio entre icono y texto */
+  }
+  .choice-button mat-icon {
+      margin-right: 8px; /* O usar gap */
+  }
+
+  .choice-or {
+      color: #aaa;
+      font-weight: 500;
+      margin: 0.5rem 0;
+  }
+
+  /* --- Part 4: Auth Form Section --- */
+  .auth-section {
+    background: #f8f9fa; /* Mismo fondo que elección */
+    color: #333;
+    justify-content: center; /* Centrar tarjeta de autenticación */
+  }
+  .auth-section .back-button { color: #555; }
+
+  .auth-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem; /* Padding para pantallas pequeñas */
+  }
+
+  .auth-card {
+    max-width: 420px; /* Ancho máximo del formulario */
+    width: 100%;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
+    /* Quitar padding si lo maneja mat-card-content */
+  }
+
+  .auth-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 1.5rem; /* Espacio antes del form */
+      padding-top: 1rem; /* Espacio arriba del logo */
+  }
+  .auth-header h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      margin-bottom: 0.3rem;
+  }
+  .auth-header p {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 0;
+  }
+
+
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Espacio entre campos */
+    padding: 0 1rem 1rem 1rem; /* Padding interno del form */
+  }
+
+  .form-field {
+    width: 100%;
+  }
+  /* Quitar el subrayado por defecto y usar outline */
+  :host ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+      height: auto; /* Permitir que el espacio de error aparezca */
+      min-height: 1.3em; /* Espacio mínimo para errores */
+  }
+  :host ::ng-deep .mat-mdc-text-field-wrapper {
+      border-radius: 8px !important;
+  }
+
+  .submit-button {
+      padding: 10px 0 !important; /* Alto del botón */
+      font-size: 1rem !important;
+      border-radius: 8px !important;
+      margin-top: 0.5rem; /* Espacio antes del botón */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px; /* Altura mínima para acomodar spinner */
+  }
+  .submit-button mat-progress-spinner {
+      margin: 0;
+  }
+
+
+  .error-message {
+      color: #f44336; /* Rojo de error */
+      font-size: 0.85rem;
+      padding: 0.5rem 0.8rem;
+      background-color: #ffebee; /* Fondo rojo claro */
+      border-radius: 6px;
+      border: 1px solid #f44336;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: -0.5rem; /* Acercar al campo anterior si hay espacio */
+      margin-bottom: 0.5rem; /* Separar del botón */
+  }
+  .error-message mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+  }
+
+  .forgot-password {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+  }
+  .forgot-password a {
+      color: #6a11cb;
+      text-decoration: none;
+      font-weight: 500;
+  }
+  .forgot-password a:hover {
+      text-decoration: underline;
+  }
+
+
+  /* Loading Overlay General (Si se usa) */
+  .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+
+  /* --- Keyframes para animaciones --- */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideInUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.1); opacity: 0.1; }
+  }
+
+  @keyframes float {
+      0% { transform: translatey(0px); }
+      50% { transform: translatey(-10px); }
+      100% { transform: translatey(0px); }
+  }
+
+  /* --- Responsividad --- */
+  @media (max-width: 768px) {
+    .step-section { padding: 1.5rem; }
+    .welcome-title { font-size: 2.5rem; }
+    .welcome-subtitle { font-size: 1.1rem; margin-bottom: 2rem;}
+    .logo-container { width: 100px; height: 100px; margin-bottom: 1.5rem; }
+    .logo-my { font-size: 3.5rem; }
+    .logo-container.small { width: 60px; height: 60px; }
+    .logo-my.small { font-size: 1.8rem; }
+
+    .features-title { font-size: 1.8rem; margin-bottom: 1.5rem; }
+    .features-scroll-container { padding: 0 1rem; max-width: 100%; margin-bottom: 90px; }
+    .category-title { font-size: 1.3rem; }
+    .features-grid { grid-template-columns: 1fr; /* Una columna en móvil */ gap: 1rem; }
+
+    .choice-container { padding: 2rem 1.5rem; }
+    .choice-header h2 { font-size: 1.5rem; }
+    .choice-header p { font-size: 0.9rem; }
+
+    .auth-card { margin: 1rem 0; } /* Margen vertical en móvil */
+    .auth-header h2 { font-size: 1.4rem; }
+
+    .next-button { bottom: 20px; right: 20px; padding: 0.6rem 1.2rem !important; font-size: 0.9rem !important; }
+    .back-button { top: 15px; left: 15px; }
+    .features-next-btn { bottom: 25px; } /* Ajustar botón en features */
+  }
+
+  @media (max-width: 480px) {
+      .welcome-title { font-size: 2rem; }
+      .welcome-subtitle { font-size: 1rem; }
+      .logo-container { width: 80px; height: 80px;}
+      .logo-my { font-size: 2.8rem; }
+
+      .features-title { font-size: 1.6rem; }
+      .category-title { font-size: 1.2rem; }
+
+      .choice-container { padding: 1.5rem 1rem; }
+      .choice-header h2 { font-size: 1.3rem; }
+
+      .auth-header h2 { font-size: 1.3rem; }
+      .auth-form { padding: 0 0.5rem 1rem 0.5rem; }
+  }
+
+  /* Añade esto en login.component.css */
+
+.logo-image {
+  display: block; /* Evita espacios extra debajo de la imagen */
+  max-width: 90%; /* Asegura que no exceda el ancho del círculo contenedor */
+  max-height: 90%; /* Asegura que no exceda la altura del círculo contenedor */
+  height: auto;   /* Mantiene la proporción de la imagen al escalar el ancho */
+  object-fit: contain; /* Escala la imagen para que quepa completa sin recortar */
+  /* Opcional: si quieres forzar que la imagen sea redonda también (recortará si no es cuadrada) */
+  /* border-radius: 50%; */
+}
+
+.logo-image {
+  display: block;
+  max-width: 100%; /* O un porcentaje como 90% si quieres un pequeño margen */
+  max-height: 100%;/* O un porcentaje como 90% */
+  height: auto;
+  object-fit: cover; /* 'cover' podría llenar mejor el círculo, 'contain' asegura que se vea toda */
+  /* No necesitas border-radius aquí si lo pones en el contenedor */
+}
+
+/* Asegúrate de que el contenedor ya existente recorte el contenido si es necesario */
+.logo-circle {
+  /* ... tus estilos existentes ... */
+  overflow: hidden; /* Añade esto si la imagen aún se desborda */
+  display: flex;      /* Asegúrate que estos ya están para centrar */
+  justify-content: center;
+  align-items: center;  border-radius: 50%; /* Añade esta línea */
+
+}

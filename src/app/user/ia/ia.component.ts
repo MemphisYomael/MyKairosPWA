@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { HeaderCardRedComponent } from "../../shared/header-card-red/header-card-red.component";
+import { StatusBar } from '@capacitor/status-bar';
 
 @Component({
   selector: 'app-ia',
@@ -15,4 +16,29 @@ import { HeaderCardRedComponent } from "../../shared/header-card-red/header-card
 })
 export class IAComponent {
 
+  // async configureStatusBar(){
+  //   try{
+  //     await StatusBar.setBackgroundColor({ color: '#ff0000' });
+  //     await StatusBar.setOverlaysWebView({overlay: false});
+  //   }catch(err){
+  //     console.log("no se pudo configurar el status bar", err);
+  //   }
+  // }
+
+  //   async resetStatusBar(){
+  //   try{
+  //     await StatusBar.setBackgroundColor({ color: '#ffffff' });
+  //     await StatusBar.setOverlaysWebView({overlay: false});
+  //   }catch(err){
+  //     console.log("no se pudo configurar el status bar", err);
+  //   }
+  // }
+
+  // ngOnInit(){
+  //   this.configureStatusBar();
+  // }
+
+  // ngOnDestroy(){
+  //   this.resetStatusBar();
+  // }
 }

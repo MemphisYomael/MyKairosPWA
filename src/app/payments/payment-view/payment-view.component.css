@@ -1,0 +1,396 @@
+
+/* payment-view.component.css */
+
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the top */
+    width: 100%;
+    min-height: 100vh; /* Ensure it takes full viewport height */
+    padding: 3rem 1rem; /* More padding top/bottom */
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    /* Apply gradient like login screen */
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    overflow-y: auto; /* Allow scrolling if content exceeds viewport */
+    }
+    
+    .payment-container {
+    position: relative; /* For back button positioning */
+    width: 100%;
+    max-width: 900px; /* Wider max-width for plan comparison */
+    }
+    
+    /* Back button positioned relative to payment-container */
+    .step-button.back-button {
+    position: absolute;
+    top: -10px; /* Position above the step content */
+    left: -5px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 50%;
+    }
+    .step-button.back-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    }
+    .step-button.back-button:disabled {
+    background: rgba(0, 0, 0, 0.05);
+    color: rgba(255, 255, 255, 0.4);
+    cursor: not-allowed;
+    }
+    
+    .steps-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 500px; /* Ensure space for content and animations */
+    }
+    
+    .step-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    box-sizing: border-box;
+    }
+    
+    .step-title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: white; /* Title color */
+    margin-bottom: 0.5rem;
+    text-align: center;
+    letter-spacing: -0.5px;
+    }
+    
+    .step-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8); /* Subtitle color */
+    margin-bottom: 2rem;
+    text-align: center;
+    max-width: 500px;
+    }
+    
+    /* --- Step 1: Plan Selection --- */
+    .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 1.5rem; /* Space between cards */
+    width: 100%;
+    }
+    
+    .plan-card {
+    border: 2px solid transparent; /* Border for selection highlight */
+    border-radius: 12px !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column; /* Ensure actions are at bottom */
+    }
+    .plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+    }
+    .plan-card.selected {
+    border-color: #fdd835; /* Highlight color (like login) */
+    box-shadow: 0 6px 20px rgba(253, 216, 53, 0.3) !important;
+    }
+    .plan-card.current {
+    /* Style for the plan the user currently HAS */
+    opacity: 0.8;
+    }
+    .plan-card.current.selected {
+    opacity: 1; /* Ensure selected current plan is fully visible */
+    }
+    
+    
+    .plan-card mat-card-header {
+    position: relative; /* For badge positioning */
+    padding-bottom: 0.5rem;
+    }
+    .plan-card .mat-mdc-card-header-text {
+    margin-left: 12px; /* Space from avatar */
+    }
+    .plan-card mat-card-title {
+    font-weight: 500;
+    }
+    .plan-card mat-card-subtitle {
+    color: #666;
+    }
+    .current-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #4caf50;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75em;
+    font-weight: 500;
+    }
+    .plan-card.premium .current-badge {
+    background-color: #6a11cb; /* Different color for premium badge */
+    }
+    
+    .plan-card mat-card-content {
+    flex-grow: 1; /* Make content take available space */
+    color: #444;
+    padding-top: 0.5rem;
+    }
+    .plan-card mat-card-content p {
+    margin-bottom: 1rem;
+    font-size: 0.95em;
+    line-height: 1.5;
+    }
+    .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9em;
+    }
+    .features-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: #555;
+    }
+    .features-list mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #4caf50; /* Green check */
+    }
+    .features-list li mat-icon[color="warn"], /* If using color attribute */
+    .features-list li mat-icon:not([color="primary"]):not([color="accent"]) { /* Target default color */
+    /* Style for unavailable features if needed */
+    }
+    .features-list li mat-icon[svgIcon="plan-premium"]{ /* Targeting the premium features check specifically */
+    color: #6a11cb; /* Use accent color for premium features */
+    }
+    .features-list li mat-icon:contains("highlight_off") { /* Targeting 'off' icon */
+    color: #aaa; /* Grey out unavailable */
+    }
+    
+    
+    .plan-card mat-card-actions {
+    padding: 1rem !important;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: center; /* Center button */
+    }
+    .plan-card mat-card-actions button {
+    width: 80%; /* Make button wider */
+    padding: 8px 0 !important;
+    font-size: 0.95rem !important;
+    }
+    .plan-card.premium mat-card-actions button {
+    /* Style for premium button (using accent color) */
+    }
+    .plan-card mat-card-actions button mat-icon {
+    margin-right: 8px; /* Space icon from text */
+    }
+    
+    /* --- Step 2: Confirmation --- */
+    .confirmation-card {
+    background-color: #ffffff; /* Solid white card */
+    max-width: 500px; /* Narrower card for confirmation */
+    }
+    .purchase-summary {
+    text-align: center;
+    padding: 1rem 0;
+    }
+    .purchase-summary .koin-icon {
+    font-size: 52px;
+    width: 52px;
+    height: 52px;
+    color: #ffab00; /* Brighter gold */
+    margin-bottom: 0.5rem;
+    }
+    .purchase-summary h3 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    }
+    .purchase-summary p {
+    font-size: 1.05em;
+    color: #555;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    }
+    .price-display {
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.5rem;
+    }
+    .price-display span {
+    font-size: 1.1em;
+    color: #666;
+    }
+    .price-display strong.price {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #3f51b5;
+    }
+    .price-display span.currency {
+    font-size: 1em;
+    font-weight: 500;
+    color: #777;
+    }
+    .provider-info {
+    margin-top: 1.5rem;
+    font-size: 0.9em;
+    color: #777;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    }
+    .provider-info mat-icon { /* Style for SVG icon */
+    height: 20px;
+    width: auto;
+    }
+    
+    
+    /* --- Step 3: PayPal Checkout --- */
+    .checkout-card {
+    background-color: #ffffff;
+    max-width: 500px;
+    }
+    .checkout-card mat-card-content {
+    min-height: 250px; /* Ensure minimum height for status/button */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
+    .paypal-wrapper {
+    width: 100%;
+    max-width: 350px; /* Control PayPal button width */
+    margin: 1rem 0;
+    text-align: center; /* Center placeholder text */
+    }
+    .paypal-wrapper.hidden {
+    display: none;
+    }
+    /* Unique ID for the button container */
+    #paypal-button-container-unique {
+    min-height: 50px; /* Reserve space */
+    }
+    
+    
+    .status-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    }
+    .status-container mat-progress-spinner {
+    margin-bottom: 1.5rem;
+    }
+    .status-container mat-icon { /* Base for status icons */
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+    }
+    .status-container h3 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    }
+    .status-container p {
+    color: #555;
+    margin-bottom: 0.6rem;
+    line-height: 1.5;
+    max-width: 400px;
+    }
+    
+    .status-container.processing p {
+    font-size: 1.1em;
+    color: #666;
+    }
+    
+    .status-container.success .success-icon {
+    color: #4caf50;
+    }
+    .status-container.success h3 {
+    color: #2e7d32;
+    }
+    .status-container.success .transaction-id {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 1rem;
+    word-break: break-all;
+    }
+    .status-container.success .continue-button {
+    margin-top: 1.5rem;
+    padding: 10px 24px !important;
+    font-size: 1rem !important;
+    }
+    .status-container.success .continue-button mat-icon {
+    font-size: 20px; width: 20px; height: 20px; margin-bottom: 0; /* Reset icon size */
+    margin-left: 8px;
+    }
+    
+    
+    .status-container.error .error-icon {
+    color: #d32f2f;
+    }
+    .status-container.error h3 {
+    color: #c62828;
+    }
+    .status-container.error p {
+    color: #b71c1c;
+    font-weight: 500;
+    }
+    .status-container.error button {
+    margin-top: 1.5rem;
+    }
+    .status-container.error button mat-icon {
+    font-size: 20px; width: 20px; height: 20px; margin-bottom: 0;
+    margin-right: 8px;
+    }
+    
+    
+    /* --- Responsiveness --- */
+    @media (max-width: 768px) {
+    .plans-grid {
+    grid-template-columns: 1fr; /* Stack cards on smaller screens */
+    gap: 1rem;
+    }
+    .step-title { font-size: 1.8rem; }
+    .step-subtitle { font-size: 1rem; margin-bottom: 1.5rem; }
+    }
+    
+    @media (max-width: 480px) {
+    :host { padding: 2rem 0.5rem; }
+    .payment-container { max-width: 100%; }
+    .step-title { font-size: 1.6rem; }
+    .step-subtitle { font-size: 0.9rem; }
+    .plans-grid { gap: 0.8rem; }
+    .plan-card mat-card-actions button { width: 90%; }
+    .price-display strong.price { font-size: 1.6em; }
+    .step-button.back-button { top: -5px; left: 0px; } /* Adjust back button */
+    
+    .status-container mat-icon { font-size: 50px; width: 50px; height: 50px; }
+    .status-container h3 { font-size: 1.4rem; }
+    .status-container p { font-size: 0.95em; }
+    }
+    

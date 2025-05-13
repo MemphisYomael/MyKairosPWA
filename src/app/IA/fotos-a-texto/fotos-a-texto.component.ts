@@ -9,11 +9,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
+import { HeaderCardRedComponent } from "../../shared/header-card-red/header-card-red.component";
 
 @Component({
   selector: 'app-gemini-chat-bot',
   standalone: true,
-  imports: [MatButtonModule,MatIconModule,SkeletonComponent, FormsModule, CommonModule, HeaderCardComponent, MatCardContent, MatCardModule, MatProgressBarModule],
+  imports: [MatButtonModule, MatIconModule, SkeletonComponent, FormsModule, CommonModule, HeaderCardComponent, MatCardContent, MatCardModule, MatProgressBarModule, HeaderCardRedComponent],
   templateUrl: './fotos-a-texto.component.html',
   styleUrls: ['./fotos-a-texto.component.css']
 })

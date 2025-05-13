@@ -19,6 +19,7 @@ import { IOraciones } from '../../interfaces/ioraciones';
 import { Iitinerarios } from '../../interfaces/I-Itinerarios';
 import { IAcciones } from '../../interfaces/Iacciones';
 import { IResoluciones } from '../../interfaces/iresoluciones';
+import { HeaderCardRedComponent } from "../../shared/header-card-red/header-card-red.component";
 
 interface GeminiResponse {
   endpoint: number;
@@ -38,7 +39,8 @@ interface GeminiResponse {
     MatCardModule,
     HeaderCardComponent,
     MatProgressBarModule,
-  ],
+    HeaderCardRedComponent
+],
   templateUrl: './chatbot.component.html',
   styleUrls: ['./chatbot.component.css'],
 })

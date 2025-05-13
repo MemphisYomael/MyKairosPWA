@@ -10,7 +10,7 @@ export class ComunicacionEntreComponentesService {
   public barraInferior = signal(true);
   public mostrarPersonaChat = signal(false);
   public personaChat = signal('Memphis');
-  
+  public chatBotFloat = signal(true);
   // Añadir señal para almacenar y compartir el sermón actual
   public sermonActual = signal<IsermonResponse | null>(null);
 

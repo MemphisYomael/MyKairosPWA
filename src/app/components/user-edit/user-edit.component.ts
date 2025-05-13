@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HeaderCardComponent } from '../../shared/header-card/header-card.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastrService } from 'ngx-toastr';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-user-edit',
@@ -20,6 +21,7 @@ import { ToastrService } from 'ngx-toastr';
     MatIconModule,
     MatButtonModule,
     HeaderCardComponent,
+    MatInputModule
   ],
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.css'],

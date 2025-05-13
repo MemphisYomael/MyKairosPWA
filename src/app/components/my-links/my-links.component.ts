@@ -14,7 +14,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { HeaderCardComponent } from "../../shared/header-card/header-card.component";
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AccionesComponent } from '../../shared/acciones/acciones.component';
 // Importamos Storage de Capacitor
@@ -26,6 +25,7 @@ import { YoutubeSearchComponent } from "../../shared/youtube-search/youtube-sear
 import { merge } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { OfflineLinksService } from '../../services/MyLinksOffline/OfflineLinks.service';
+import { HeaderCardGreenComponent } from "../../shared/header-card-green/header-card-green.component";
 
 // Declaramos Bootstrap para usar el modal
 declare var bootstrap: any;
@@ -42,10 +42,10 @@ declare var bootstrap: any;
     MatIcon,
     MatButtonModule,
     MatGridListModule,
-    HeaderCardComponent,
     YoutubeSearchComponent,
-    MatBadgeModule
-  ],
+    MatBadgeModule,
+    HeaderCardGreenComponent
+],
   templateUrl: './my-links.component.html',
   styleUrl: './my-links.component.css'
 })
@@ -339,5 +339,10 @@ export class MyLinksComponent {
       console.error("URL no válida:", error);
       return null;
     }
+  }
+
+  ngOnDestroy(){
+    this.servicioCompartido.barraInferior.set(true);
+
   }
 }

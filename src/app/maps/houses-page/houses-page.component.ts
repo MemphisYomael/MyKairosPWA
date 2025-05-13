@@ -23,6 +23,7 @@ import { environment } from '../../../environments/environment';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { HeaderCardRedComponent } from "../../shared/header-card-red/header-card-red.component";
 
 // Declaramos Bootstrap para usar el modal
 declare var bootstrap: any;
@@ -57,8 +58,9 @@ export interface Place {
     MatProgressSpinnerModule,
     MatInputModule,
     MatDialogModule,
-    MatIconModule
-  ],
+    MatIconModule,
+    HeaderCardRedComponent
+],
   templateUrl: './houses-page.component.html',
   styleUrl: './houses-page.component.css',
 })

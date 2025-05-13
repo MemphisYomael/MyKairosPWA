@@ -4,6 +4,7 @@ export const environment = {
   apiUrl : "http://localhost:5046/",
   hubsUrl : "http://localhost:5046/hubs/"
 
+ 
   //  apiUrl : "http://mysoftmy-001-site2.anytempurl.com/",
   // apiUrl : "https://mykairos-001-site1.otempurl.com/",
   // hubsUrl : "https://mykairos-001-site1.otempurl.com/hubs/"

@@ -19,6 +19,7 @@ import { AccionesComponent } from '../../shared/acciones/acciones.component';
 // Importamos Storage de Capacitor
 import { Storage } from '@capacitor/storage';
 import { ComunicacionEntreComponentesService } from '../../services/comunicacion-entre-componentes.service';
+import { HeaderCardYellowComponent } from "../../shared/header-card-yellow/header-card-yellow.component";
 
 @Component({
   selector: 'app-finanzas',
@@ -33,8 +34,9 @@ import { ComunicacionEntreComponentesService } from '../../services/comunicacion
     MatInputModule,
     FormsModule,
     MatButtonModule,
-    HeaderCardComponent
-  ],
+    HeaderCardComponent,
+    HeaderCardYellowComponent
+],
   templateUrl: './finanzas.component.html',
   styleUrls: ['./finanzas.component.css']  // Corregido: styleUrls en lugar de styleUrl
 })

@@ -35,6 +35,7 @@ import { PaymentViewComponent } from './payments/payment-view/payment-view.compo
 import { CallComponent } from './call/call/call.component';
 import { YoutubeDownloaderComponent } from './components/youtube-downloader/youtube-downloader.component';
 import { WelcomeComponent } from './welcome/welcome/welcome.component';
+import { AvisoDeAIntalarAppComponent } from './shared/aviso-de-a-intalar-app/aviso-de-a-intalar-app.component';
 
 export const appRoutes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
@@ -75,6 +76,8 @@ export const appRoutes: Routes = [
       { path: 'payment', component: PaymentViewComponent },
       { path: 'call', component: CallComponent },
       { path: 'youtube', component: YoutubeDownloaderComponent },
+      { path: 'aviso', component: AvisoDeAIntalarAppComponent },
+
 
 
 

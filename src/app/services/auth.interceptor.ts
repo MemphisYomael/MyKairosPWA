@@ -2,16 +2,20 @@ import { HttpRequest, HttpEvent, HttpInterceptorFn, HttpHandlerFn, HttpErrorResp
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { ServicioApi1DbService } from './servicio-api1-db.service';
+import { ComunicacionEntreComponentesService } from './comunicacion-entre-componentes.service';
 
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<any>> => {
   const router = inject(Router);
+  const cargandoPeticion = inject(ComunicacionEntreComponentesService);
   const authService = inject(ServicioApi1DbService);
-  
+  cargandoPeticion.cargandoPeticion.set(true);
+    console.log('Interceptando la solicitud HTTP:', cargandoPeticion.cargandoPeticion());
+
   // Comprobamos si la URL pertenece a la API de YouTube
   if (req.url.includes('youtube')) {
     console.info('Solicitud a YouTube detectada. Se bloquea la adición del header Authorization.');
@@ -46,6 +50,11 @@ export const authInterceptor: HttpInterceptorFn = (
         router.navigate(['/login']); // Redirigir al login
       }
       return throwError(() => error);
+    }),
+    finalize(() => {
+            cargandoPeticion.cargandoPeticion.set(false);
+
+      console.log('Finalizando la solicitud HTTP:', cargandoPeticion.cargandoPeticion());
     })
   );
 };

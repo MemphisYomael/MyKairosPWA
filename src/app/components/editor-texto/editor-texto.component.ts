@@ -48,14 +48,6 @@ export class EditorTextoComponent {
 
   async ngOnInit() {
     this.servicioCompartido.barraInferior.set(false);
-    // Inicializar editor Froala solo en el navegador
-    if(isPlatformBrowser(this.platformId)) {
-      // Import all Froala Editor plugins.
-      // @ts-ignore
-      import('froala-editor/js/plugins.pkgd.min.js');
-      // [Resto de las importaciones...]
-    }
-    
     // Verificar conexión
     this.isOffline = !navigator.onLine;
     

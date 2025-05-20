@@ -389,13 +389,11 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy { // Añ
   ngOnDestroy(){ //
     // Asegúrate de restaurar las barras si el componente se destruye
     // Esto es importante si el usuario navega fuera durante el onboarding
-    if (this.router.url.includes('/login')) { // Solo restaurar si aún estamos en login/onboarding
         this.servicioCompartido.barraSuperior.set(true);
         this.servicioCompartido.barraInferior.set(true);
         this.servicioCompartido.chatBotFloat.set(true);
         // Podríamos necesitar markForCheck aquí si la destrucción y restauración
         // ocurren de forma que Angular no lo detecte automáticamente.
         // this.changeDetectorRef.markForCheck();
-    }
   }
 }

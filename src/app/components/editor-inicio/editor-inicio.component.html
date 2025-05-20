@@ -55,10 +55,11 @@
             <mat-card-content class="item-card-content">
               <mat-list-item class="item-title" (click)="vistaPrevia(data)">
                 {{ data.titulo }}
+                <!-- <div class="item-tags"  *ngIf="data.contrasena"> -->
+                <p color="accent" style="font-size: xx-small;">{{ data.contrasena }}</p>
+              <!-- </div>  -->
               </mat-list-item>
-              <div class="item-tags" *ngIf="data.contrasena">
-                <mat-chip color="accent">{{ data.contrasena }}</mat-chip>
-              </div>
+              
               <button
                 mat-icon-button
                 (click)="openBottomSheet(data)"

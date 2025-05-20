@@ -1,0 +1,64 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.csr.html",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/manifest.json",
+          "/*.css",
+          "/*.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap",
+          "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css",
+          "https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.css",
+          "https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js",
+          "https://www.sandbox.paypal.com/sdk/js?client-id=AVu6dDAITwBRB2HrtSOgjt-IsBWYn1-sBbcXHBb53ZqaS_NOGGYbIRt-O3nkzo9f6vestDRpwBQPt4yL&amp;components=buttons&amp;disable-funding=venmo&amp;currency=USD",
+          "https://apis.google.com/js/api.js",
+          "manifest.webmanifest",
+          "https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js",
+          "https://i.ibb.co/v4pDhwp0/logo.png"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+        ]
+      }
+    }
+  ],
+
+  "dataGroups": [
+    {
+      "name": "mykairos-api",
+
+      "urls": [
+        "https://mykairos-001-site1.otempurl.com/**",
+        "https://mykairos-001-site1.otempurl.com/hubs/**"
+      ],
+
+      "cacheConfig": {
+        "maxAge": "400h",
+
+        "maxSize": 50,
+
+        "timeout": "1s",
+
+        "strategy": "freshness"
+      }
+    }
+  ]
+}

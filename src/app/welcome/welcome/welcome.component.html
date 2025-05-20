@@ -1,15 +1,16 @@
-<div class="welcome-container" [@welcomeAnimation]="animationState()">
+<div class="welcome-container" [@welcomeAnimation]="animationState()" style="width: 100%;">
   <header class="welcome-header">
     <div class="logo-container" [@logoAnimation]>
       <div class="logo-circle">
-         <img src="https://i.ibb.co/0yTQKDTH/logo.png" alt="MyKairos Logo" class="logo-image">
+        <img src="https://i.ibb.co/0yTQKDTH/logo.png" alt="MyKairos Logo" class="logo-image">
       </div>
       <div class="logo-rays"></div>
     </div>
     <h1 class="app-title">Bienvenido a <span class="highlight">MyKairos</span></h1>
     <p class="app-subtitle">Tu tiempo, a tu manera.</p>
-     <p class="developer-info">Desarrollado por: <span class="developer-name">Memphis Yomael | MySoft</span></p>
+    <p class="developer-info">Desarrollado por: <span class="developer-name">Memphis Yomael | MySoft</span></p>
   </header>
+  
 
   <section class="features-section">
     <h2 class="features-title">Descubre lo que puedes hacer:</h2>
@@ -17,19 +18,22 @@
       <div *ngFor="let group of groupedFeatures; trackBy: trackByCategory" class="feature-category">
         <h3 class="category-title">{{ group.category }}</h3>
         <div class="category-items">
-           <mat-chip-listbox aria-label="Funcionalidades">
-             <mat-chip *ngFor="let feature of group.items; trackBy: trackByFeature"
-                       class="feature-chip"
-                       highlighted
-                       (click)="navigateToFeature(feature.route)"
-                       style="cursor: pointer;"
-                       [matTooltip]="feature.description" aria-label="{{feature.title}}"> <mat-icon matChipAvatar>{{feature.icon}}</mat-icon>
-               {{feature.title}}
-             </mat-chip>
-           </mat-chip-listbox>
+          <mat-chip-listbox aria-label="Funcionalidades">
+            <mat-chip *ngFor="let feature of group.items; trackBy: trackByFeature"
+                     class="feature-chip"
+                     highlighted
+                     (click)="navigateToFeature(feature.route)"
+                     style="cursor: pointer;"
+                     [matTooltip]="feature.description" aria-label="{{feature.title}}">
+              <mat-icon matChipAvatar>{{feature.icon}}</mat-icon>
+              {{feature.title}}
+            </mat-chip>
+          </mat-chip-listbox>
         </div>
       </div>
     </div>
+    <!-- Espacio extra al final para evitar que el contenido quede oculto detrás de barras -->
+    <div class="spacer-bottom"></div>
   </section>
 
   <!-- <footer class="welcome-footer">
@@ -38,5 +42,4 @@
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </footer> -->
-
 </div>

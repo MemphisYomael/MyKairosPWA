@@ -1,74 +1,74 @@
 .custom-toolbar {
-    background-color: #E8F1F8;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-  }
-  
-  .app-logo {
-    text-decoration: none;
-    color: black;
-    margin-left: 8px;
-    font-size: 1.2rem;
-    font-weight: 500;
-  }
-  
-  .toolbar-spacer {
-    flex: 1 1 auto;
-  }
-  
-  .atras-button {
-    /* El margin-left:auto empuja el botón al extremo derecho */
-    margin-left: auto;
-    max-height: 70%;
-  }
+  background-color: #E8F1F8;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
 
-  .bottom-nav {
-    position: fixed;
-    bottom: 15px;
-    border-radius: 30px;
-    width: 90%;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    height: 70px;
-    left: 50%;
-    transform: translateX(-50%); /* Ajusta el centrado */
-  }
-  .nav-container {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-  }
-  
-  .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: gray;
-    text-decoration: none;
-    font-size: 12px;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-item.active,
-  .nav-item:hover {
-    color: #3f51b5; /* Color primario de Material Design */
-  }
-  
-  .nav-item mat-icon {
-    font-size: 24px;
-  }
+.app-logo {
+  text-decoration: none;
+  color: black;
+  margin-left: 8px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
 
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.atras-button {
+  margin-left: auto;
+  max-height: 70%;
+}
+
+/* Estilos para la barra inferior en móvil */
+.bottom-nav {
+  position: fixed;
+  bottom: 15px;
+  border-radius: 30px;
+  width: 90%;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  height: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 0.3s ease;
+}
+
+.nav-item.active,
+.nav-item:hover {
+  color: #3f51b5;
+}
+
+.nav-item mat-icon {
+  font-size: 24px;
+}
 
 .icon-container {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px; /* Ajusta el tamaño según sea necesario */
-  height: 30px; /* Ajusta el tamaño según sea necesario */
-  border-radius: 8px; /* Ajusta el radio del borde según sea necesario */
+  width: 56px;
+  height: 30px;
+  border-radius: 8px;
 }
 
 .icon-container.activo {
@@ -76,34 +76,26 @@
   color: white;
 }
 
-
-
-
-
-
-
-  /* Clases generales para el header */
+/* Clases generales para el header */
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px; /* Espacio a los lados */
-  height: 60px; /* Altura del header */
+  padding: 0 20px;
+  height: 60px;
   border-radius: 0px 0px 30px 30px;
-  /* box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12); */
 }
 
 .header-title {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  /* background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); */
   color: white;
-  letter-spacing: -0.5px; /* Ajuste fino para mejor apariencia de texto */
+  letter-spacing: -0.5px;
 }
 
 .spacer {
-  flex: 1 1 auto; /* Empuja los elementos de navegación a la derecha */
+  flex: 1 1 auto;
 }
 
 .header-nav {
@@ -112,42 +104,26 @@
 }
 
 .header-nav-icon {
-  color: rgba(255, 255, 255, 0.7); /* Color de los iconos con cierta transparencia */
-  margin-left: 15px; /* Espacio entre iconos */
+  color: rgba(255, 255, 255, 0.7);
+  margin-left: 15px;
 }
 
 .header-nav-icon:hover {
-  color: rgba(255, 255, 255, 1); /* Color más fuerte al pasar el ratón */
+  color: rgba(255, 255, 255, 1);
 }
 
-
-/* Clases específicas para colores fríos y contrastes fuertes */
 .cold-bg {
-  background-color: #1e272e; /* Un azul muy oscuro casi negro */
+  background-color: #1e272e;
 }
 
 .strong-contrast-text {
-  color: #f8f9fa; /* Blanco muy claro para un contraste fuerte */
+  color: #f8f9fa;
 }
 
-/* Opcional: Puedes añadir más clases para refinar aún más los estilos */
-/* Ejemplo: Dar un estilo diferente al título en "hover" */
 .header-title:hover {
-  color: #add8e6; /* Un azul más claro y frío al hacer hover */
-  cursor: pointer; /* Indica que es interactivo (opcional) */
+  color: #add8e6;
+  cursor: pointer;
 }
-
-/* Ejemplo:  Reducir un poco el tamaño de los iconos en pantallas más pequeñas */
-@media (max-width: 600px) {
-  .header-nav-icon {
-    transform: scale(0.9); /* Reduce el tamaño al 90% */
-    margin-left: 10px;
-  }
-  .header-title {
-    font-size: 20px; /* Reduce el tamaño del título */
-  }
-}
-
 
 .button-container {
   position: absolute;
@@ -169,7 +145,9 @@
   z-index: 1001;
   display: flex;
   justify-content: center;
-}.drag-handle:active {
+}
+
+.drag-handle:active {
   cursor: grabbing;
 }
 
@@ -180,4 +158,125 @@
 
 .movable-fab {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para la versión de escritorio */
+.desktop-layout {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.sidebar {
+  width: 25%;
+  background-color: white;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 900;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px 0;
+}
+
+.sidebar-header {
+  padding: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.sidebar-header h2 {
+  color: #333;
+  margin: 0;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: bold;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: #555;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.sidebar-nav-item:hover {
+  background-color: rgba(106, 17, 203, 0.1);
+  color: #6a11cb;
+}
+
+.sidebar-nav-item mat-icon {
+  margin-right: 15px;
+  color: inherit;
+}
+
+.sidebar-active {
+  background-color: rgba(106, 17, 203, 0.1);
+  color: #6a11cb;
+  border-left: 4px solid #6a11cb;
+  font-weight: 500;
+}
+
+.main-content-desktop {
+  margin-left: 25%;
+  width: 75%;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.content-with-header {
+  padding-top: 60px;
+}
+
+/* Media queries para dispositivos móviles */
+@media (max-width: 600px) {
+  .header-nav-icon {
+    transform: scale(0.9);
+    margin-left: 10px;
+  }
+  
+  .header-title {
+    font-size: 20px;
+  }
+}
+
+
+
+/* Estilo personalizado para el botón de cerrar */
+.toast-close-button {
+  color: #fff !important;         /* Color del icono "×" */
+  font-size: 20px !important;     /* Tamaño del botón */
+  top: 5px !important;
+  right: 10px !important;
+  opacity: 0.8 !important;
+  text-shadow: none !important;
+  transition: transform 0.2s ease;
+}
+
+.toast-close-button:hover {
+  color: #ffd700 !important;      /* Color al pasar el mouse */
+  transform: scale(1.2);
+  opacity: 1 !important;
+}
+
+.custom-dialog-margin .mat-dialog-container {
+  margin-top: 400px; /* Ajusta el valor según sea necesario */
 }

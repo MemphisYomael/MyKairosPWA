@@ -1,6 +1,17 @@
 import { StatusBar } from '@capacitor/status-bar';
 import { ServicioApi1DbService } from './services/servicio-api1-db.service';
-import { AfterViewInit, Component, ElementRef, HostListener, inject, Inject, Input, PLATFORM_ID, Renderer2, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  Inject,
+  Input,
+  PLATFORM_ID,
+  Renderer2,
+  signal,
+} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -8,7 +19,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { LocalNotifications } from '@capacitor/local-notifications';
-import { isPlatformBrowser, Location } from '@angular/common';
+import { CommonModule, isPlatformBrowser, Location } from '@angular/common';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { MatDialog } from '@angular/material/dialog';
 import { ChatbotComponent } from './IA/chatbot/chatbot.component';
@@ -18,6 +29,9 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { CallService } from './call/call.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Capacitor } from '@capacitor/core';
+import { ToastrService } from 'ngx-toastr';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { AvisoDeAIntalarAppComponent } from './shared/aviso-de-a-intalar-app/aviso-de-a-intalar-app.component';
 
 // Exponer LocalNotifications para acceder en la consola
 (window as any).LocalNotifications = LocalNotifications;
@@ -25,12 +39,26 @@ import { Capacitor } from '@capacitor/core';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ MatBadgeModule, RouterLinkActive, FroalaEditorModule, FroalaViewModule, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, RouterOutlet, RouterLink ],
+  imports: [
+    MatProgressSpinner,
+    MatBadgeModule,
+    RouterLinkActive,
+    FroalaEditorModule,
+    FroalaViewModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    RouterOutlet,
+    RouterLink,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements AfterViewInit {
   userName = signal<string | null>(null);
+  isDesktop = false; // Añadido: propiedad para controlar si es desktop o móvil
 
   navItems = [
     { path: '/vida-espiritual', icon: 'favorite', label: 'Vida Espiritual' },
@@ -49,17 +77,48 @@ export class AppComponent implements AfterViewInit {
     private location: Location,
     @Inject(PLATFORM_ID) private platformId: Object,
     public servicio1Db: ServicioApi1DbService,
-    private callService: CallService, // Inyectar CallService
-    private snackBar: MatSnackBar // Inyectar MatSnackBar
+    private callService: CallService,
+    private snackBar: MatSnackBar,
+    private toastr: ToastrService
   ) {
     this.userName.set(this.servicio1Db.username());
 
     // Escuchar llamadas entrantes
-    this.callService.onIncomingCall().subscribe(call => {
+    this.callService.onIncomingCall().subscribe((call) => {
       if (call) {
         this.showIncomingCallNotification(call);
       }
     });
+
+    // Detectar si es un dispositivo de escritorio basado en el ancho de pantalla
+    this.checkScreenSize();
+  }
+
+  // Método para detectar el tamaño de pantalla y decidir si mostrar versión escritorio o móvil
+  checkScreenSize(): void {
+    // Si la plataforma es un navegador, comprobamos el ancho de la pantalla
+    if (isPlatformBrowser(this.platformId)) {
+      this.isDesktop = window.innerWidth >= 992; // Consideramos desktop si el ancho es >= 992px
+    } else {
+      // Si no es un navegador (ej. nativo), asumimos que es móvil
+      this.isDesktop = false;
+    }
+  }
+
+  isPWA(): boolean {
+    const isStandalone = window.matchMedia(
+      '(display-mode: standalone)'
+    ).matches;
+
+    const isIOSStandalone = (window.navigator as any).standalone === true;
+
+    return isStandalone || isIOSStandalone;
+  }
+
+  // Escuchar cambios en el tamaño de la ventana
+  @HostListener('window:resize', ['$event'])
+  onResize(): void {
+    this.checkScreenSize();
   }
 
   ngAfterViewInit() {
@@ -72,21 +131,53 @@ export class AppComponent implements AfterViewInit {
   }
 
   title = 'myAppSt';
-  cambiarColorBarra = async () => {
-  }
+  cambiarColorBarra = async () => {};
 
-  async configureStatusBar(){
-    try{
+  async configureStatusBar() {
+    try {
       await StatusBar.setBackgroundColor({ color: '#6a11cb' });
-      await StatusBar.setOverlaysWebView({overlay: false});
-    }catch(err){
-      console.log("no se pudo configurar el status bar", err);
+      await StatusBar.setOverlaysWebView({ overlay: false });
+    } catch (err) {
+      console.log('no se pudo configurar el status bar', err);
     }
   }
 
+  abrirDialogInstalarApp() {
+    this.dialog.open(AvisoDeAIntalarAppComponent, {
+      width: '90%',
+      height: '450px',
+      panelClass: 'custom-dialog-container', // Añadida clase personalizada
+      disableClose: true,
+    });
+  }
+
   async ngOnInit() {
-    if(Capacitor.isNativePlatform()){
-      await this.configureStatusBar()
+    // Ejemplo de uso:
+    if (this.isPWA()) {
+      //   console.log('La app está corriendo como PWA (instalada).');
+    } else {
+      this.abrirDialogInstalarApp();
+      // this.toastr.info(
+      //   'Esta es una app hibrida que puede ser instalada en tu dispositivo<br>' +
+      //   '✅ USARLA SIN CONEXIÓN A INTERNET!!!<br><br>' +
+      //     '✅ Agregar notas, devocionales, links... y consultar tu informacion TODO SIN INTERNET!<br><br>' +
+
+      //   '📱 En Android: busca la opción "Agregar a inicio"<br>' +
+      //   '🍏 En iOS: usa "Compartir" y luego elige "Instalar"<br>',
+      //   '📦 ¡Instala la APP! (PWA)',
+      //   {
+      //     progressAnimation: 'decreasing',
+      //     closeButton: true,
+      //     enableHtml: true,  // 👉 necesario para que se rendericen los <br>
+      //     progressBar: true,   // opcional: barra de progreso
+      //       timeOut: 15000,
+      //       positionClass: 'toast-top-right',
+      //     });
+
+      //   console.log('La app está corriendo en el navegador.');
+    }
+    if (Capacitor.isNativePlatform()) {
+      await this.configureStatusBar();
     }
     (window as any).global = window;
 
@@ -111,6 +202,9 @@ export class AppComponent implements AfterViewInit {
       // @ts-ignore
       import('froala-editor/js/third_party/embedly.min');
     }
+
+    // Verificamos el tamaño de pantalla al inicio
+    this.checkScreenSize();
   }
 
   @Input() icon = 'add'; // Icono predeterminado, puedes cambiarlo
@@ -120,7 +214,7 @@ export class AppComponent implements AfterViewInit {
   private initialX = 0;
   private initialY = 0;
   private currentX = 20; // Posición inicial X
-  private currentY = -700; // Posición inicial Y
+  private currentY = -400; // Posición inicial Y
 
   onDragStart(event: MouseEvent) {
     this.isDragging = true;
@@ -191,20 +285,24 @@ export class AppComponent implements AfterViewInit {
     });
   }
 
-  private showIncomingCallNotification(call: { callId: string, from: string }) {
-    const snackBarRef = this.snackBar.open(`Llamada entrante de ${call.from}`, 'Responder', {
-      duration: 10000
-    });
+  private showIncomingCallNotification(call: { callId: string; from: string }) {
+    const snackBarRef = this.snackBar.open(
+      `Llamada entrante de ${call.from}`,
+      'Responder',
+      {
+        duration: 10000,
+      }
+    );
 
     snackBarRef.onAction().subscribe(() => {
-      this.callService.acceptCall(call.callId).catch(err => {
+      this.callService.acceptCall(call.callId).catch((err) => {
         console.error('Error al aceptar la llamada:', err);
       });
     });
 
-    snackBarRef.afterDismissed().subscribe(info => {
+    snackBarRef.afterDismissed().subscribe((info) => {
       if (!info.dismissedByAction) {
-        this.callService.rejectCall(call.callId).catch(err => {
+        this.callService.rejectCall(call.callId).catch((err) => {
           console.error('Error al rechazar la llamada:', err);
         });
       }

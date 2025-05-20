@@ -129,6 +129,8 @@ export class WelcomeComponent implements OnInit {
       this.messageService.createMainHubConnection();
       this.presenceService.createHubConnection(this.serviceGlobal.getToken());
     }
+
+    
   }
 
   // Navigation method for features
@@ -145,4 +147,6 @@ export class WelcomeComponent implements OnInit {
   goToLogin(): void {
     this.router.navigate(['/login']);
   }
+
+  
 }

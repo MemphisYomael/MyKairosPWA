@@ -46,20 +46,6 @@
       </button>
     </div>
   </a>
-  <!-- <a class="nav-item" style="color: white">
-    <div class="icon-container">
-      <button
-        mat-icon-button
-        class="header-nav-icon"
-        aria-label="Perfil de usuario"
-        style="color: black"
-        routerLink="/payment"
-        style="background: linear-gradient(135deg, yellow 0%, #2575fc 100%);"
-      >
-        <mat-icon>payment </mat-icon>
-      </button>
-    </div>
-  </a> -->
 
   <a class="nav-item" style="color: white">
     <div class="icon-container">
@@ -125,55 +111,90 @@
       <span class="user-initial">{{ servicioPuente.personaChat() }}</span>
     </button>
     }
-
-    <!-- <p style="margin: auto; color: black; margin-left: 5px;">{{userName()}}</p>  -->
   </div>
 </mat-toolbar>
 }
-@if(this.servicioPuente.barraSuperior() == true || this.servicioPuente.barraInferior() == true){
-<div
-  class="content"
-  style="min-height: 100dvh; margin-top: 60px; margin-bottom: 80px"
->
-  <router-outlet></router-outlet>
-  <div style="height: 20px"></div>
 
-</div>
-}@else {
-  <router-outlet></router-outlet>
-
-}
-@if(this.servicioPuente.barraInferior()){
-<mat-toolbar class="bottom-nav bg-light text-dark">
-  <div class="nav-container" style="color: white">
-    @for(item of navItems; track item){
-    <a [routerLink]="item.path" class="nav-item" style="color: black">
-      <div
-        class="icon-container"
-        routerLinkActive="activo"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <mat-icon>{{ item.icon }}</mat-icon>
+<!-- Layout para dispositivos de escritorio con barra lateral -->
+@if(isDesktop){
+  <div class="desktop-layout" >
+    <!-- Sidebar para escritorio (25%) -->
+    <div class="sidebar" style="padding-top: 80px;">
+      <div class="sidebar-content">
+        <div class="sidebar-header">
+          <h2>MyKairos</h2>
+        </div>
+        <div class="sidebar-nav">
+          @for(item of navItems; track item){
+            <a [routerLink]="item.path" class="sidebar-nav-item" routerLinkActive="sidebar-active">
+              <mat-icon>{{ item.icon }}</mat-icon>
+              <span>{{ item.label }}</span>
+            </a>
+          }
+        </div>
       </div>
-      <span style="color: black">{{ item.label }}</span>
-    </a>
-    }
-  </div>
-</mat-toolbar>
-}
-@if(servicioPuente.chatBotFloat()){
-<div class="button-container">
-  <!-- Elemento visual que indica la posibilidad de arrastrar -->
-  <div
-    class="drag-handle"
-    (mousedown)="onDragStart($event)"
-    (touchstart)="onTouchStart($event)"
-  >
-    <mat-icon class="drag-icon">drag_indicator</mat-icon>
-  </div>
+    </div>
 
-  <button mat-fab class="movable-fab" color="primary" (click)="openKairos()">
-    <mat-icon>{{ "K" }}</mat-icon>
-  </button>
-</div>
+    
+    <!-- Contenido principal (75%) -->
+    <div class="main-content-desktop">
+      @if(this.servicioPuente.barraSuperior() == true){
+        <div class="content-with-header">
+          <router-outlet></router-outlet>
+        </div>
+      }@else {
+        <router-outlet></router-outlet>
+      }
+    </div>
+  </div>
 }
+
+<!-- Layout para dispositivos móviles con barra inferior -->
+@if(!isDesktop){
+  @if(this.servicioPuente.barraSuperior() == true || this.servicioPuente.barraInferior() == true){
+    <div class="content" style="min-height: 100dvh; margin-top: 60px; margin-bottom: 80px">
+      <router-outlet></router-outlet>
+    </div>
+  }@else {
+    <router-outlet></router-outlet>
+  }
+
+  @if(this.servicioPuente.barraInferior()){
+    <mat-toolbar class="bottom-nav bg-light text-dark">
+      <div class="nav-container" style="color: white">
+        @for(item of navItems; track item){
+          <a [routerLink]="item.path" class="nav-item" style="color: black">
+            <div
+              class="icon-container"
+              routerLinkActive="activo"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <mat-icon>{{ item.icon }}</mat-icon>
+            </div>
+            <span style="color: black">{{ item.label }}</span>
+          </a>
+        }
+      </div>
+    </mat-toolbar>
+  }
+}
+
+@if(servicioPuente.chatBotFloat()){
+  <div class="button-container">
+    <!-- Elemento visual que indica la posibilidad de arrastrar -->
+    <div
+      class="drag-handle"
+      (mousedown)="onDragStart($event)"
+      (touchstart)="onTouchStart($event)"
+    >
+      <mat-icon class="drag-icon">drag_indicator</mat-icon>
+    </div>
+
+    <button mat-fab class="movable-fab" color="primary" (click)="openKairos()">
+      <mat-icon>{{ "K" }}</mat-icon>
+    </button>
+  </div>
+}
+
+<!-- @if(servicioPuente.cargandoPeticion()){ -->
+<!-- } -->

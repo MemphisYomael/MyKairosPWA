@@ -1,9 +1,8 @@
-/* welcome.component.css */
+/* welcome.component.css (optimizado) */
 :host {
   display: block;
-  width: 100vw;
-  height: 100vh;
-  overflow-x: hidden; /* Permitir scroll vertical si es necesario */
+  width: 100%;
+  overflow-x: hidden; /* Prevenir scroll horizontal */
   overflow-y: auto;
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(145deg, #f0f2f5 0%, #e9ebef 100%);
@@ -15,22 +14,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 2rem;
+  padding: 1.5rem 1rem;
   box-sizing: border-box;
-  min-height: 100vh; /* Asegurar que ocupe al menos toda la altura */
+  /* Ajustamos la altura mínima para evitar problemas con barras de navegación */
+  min-height: calc(100vh - 140px); /* Resta el espacio para barras superior e inferior */
+  /* Aseguramos que el contenido sea completamente visible */
+  padding-bottom: 5rem;
 }
 
 /* Header Styles */
 .welcome-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   animation: fadeInDown 0.8s ease-out;
+  width: 100%;
 }
 
 .logo-container {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   margin: 0 auto 1.5rem auto;
 }
 
@@ -43,26 +46,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Para contener la imagen */
-  border: 4px solid #6a11cb; /* Borde con color primario */
+  overflow: hidden;
+  border: 4px solid #6a11cb;
 }
 
 .logo-image {
-  display: block;
-  /* Remove max-width and max-height restrictions */
-  /* max-width: 85%; /* Remove this line */
-  /* max-height: 85%; /* Remove this line */
-
-  width: 100%;      /* Make image fill the container width */
-  height: 100%;     /* Make image fill the container height */
-  object-fit: cover; /* Scale image to maintain aspect ratio while filling the element's entire content box. It will crop if necessary. */
-  border-radius: 50%; /* Explicitly make the image element circular */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .logo-rays {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  z-index: -1; /* Detrás del círculo */
+  z-index: -1;
 }
 .logo-rays::before,
 .logo-rays::after {
@@ -81,7 +79,7 @@
 }
 
 .app-title {
-  font-size: 2.8rem;
+  font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: #444;
@@ -89,98 +87,94 @@
 }
 
 .app-title .highlight {
-  color: #6a11cb; /* Color primario del login */
+  color: #6a11cb;
 }
 
 .app-subtitle {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: #666;
   margin-bottom: 1rem;
   font-weight: 300;
 }
 
 .developer-info {
-    font-size: 0.9rem;
-    color: #888;
+  font-size: 0.85rem;
+  color: #888;
 }
 .developer-name {
-    font-weight: 500;
-    color: #555;
+  font-weight: 500;
+  color: #555;
 }
-
 
 /* Features Section Styles */
 .features-section {
   width: 100%;
-  max-width: 900px; /* Ancho máximo para las funcionalidades */
-  margin-bottom: 3rem;
-  animation: fadeInUp 0.8s 0.3s ease-out backwards; /* Retraso para aparecer después del header */
+  max-width: 900px;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.8s 0.3s ease-out backwards;
 }
 
 .features-title {
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: #555;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .features-grid {
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* Espacio entre categorías */
+  gap: 1.5rem;
 }
 
 .feature-category {
-   background-color: #ffffff;
-   padding: 1.5rem;
-   border-radius: 12px;
-   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
-   border: 1px solid #e0e0e0;
-   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e0e0e0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .feature-category:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .category-title {
   font-size: 1.3rem;
   font-weight: 500;
-  color: #6a11cb; /* Color primario */
+  color: #6a11cb;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid #eee;
 }
 
-.category-items {
-  /* Los chips se manejarán con mat-chip-list */
-}
-
 /* Estilo para los Material Chips */
 .feature-chip {
-  background-color: #e8e0ff !important; /* Fondo suave */
-  color: #43008a !important; /* Texto oscuro */
+  background-color: #e8e0ff !important;
+  color: #43008a !important;
   font-weight: 500 !important;
-  margin: 4px !important; /* Espaciado entre chips */
+  margin: 4px !important;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer; /* Added cursor pointer */
+  cursor: pointer;
+  margin-left: 10px;
 }
 .feature-chip:hover {
-    background-color: #d9c8ff !important;
-    transform: translateY(-2px); /* Slight lift on hover */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow on hover */
+  background-color: #d9c8ff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .feature-chip mat-icon {
-  color: #6a11cb !important; /* Icono con color primario */
+  color: #6a11cb !important;
 }
 
 /* Footer Styles */
 .welcome-footer {
-  margin-top: auto; /* Empuja el footer hacia abajo si hay espacio */
-  padding-top: 2rem; /* Espacio antes del botón */
-  animation: fadeInUp 0.8s 0.6s ease-out backwards; /* Retraso mayor */
+  margin-top: auto;
+  padding-top: 1.5rem;
+  animation: fadeInUp 0.8s 0.6s ease-out backwards;
 }
 
 .start-button {
@@ -190,11 +184,11 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .start-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(106, 17, 203, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(106, 17, 203, 0.3);
 }
 .start-button mat-icon {
-    margin-left: 8px;
+  margin-left: 8px;
 }
 
 /* Keyframes for Animations */
@@ -213,22 +207,51 @@
   50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.1; }
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .welcome-container { padding: 2rem 1rem; }
-  .logo-container { width: 120px; height: 120px; }
-  .app-title { font-size: 2.4rem; }
-  .app-subtitle { font-size: 1.1rem; }
-  .features-title { font-size: 1.6rem; }
-  .category-title { font-size: 1.1rem; }
-  .start-button { padding: 0.7rem 1.5rem !important; font-size: 1rem !important; }
+/* Añadimos un espaciador para el final de la página */
+.spacer-bottom {
+  height: 80px; /* Altura ajustable según sea necesario */
+  width: 100%;
 }
 
-@media (max-width: 480px) {
+/* Responsive Adjustments MEJORADOS */
+@media (max-width: 768px) {
+  .welcome-container { 
+    padding: 1.5rem 0.75rem; 
+    padding-top: 1rem;
+    min-height: calc(100vh - 150px); /* Ajustamos para compensar barras en móvil */
+  }
   .logo-container { width: 100px; height: 100px; }
   .app-title { font-size: 2rem; }
   .app-subtitle { font-size: 1rem; }
   .features-title { font-size: 1.4rem; }
-   .feature-category { padding: 1rem; }
-   .category-title { font-size: 1rem; }
+  .category-title { font-size: 1.1rem; }
+  .start-button { padding: 0.7rem 1.5rem !important; font-size: 1rem !important; }
+  
+  /* Mejora para que el contenido no quede detrás de la barra inferior */
+  .features-section {
+    margin-bottom: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-container { 
+    padding: 0.75rem 0.5rem;
+    padding-bottom: 5rem; /* Añadir espacio extra al final */
+  }
+  .logo-container { width: 80px; height: 80px; }
+  .app-title { font-size: 1.8rem; }
+  .app-subtitle { font-size: 0.9rem; }
+  .features-title { font-size: 1.3rem; }
+  .feature-category { padding: 0.75rem; }
+  .category-title { font-size: 1rem; }
+  
+  /* Ajuste para los chips en pantallas muy pequeñas */
+  .category-items {
+    padding-bottom: 0.5rem;
+  }
+  
+  /* Asegurar que el componente se extienda lo suficiente */
+  .features-grid {
+    padding-bottom: 3rem;
+  }
 }

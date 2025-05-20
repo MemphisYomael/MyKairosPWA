@@ -19,7 +19,7 @@ import { AccionesComponent } from '../../shared/acciones/acciones.component';
 // Importamos Storage de Capacitor
 import { Storage } from '@capacitor/storage';
 import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ComunicacionEntreComponentesService } from '../../services/comunicacion-entre-componentes.service';
 import { YoutubeSearchComponent } from "../../shared/youtube-search/youtube-search.component";
 import { merge } from 'rxjs';
@@ -50,6 +50,7 @@ declare var bootstrap: any;
   styleUrl: './my-links.component.css'
 })
 export class MyLinksComponent {
+  private sanitizedUrlsCache = new Map<string, SafeResourceUrl>();
   email: string | null = "";
   compartidosConmigo = signal<boolean>(false);
   togleStatus = signal(false);
@@ -245,6 +246,48 @@ export class MyLinksComponent {
     }
   }
 
+
+  getEmbedUrl(url: string | null): SafeResourceUrl | null {
+  if (!url) return null; // Manejar casos de URL nula
+
+  let videoId = null;
+
+  try {
+    // Reutiliza tu lógica para extraer el ID del video
+    const shortUrlMatch = url.match(/youtu\.be\/([^?]+)/);
+    if (shortUrlMatch && shortUrlMatch[1]) {
+      videoId = shortUrlMatch[1];
+    } else {
+      const urlObj = new URL(url);
+      videoId = urlObj.searchParams.get("v");
+    }
+
+    if (!videoId) {
+       console.error("No se pudo extraer el ID del video de:", url);
+       return null;
+    }
+
+    // *** Lógica de Caché ***
+    if (this.sanitizedUrlsCache.has(videoId)) {
+      // Si ya está en caché, devuélvelo
+      return this.sanitizedUrlsCache.get(videoId)!;
+    }
+
+    // Si no está en caché, sanítizalo
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    const safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+
+    // Guarda en caché antes de devolver
+    this.sanitizedUrlsCache.set(videoId, safeUrl);
+
+    return safeUrl;
+
+  } catch (error) {
+    console.error("URL no válida o error al procesar:", url, error);
+    return null;
+  }
+}
+
   openDialog(isEdit: boolean = false, objeto?: Ilinks): void {
     const dialogRef = this.dialog.open(CrearLinksComponent, {
       disableClose: false,
@@ -315,31 +358,7 @@ export class MyLinksComponent {
     } 
   }
   
-  getEmbedUrl(url: string) {
-    let videoId = null;
-    
-    try {
-      // Caso 1: URL corta (youtu.be/VIDEO_ID)
-      const shortUrlMatch = url.match(/youtu\.be\/([^?]+)/);
-      if (shortUrlMatch && shortUrlMatch[1]) {
-        videoId = shortUrlMatch[1];
-      } else {
-        // Caso 2: URL larga (youtube.com/watch?v=VIDEO_ID)
-        const urlObj = new URL(url);
-        videoId = urlObj.searchParams.get("v");
-      }
-      
-      if (!videoId) {
-        throw new Error("No se pudo extraer el ID del video.");
-      }
-      
-      // Se construye la URL para el iframe
-      return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${videoId}`);
-    } catch (error) {
-      console.error("URL no válida:", error);
-      return null;
-    }
-  }
+ 
 
   ngOnDestroy(){
     this.servicioCompartido.barraInferior.set(true);

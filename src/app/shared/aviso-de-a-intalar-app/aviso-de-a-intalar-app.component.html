@@ -1,0 +1,82 @@
+<h2 mat-dialog-title>Instala Nuestra Aplicación</h2>
+
+<mat-dialog-content>
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Android">
+      <div class="platform-content"> <h3>Por qué instalar la app?</h3> <mat-list> @for (item of typesOfShoes; track item) {
+            <mat-list-item>{{ item }}</mat-list-item>
+          }
+        </mat-list>
+
+        <p class="subtitle-benefits"> TE OFRECEMOS ACCESO EXTENDIDO EN LAS FUNCIONALIDADES CON RESPECTO A LA VERSION WEB!!!
+        </p>
+
+        <mat-divider></mat-divider> <h3>Cómo instalar en Android</h3> <div class="installation-steps"> <div class="step">
+            <h4>Paso 1</h4>
+            <img src="imagenes-intalacion-app/paso1.jpg" alt="Paso 1: Abrir menú del navegador" class="step-image">
+          </div>
+          <div class="step">
+            <h4>Paso 2</h4>
+            <img src="imagenes-intalacion-app/paso2.jpg" alt="Paso 2: Seleccionar 'Añadir a pantalla de inicio'" class="step-image">
+          </div>
+          <div class="step">
+            <h4>Paso 3</h4>
+            <img src="imagenes-intalacion-app/paso3.jpg" alt="Paso 3: Confirmar adición" class="step-image">
+          </div>
+           <div class="step">
+            <h4>Paso 4</h4>
+            <img src="imagenes-intalacion-app/paso4.jpg" alt="Paso 4: App añadida" class="step-image">
+          </div>
+           <div class="step">
+            <h4>Paso 5</h4>
+            <img src="imagenes-intalacion-app/paso5.jpg" alt="Paso 5: Icono en pantalla de inicio" class="step-image">
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="IOS">
+      <div class="platform-content"> <h3>Por qué instalar la app?</h3> <mat-list> @for (item of typesOfShoes; track item) {
+            <mat-list-item>{{ item }}</mat-list-item>
+          }
+        </mat-list>
+
+        <p class="subtitle-benefits"> TE OFRECEMOS ACCESO EXTENDIDO EN LAS FUNCIONALIDADES CON RESPECTO A LA VERSION WEB!!!
+        </p>
+
+         <mat-divider></mat-divider> <h3>Cómo instalar en iOS</h3> <ol class="installation-steps-list"> <li>Ve a compartir</li>
+          <li>Selecciona "Añadir a inicio"</li>
+          <li>La app se instaló correctamente, ¡disfruta de la mejor experiencia!</li>
+        </ol>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="LAPTOP">
+       <div class="platform-content"> <h3>Por qué instalar la app?</h3> <mat-list> @for (item of typesOfShoes; track item) {
+            <mat-list-item>{{ item }}</mat-list-item>
+          }
+        </mat-list>
+
+        <p class="subtitle-benefits"> TE OFRECEMOS ACCESO EXTENDIDO EN LAS FUNCIONALIDADES CON RESPECTO A LA VERSION WEB!!!
+        </p>
+
+        <mat-divider></mat-divider> <h3>Cómo instalar en Laptop</h3> <div class="installation-steps"> <div class="step">
+             <h4>Paso 1</h4>
+             <img src="imagenes-intalacion-app/paso1-laptop.png" alt="Paso 1 Laptop" class="step-image">
+           </div>
+            <div class="step">
+             <h4>Paso 2</h4>
+             <img src="imagenes-intalacion-app/paso2-laptop.png" alt="Paso 2 Laptop" class="step-image">
+           </div>
+            <div class="step">
+             <h4>Paso 3</h4>
+             <img src="imagenes-intalacion-app/paso3-laptop.png" alt="Paso 3 Laptop" class="step-image">
+           </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+
+<mat-dialog-actions style="text-align: end"> <button mat-flat-button (click)="closeDialog()">Cerrar</button>
+</mat-dialog-actions>

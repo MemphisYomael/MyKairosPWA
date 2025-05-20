@@ -109,8 +109,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Posición del Toast */
 .toast-top-right {
-  top: 2rem; /* Más espacio desde la parte superior */
-  right: 2rem; /* Más espacio desde la derecha */
+  top: 8rem; /* Más espacio desde la parte superior */
+  width: 100%;
 }
 
 /* Barra de progreso */

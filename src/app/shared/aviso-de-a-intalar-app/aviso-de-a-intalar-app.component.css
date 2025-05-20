@@ -1,0 +1,106 @@
+/* Style the main dialog title */
+h2[mat-dialog-title] {
+  text-align: center; /* Center the title */
+  margin-bottom: 20px; /* Add space below the title */
+}
+
+/* Add padding inside the tab content */
+.platform-content {
+  padding: 16px;
+  /* Remove default padding added by mat-tab-body, adjust as needed */
+  /* The padding is applied here instead */
+}
+
+/* Style section headings within the tab content */
+.platform-content h3 {
+  margin-top: 0; /* Remove default top margin */
+  margin-bottom: 10px; /* Space below the heading */
+  font-weight: bold; /* Make headings bold */
+}
+
+/* Style the list of benefits */
+.platform-content mat-list {
+    padding-top: 0; /* Adjust list padding */
+}
+
+.platform-content mat-list-item {
+    height: auto; /* Allow list items to take natural height */
+    margin-bottom: 5px; /* Space between list items */
+    line-height: 1.4; /* Improve line spacing */
+}
+
+
+/* Style the extended access subtitle */
+.subtitle-benefits {
+  margin-top: 15px; /* Space above the subtitle */
+  margin-bottom: 20px; /* Space below the subtitle */
+  font-style: italic; /* Optional: make it italic */
+  color: rgba(0, 0, 0, 0.6); /* Optional: make it slightly less prominent */
+}
+
+/* Style the divider */
+mat-divider {
+    margin: 20px 0; /* Add vertical space around the divider */
+}
+
+/* Style the heading for installation steps (the second h3) */
+.platform-content h3:last-of-type {
+    margin-top: 20px; /* Add more space above the installation heading */
+    margin-bottom: 15px;
+}
+
+
+/* Styles for image-based installation steps (Android, Laptop) */
+.installation-steps {
+    display: flex; /* Use flexbox to arrange steps */
+    flex-direction: column; /* Stack steps vertically */
+    gap: 20px; /* Space between steps */
+}
+
+/* Style for each individual step container */
+.step {
+    border: 1px solid #eee; /* Optional: Add a light border */
+    padding: 15px;
+    border-radius: 4px; /* Optional: rounded corners */
+    background-color: #fafafa; /* Optional: slightly different background */
+}
+
+/* Style for step titles */
+.step h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+/* Style the step images */
+.step-image {
+  max-width: 100%; /* Ensure image does not exceed its container width */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove extra space below image */
+  margin: 0 auto; /* Center the image */
+  border: 1px solid #ddd; /* Optional: subtle border around image */
+  border-radius: 4px;
+}
+
+/* Styles for text-based installation steps (iOS) */
+.installation-steps-list {
+    padding-left: 20px; /* Add padding for list bullets/numbers */
+    line-height: 1.6; /* Improve line spacing */
+}
+
+.installation-steps-list li {
+    margin-bottom: 10px; /* Space between list items */
+}
+
+
+/* Style the dialog actions container (for the close button) */
+mat-dialog-actions {
+    padding: 16px 24px; /* Add padding consistent with Material Design specs */
+    border-top: 1px solid #eee; /* Optional: Add a top border */
+}
+
+mat-dialog-actions button {
+    /* Add any specific styles for the button if needed */
+}
